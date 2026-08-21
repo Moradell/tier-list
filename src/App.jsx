@@ -111,8 +111,12 @@ const initialBooks = parseCsv(booksCsv).map((book) => ({
 
 async function writeToClipboard(text) {
   if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text)
-    return
+    try {
+      await navigator.clipboard.writeText(text)
+      return true
+    } catch {
+      // Some browsers expose the API but deny it outside their preferred context.
+    }
   }
 
   const textarea = document.createElement('textarea')
@@ -121,8 +125,9 @@ async function writeToClipboard(text) {
   textarea.style.opacity = '0'
   document.body.append(textarea)
   textarea.select()
-  document.execCommand('copy')
+  const copied = document.execCommand('copy')
   textarea.remove()
+  return copied
 }
 
 function BookCard({ book, onDragStart }) {
@@ -133,7 +138,8 @@ function BookCard({ book, onDragStart }) {
 
   async function copyBookInfo() {
     try {
-      await writeToClipboard(bookInfo)
+      const copiedSuccessfully = await writeToClipboard(bookInfo)
+      if (!copiedSuccessfully) return
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1400)
     } catch {
@@ -142,50 +148,58 @@ function BookCard({ book, onDragStart }) {
   }
 
   return (
-    <Tooltip.Root>
-      <Tooltip.Trigger asChild>
-        <article
-          className="book-card"
-          draggable
-          role="button"
-          tabIndex={0}
-          aria-label={`Скопировать информацию о книге «${book.title}»`}
-          onClick={copyBookInfo}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault()
-              copyBookInfo()
-            }
-          }}
-          onDragStart={(event) => onDragStart(event, book.id)}
-        >
-          <div className="book-cover-wrap">
-            <img className="book-cover" src={coverUrl} alt={`Обложка книги «${book.title}»`} />
-            <span className="book-rating" aria-label={`Моя оценка: ${book.user_rating || 'нет'}`}>
-              {book.user_rating || '—'}
-            </span>
-          </div>
-          <h2 className="book-title">{book.title}</h2>
-          <p className="book-author">{book.author}</p>
-          <p className="book-year">{year}</p>
-        </article>
-      </Tooltip.Trigger>
-      <Tooltip.Portal>
-        <Tooltip.Content className="book-tooltip" sideOffset={8}>
-          {copied ? (
-            <strong className="copy-confirmation">Скопировано</strong>
-          ) : (
-            <>
-              <strong>{book.title}</strong>
-              <span>{book.author}</span>
-              <span>{year}</span>
-              <small>Нажмите, чтобы скопировать</small>
-            </>
-          )}
-          <Tooltip.Arrow className="book-tooltip-arrow" />
-        </Tooltip.Content>
-      </Tooltip.Portal>
-    </Tooltip.Root>
+    <div className="book-card-shell">
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <article
+            className="book-card"
+            draggable
+            role="button"
+            tabIndex={0}
+            aria-label={`Скопировать информацию о книге «${book.title}»`}
+            onClick={copyBookInfo}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault()
+                copyBookInfo()
+              }
+            }}
+            onDragStart={(event) => onDragStart(event, book.id)}
+          >
+            <div className="book-cover-wrap">
+              <img className="book-cover" src={coverUrl} alt={`Обложка книги «${book.title}»`} />
+              <span className="book-rating" aria-label={`Моя оценка: ${book.user_rating || 'нет'}`}>
+                {book.user_rating || '—'}
+              </span>
+            </div>
+            <h2 className="book-title">{book.title}</h2>
+            <p className="book-author">{book.author}</p>
+            <p className="book-year">{year}</p>
+          </article>
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content className="book-tooltip" sideOffset={8}>
+            <strong>{book.title}</strong>
+            <span>{book.author}</span>
+            <span>{year}</span>
+            <small>Нажмите, чтобы скопировать</small>
+            <Tooltip.Arrow className="book-tooltip-arrow" />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+
+      <Tooltip.Root open={copied}>
+        <Tooltip.Trigger asChild>
+          <span className="copy-tooltip-anchor" aria-hidden="true" />
+        </Tooltip.Trigger>
+        <Tooltip.Portal>
+          <Tooltip.Content className="copy-success-tooltip" side="top" sideOffset={7}>
+            Скопировано
+            <Tooltip.Arrow className="copy-success-arrow" />
+          </Tooltip.Content>
+        </Tooltip.Portal>
+      </Tooltip.Root>
+    </div>
   )
 }
 
