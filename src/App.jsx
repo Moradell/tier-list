@@ -109,25 +109,83 @@ const initialBooks = parseCsv(booksCsv).map((book) => ({
   section: getBookSection(book),
 }))
 
+async function writeToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+
+  const textarea = document.createElement('textarea')
+  textarea.value = text
+  textarea.style.position = 'fixed'
+  textarea.style.opacity = '0'
+  document.body.append(textarea)
+  textarea.select()
+  document.execCommand('copy')
+  textarea.remove()
+}
+
 function BookCard({ book, onDragStart }) {
+  const [copied, setCopied] = useState(false)
   const coverUrl = `${import.meta.env.BASE_URL}${book.cover.replace(/^\/+/, '')}`
+  const year = book.year || 'Год не указан'
+  const bookInfo = `${book.title}\n${book.author}\n${year}`
+
+  async function copyBookInfo() {
+    try {
+      await writeToClipboard(bookInfo)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1400)
+    } catch {
+      setCopied(false)
+    }
+  }
 
   return (
-    <article
-      className="book-card"
-      draggable
-      onDragStart={(event) => onDragStart(event, book.id)}
-      title={`${book.title} — ${book.author}`}
-    >
-      <div className="book-cover-wrap">
-        <img className="book-cover" src={coverUrl} alt={`Обложка книги «${book.title}»`} />
-        <span className="book-rating" aria-label={`Моя оценка: ${book.user_rating || 'нет'}`}>
-          {book.user_rating || '—'}
-        </span>
-      </div>
-      <h2 className="book-title">{book.title}</h2>
-      <p className="book-year">{book.year || 'Год не указан'}</p>
-    </article>
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <article
+          className="book-card"
+          draggable
+          role="button"
+          tabIndex={0}
+          aria-label={`Скопировать информацию о книге «${book.title}»`}
+          onClick={copyBookInfo}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault()
+              copyBookInfo()
+            }
+          }}
+          onDragStart={(event) => onDragStart(event, book.id)}
+        >
+          <div className="book-cover-wrap">
+            <img className="book-cover" src={coverUrl} alt={`Обложка книги «${book.title}»`} />
+            <span className="book-rating" aria-label={`Моя оценка: ${book.user_rating || 'нет'}`}>
+              {book.user_rating || '—'}
+            </span>
+          </div>
+          <h2 className="book-title">{book.title}</h2>
+          <p className="book-author">{book.author}</p>
+          <p className="book-year">{year}</p>
+        </article>
+      </Tooltip.Trigger>
+      <Tooltip.Portal>
+        <Tooltip.Content className="book-tooltip" sideOffset={8}>
+          {copied ? (
+            <strong className="copy-confirmation">Скопировано</strong>
+          ) : (
+            <>
+              <strong>{book.title}</strong>
+              <span>{book.author}</span>
+              <span>{year}</span>
+              <small>Нажмите, чтобы скопировать</small>
+            </>
+          )}
+          <Tooltip.Arrow className="book-tooltip-arrow" />
+        </Tooltip.Content>
+      </Tooltip.Portal>
+    </Tooltip.Root>
   )
 }
 
