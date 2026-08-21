@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import * as Tabs from '@radix-ui/react-tabs'
 import * as Tooltip from '@radix-ui/react-tooltip'
-import booksCsv from '../books.csv?raw'
+import novelsCsv from '../data/novels.csv?raw'
+import storiesCsv from '../data/stories.csv?raw'
+import mangaCsv from '../data/manga.csv?raw'
+import unrankedCsv from '../data/unranked.csv?raw'
 
 const tiers = [
   { name: 'S', color: '#ff7f84' },
@@ -11,45 +14,6 @@ const tiers = [
   { name: 'D', color: '#b5fa7b' },
   { name: 'F', color: '#7ee7a0' },
 ]
-
-const storyTitles = new Set([
-  'А зори здесь тихие. ..',
-  'Великий дух и беглецы',
-  'Вий',
-  'Записки сумасшедшего',
-  'Капитанская дочка. Повести',
-  'Морфий.  Записки юного  врача',
-  'Невский проспект',
-  'Нос',
-  'Портрет',
-  'Скотный Двор',
-  'Старик и море. Рассказы',
-  'Судьба человека',
-  'Тарас Бульба',
-  'Шинель',
-])
-
-const mangaTitles = new Set([
-  'Поднятие уровня в одиночку. Solo Leveling. Книга 1',
-  'Поднятие уровня в одиночку. Solo Leveling. Книга 2',
-  'Поднятие уровня в одиночку. Solo Leveling. Книга 3',
-])
-
-const unrankedTitles = new Set([
-  'Sapiens. Краткая история человечества',
-  'Вдохновленные. Все, что нужно знать продакт-менеджеру',
-  'Великие русские художники',
-  'Грокаем алгоритмы. Иллюстрированное пособие для программистов и любопытствующих',
-  'Дурная кровь',
-  'Искусство войны',
-  'Кровь, пот и пиксели. Обратная сторона индустрии видеоигр',
-  'Нажми Reset. Как игровая индустрия рушит карьеры и дает второй шанс',
-  'От нуля к единице. Как создать стартап, который изменит будущее',
-  'Серьезное творческое мышление',
-  'Спроси маму. Как общаться с клиентами и подтвердить правоту своей бизнес-идеи, если все кругом врут?',
-  'Уверенность в себе. Как повысить самооценку, преодолеть страхи и сомнения',
-  'Чистый код. Создание, анализ и рефакторинг',
-])
 
 function parseCsv(csv) {
   const rows = []
@@ -90,31 +54,20 @@ function parseCsv(csv) {
   ))
 }
 
-function getInitialTier(book) {
-  if (book.favorite === 'true') return 'S'
-
-  const rating = Number(book.user_rating.replace(',', '.'))
-  if (!Number.isFinite(rating)) return 'F'
-  if (rating >= 4.5) return 'A'
-  if (rating >= 3.5) return 'B'
-  if (rating >= 3) return 'C'
-  if (rating >= 2) return 'D'
-  return 'F'
+function prepareBooks(csv, category) {
+  return parseCsv(csv).map((book) => ({
+    ...book,
+    category,
+    id: book.url.match(/\/book\/(\d+)/)?.[1] ?? book.url,
+  }))
 }
 
-function getBookSection(book) {
-  if (mangaTitles.has(book.title)) return 'manga'
-  if (unrankedTitles.has(book.title)) return 'unranked'
-  if (storyTitles.has(book.title)) return 'stories'
-  return 'novels'
-}
-
-const initialBooks = parseCsv(booksCsv).map((book) => ({
-  ...book,
-  id: book.url.match(/\/book\/(\d+)/)?.[1] ?? book.url,
-  tier: getInitialTier(book),
-  section: getBookSection(book),
-}))
+const initialBooks = [
+  ...prepareBooks(novelsCsv, 'Роман'),
+  ...prepareBooks(storiesCsv, 'Рассказ'),
+  ...prepareBooks(mangaCsv, 'Манга'),
+  ...prepareBooks(unrankedCsv, 'Вне рейтинга'),
+]
 
 async function writeToClipboard(text) {
   if (navigator.clipboard?.writeText) {
@@ -308,28 +261,28 @@ export default function App() {
 
             <Tabs.Content value="novels">
               <TierBoard
-                books={books.filter((book) => book.section === 'novels')}
+                books={books.filter((book) => book.category === 'Роман')}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
             </Tabs.Content>
             <Tabs.Content value="stories">
               <TierBoard
-                books={books.filter((book) => book.section === 'stories')}
+                books={books.filter((book) => book.category === 'Рассказ')}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
             </Tabs.Content>
             <Tabs.Content value="manga">
               <TierBoard
-                books={books.filter((book) => book.section === 'manga')}
+                books={books.filter((book) => book.category === 'Манга')}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
             </Tabs.Content>
             <Tabs.Content value="unranked">
               <UnrankedShelf
-                books={books.filter((book) => book.section === 'unranked')}
+                books={books.filter((book) => book.category === 'Вне рейтинга')}
                 onDragStart={handleDragStart}
               />
             </Tabs.Content>

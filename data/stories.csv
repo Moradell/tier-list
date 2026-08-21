@@ -1,0 +1,15 @@
+tier,title,author,user_rating,livelib_rating,url,cover,publisher,year,favorite
+S,А зори здесь тихие. ..,Борис Васильев,5,"4,7",https://www.livelib.ru/book/1016983744,/covers/1016983744.jpg,Проспект,2026,false
+A,Портрет,Николай Гоголь,5,"4,4",https://www.livelib.ru/book/1001217494,/covers/1001217494.jpg,Русское слово - РС,2008,false
+A,Тарас Бульба,Николай Гоголь,5,"3,9",https://www.livelib.ru/book/1000219309,/covers/1000219309.jpg,Детская литература. Москва,2001,false
+A,Судьба человека,Михаил Шолохов,5,"4,6",https://www.livelib.ru/book/1001440002,/covers/1001440002.jpg,Речь,2015,false
+A,Скотный Двор,Джордж Оруэлл,4,"4,5",https://www.livelib.ru/book/1017966118,/covers/1017966118.jpg,Мартин,2025,false
+B,Шинель,Николай Гоголь,5,"4,2",https://www.livelib.ru/book/1008297883,/covers/1008297883.jpg,Речь,2022,false
+B,Записки сумасшедшего,Николай Гоголь,"3,5",4,https://www.livelib.ru/book/1005753169,/covers/1005753169.jpg,Грани-Т,2011,false
+B,Капитанская дочка. Повести,Александр Пушкин,4,"4,2",https://www.livelib.ru/book/1005934645,/covers/1005934645.jpg,Эксмо,2021,false
+B,Морфий.  Записки юного  врача,Михаил Булгаков,4,"4,6",https://www.livelib.ru/book/1001623396,/covers/1001623396.jpg,Эксмо,2015,false
+C,Старик и море. Рассказы,Эрнест Хемингуэй,4,"4,2",https://www.livelib.ru/book/1000196575,/covers/1000196575.jpg,Азбука-классика,2005,false
+C,Великий дух и беглецы,Кир Булычёв,"3,5",4,https://www.livelib.ru/book/1000664661,/covers/1000664661.jpg,"","",false
+D,Вий,Николай Гоголь,3,"4,3",https://www.livelib.ru/book/1001242520,/covers/1001242520.jpg,Белый город,2014,false
+F,Нос,Николай Гоголь,1,"3,8",https://www.livelib.ru/book/1006168693,/covers/1006168693.jpg,АСТ,2021,false
+F,Невский проспект,Николай Гоголь,"1,5","4,1",https://www.livelib.ru/book/1000962694,/covers/1000962694.jpg,Речь,2014,false
