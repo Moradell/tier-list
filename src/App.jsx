@@ -68,6 +68,8 @@ const initialBooks = parseCsv(booksCsv).map((book) => ({
 }))
 
 function BookCard({ book, onDragStart }) {
+  const coverUrl = `${import.meta.env.BASE_URL}${book.cover.replace(/^\/+/, '')}`
+
   return (
     <article
       className="book-card"
@@ -76,7 +78,7 @@ function BookCard({ book, onDragStart }) {
       title={`${book.title} — ${book.author}`}
     >
       <div className="book-cover-wrap">
-        <img className="book-cover" src={book.cover} alt={`Обложка книги «${book.title}»`} />
+        <img className="book-cover" src={coverUrl} alt={`Обложка книги «${book.title}»`} />
         <span className="book-rating" aria-label={`Моя оценка: ${book.user_rating || 'нет'}`}>
           {book.user_rating || '—'}
         </span>
