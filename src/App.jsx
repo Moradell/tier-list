@@ -29,6 +29,12 @@ const storyTitles = new Set([
   'Шинель',
 ])
 
+const mangaTitles = new Set([
+  'Поднятие уровня в одиночку. Solo Leveling. Книга 1',
+  'Поднятие уровня в одиночку. Solo Leveling. Книга 2',
+  'Поднятие уровня в одиночку. Solo Leveling. Книга 3',
+])
+
 const unrankedTitles = new Set([
   'Sapiens. Краткая история человечества',
   'Вдохновленные. Все, что нужно знать продакт-менеджеру',
@@ -97,6 +103,7 @@ function getInitialTier(book) {
 }
 
 function getBookSection(book) {
+  if (mangaTitles.has(book.title)) return 'manga'
   if (unrankedTitles.has(book.title)) return 'unranked'
   if (storyTitles.has(book.title)) return 'stories'
   return 'novels'
@@ -295,6 +302,7 @@ export default function App() {
             <Tabs.List className="sub-tabs" aria-label="Категории книг">
               <Tabs.Trigger className="sub-tab" value="novels">Романы</Tabs.Trigger>
               <Tabs.Trigger className="sub-tab" value="stories">Рассказы</Tabs.Trigger>
+              <Tabs.Trigger className="sub-tab" value="manga">Манга</Tabs.Trigger>
               <Tabs.Trigger className="sub-tab" value="unranked">Вне рейтинга</Tabs.Trigger>
             </Tabs.List>
 
@@ -308,6 +316,13 @@ export default function App() {
             <Tabs.Content value="stories">
               <TierBoard
                 books={books.filter((book) => book.section === 'stories')}
+                onDragStart={handleDragStart}
+                onDrop={handleDrop}
+              />
+            </Tabs.Content>
+            <Tabs.Content value="manga">
+              <TierBoard
+                books={books.filter((book) => book.section === 'manga')}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
