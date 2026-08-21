@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import * as Tabs from '@radix-ui/react-tabs'
+import * as Tooltip from '@radix-ui/react-tooltip'
 import booksCsv from '../books.csv?raw'
 
 const tiers = [
@@ -9,6 +11,39 @@ const tiers = [
   { name: 'D', color: '#b5fa7b' },
   { name: 'F', color: '#7ee7a0' },
 ]
+
+const storyTitles = new Set([
+  'А зори здесь тихие. ..',
+  'Великий дух и беглецы',
+  'Вий',
+  'Записки сумасшедшего',
+  'Капитанская дочка. Повести',
+  'Морфий.  Записки юного  врача',
+  'Невский проспект',
+  'Нос',
+  'Портрет',
+  'Скотный Двор',
+  'Старик и море. Рассказы',
+  'Судьба человека',
+  'Тарас Бульба',
+  'Шинель',
+])
+
+const unrankedTitles = new Set([
+  'Sapiens. Краткая история человечества',
+  'Вдохновленные. Все, что нужно знать продакт-менеджеру',
+  'Великие русские художники',
+  'Грокаем алгоритмы. Иллюстрированное пособие для программистов и любопытствующих',
+  'Дурная кровь',
+  'Искусство войны',
+  'Кровь, пот и пиксели. Обратная сторона индустрии видеоигр',
+  'Нажми Reset. Как игровая индустрия рушит карьеры и дает второй шанс',
+  'От нуля к единице. Как создать стартап, который изменит будущее',
+  'Серьезное творческое мышление',
+  'Спроси маму. Как общаться с клиентами и подтвердить правоту своей бизнес-идеи, если все кругом врут?',
+  'Уверенность в себе. Как повысить самооценку, преодолеть страхи и сомнения',
+  'Чистый код. Создание, анализ и рефакторинг',
+])
 
 function parseCsv(csv) {
   const rows = []
@@ -61,10 +96,17 @@ function getInitialTier(book) {
   return 'F'
 }
 
+function getBookSection(book) {
+  if (unrankedTitles.has(book.title)) return 'unranked'
+  if (storyTitles.has(book.title)) return 'stories'
+  return 'novels'
+}
+
 const initialBooks = parseCsv(booksCsv).map((book) => ({
   ...book,
   id: book.url.match(/\/book\/(\d+)/)?.[1] ?? book.url,
   tier: getInitialTier(book),
+  section: getBookSection(book),
 }))
 
 function BookCard({ book, onDragStart }) {
@@ -89,6 +131,50 @@ function BookCard({ book, onDragStart }) {
   )
 }
 
+function TierBoard({ books, onDragStart, onDrop }) {
+  return (
+    <div className="tier-list" aria-label="Полотно тир-листа">
+      {tiers.map((tier) => {
+        const tierBooks = books.filter((book) => book.tier === tier.name)
+
+        return (
+          <section className="tier-row" key={tier.name} aria-label={`Уровень ${tier.name}`}>
+            <div className="tier-label" style={{ backgroundColor: tier.color }}>
+              <span>{tier.name}</span>
+              <small>{tierBooks.length}</small>
+            </div>
+            <div
+              className="tier-content"
+              onDragOver={(event) => event.preventDefault()}
+              onDrop={(event) => onDrop(event, tier.name)}
+            >
+              {tierBooks.map((book) => (
+                <BookCard book={book} key={book.id} onDragStart={onDragStart} />
+              ))}
+            </div>
+          </section>
+        )
+      })}
+    </div>
+  )
+}
+
+function UnrankedShelf({ books, onDragStart }) {
+  return (
+    <section className="unranked-shelf" aria-label="Книги вне рейтинга">
+      <header className="unranked-header">
+        <h1>Вне рейтинга</h1>
+        <span>{books.length} книг</span>
+      </header>
+      <div className="unranked-grid">
+        {books.map((book) => (
+          <BookCard book={book} key={book.id} onDragStart={onDragStart} />
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export default function App() {
   const [books, setBooks] = useState(initialBooks)
   const [draggedBookId, setDraggedBookId] = useState(null)
@@ -109,28 +195,60 @@ export default function App() {
   }
 
   return (
-    <main className="tier-list" aria-label="Полотно тир-листа">
-      {tiers.map((tier) => {
-        const tierBooks = books.filter((book) => book.tier === tier.name)
+    <Tooltip.Provider delayDuration={250}>
+      <Tabs.Root className="app-tabs" defaultValue="books">
+        <header className="app-nav">
+          <Tabs.List className="top-tabs" aria-label="Разделы">
+            <Tabs.Trigger className="top-tab" value="books">Книги</Tabs.Trigger>
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <span className="disabled-tab-wrap" tabIndex={0}>
+                  <button className="top-tab top-tab-disabled" type="button" disabled>
+                    Фильмы
+                  </button>
+                </span>
+              </Tooltip.Trigger>
+              <Tooltip.Portal>
+                <Tooltip.Content className="tooltip-content" sideOffset={8}>
+                  Coming soon
+                  <Tooltip.Arrow className="tooltip-arrow" />
+                </Tooltip.Content>
+              </Tooltip.Portal>
+            </Tooltip.Root>
+          </Tabs.List>
+        </header>
 
-        return (
-          <section className="tier-row" key={tier.name} aria-label={`Уровень ${tier.name}`}>
-            <div className="tier-label" style={{ backgroundColor: tier.color }}>
-              <span>{tier.name}</span>
-              <small>{tierBooks.length}</small>
-            </div>
-            <div
-              className="tier-content"
-              onDragOver={(event) => event.preventDefault()}
-              onDrop={(event) => handleDrop(event, tier.name)}
-            >
-              {tierBooks.map((book) => (
-                <BookCard book={book} key={book.id} onDragStart={handleDragStart} />
-              ))}
-            </div>
-          </section>
-        )
-      })}
-    </main>
+        <Tabs.Content value="books">
+          <Tabs.Root className="book-tabs" defaultValue="novels">
+            <Tabs.List className="sub-tabs" aria-label="Категории книг">
+              <Tabs.Trigger className="sub-tab" value="novels">Романы</Tabs.Trigger>
+              <Tabs.Trigger className="sub-tab" value="stories">Рассказы</Tabs.Trigger>
+              <Tabs.Trigger className="sub-tab" value="unranked">Вне рейтинга</Tabs.Trigger>
+            </Tabs.List>
+
+            <Tabs.Content value="novels">
+              <TierBoard
+                books={books.filter((book) => book.section === 'novels')}
+                onDragStart={handleDragStart}
+                onDrop={handleDrop}
+              />
+            </Tabs.Content>
+            <Tabs.Content value="stories">
+              <TierBoard
+                books={books.filter((book) => book.section === 'stories')}
+                onDragStart={handleDragStart}
+                onDrop={handleDrop}
+              />
+            </Tabs.Content>
+            <Tabs.Content value="unranked">
+              <UnrankedShelf
+                books={books.filter((book) => book.section === 'unranked')}
+                onDragStart={handleDragStart}
+              />
+            </Tabs.Content>
+          </Tabs.Root>
+        </Tabs.Content>
+      </Tabs.Root>
+    </Tooltip.Provider>
   )
 }
