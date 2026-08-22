@@ -5,6 +5,7 @@ import novelsCsv from '../data/novels.csv?raw'
 import storiesCsv from '../data/stories.csv?raw'
 import mangaCsv from '../data/manga.csv?raw'
 import unrankedCsv from '../data/unranked.csv?raw'
+import { parseBooksCsv } from './lib/books'
 
 const tiers = [
   { name: 'S', color: '#ff7f84' },
@@ -15,47 +16,8 @@ const tiers = [
   { name: 'F', color: '#7ee7a0' },
 ]
 
-function parseCsv(csv) {
-  const rows = []
-  let row = []
-  let field = ''
-  let quoted = false
-
-  for (let index = 0; index < csv.length; index += 1) {
-    const character = csv[index]
-
-    if (quoted && character === '"' && csv[index + 1] === '"') {
-      field += '"'
-      index += 1
-    } else if (character === '"') {
-      quoted = !quoted
-    } else if (character === ',' && !quoted) {
-      row.push(field)
-      field = ''
-    } else if ((character === '\n' || character === '\r') && !quoted) {
-      if (character === '\r' && csv[index + 1] === '\n') index += 1
-      row.push(field)
-      if (row.some(Boolean)) rows.push(row)
-      row = []
-      field = ''
-    } else {
-      field += character
-    }
-  }
-
-  if (field || row.length) {
-    row.push(field)
-    rows.push(row)
-  }
-
-  const [header, ...data] = rows
-  return data.map((values) => Object.fromEntries(
-    header.map((column, index) => [column.replace(/^\uFEFF/, ''), values[index] ?? '']),
-  ))
-}
-
-function prepareBooks(csv, category) {
-  return parseCsv(csv).map((book) => ({
+function prepareBooks(csv, category, sourceName) {
+  return parseBooksCsv(csv, sourceName).map((book) => ({
     ...book,
     category,
     id: book.url.match(/\/book\/(\d+)/)?.[1] ?? book.url,
@@ -63,13 +25,15 @@ function prepareBooks(csv, category) {
 }
 
 const initialBooks = [
-  ...prepareBooks(novelsCsv, 'Роман'),
-  ...prepareBooks(storiesCsv, 'Рассказ'),
-  ...prepareBooks(mangaCsv, 'Манга'),
-  ...prepareBooks(unrankedCsv, 'Вне рейтинга'),
+  ...prepareBooks(novelsCsv, 'Роман', 'data/novels.csv'),
+  ...prepareBooks(storiesCsv, 'Рассказ', 'data/stories.csv'),
+  ...prepareBooks(mangaCsv, 'Манга', 'data/manga.csv'),
+  ...prepareBooks(unrankedCsv, 'Вне рейтинга', 'data/unranked.csv'),
 ]
 
 function formatReadDate(readDate) {
+  if (readDate === '2021-10') return '???'
+
   const match = readDate?.match(/^(\d{4})-(\d{2})(?:-(\d{2}))?$/)
   if (!match) return 'Дата чтения не указана'
 

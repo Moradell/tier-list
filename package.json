@@ -6,14 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "books:validate": "node scripts/books.mjs validate",
+    "books:sort": "node scripts/books.mjs sort",
     "preview": "vite preview"
   },
   "dependencies": {
     "@radix-ui/react-tabs": "^1.1.21",
     "@radix-ui/react-tooltip": "^1.2.16",
     "@vitejs/plugin-react": "latest",
+    "papaparse": "^5.6.0",
     "react": "latest",
     "react-dom": "latest",
-    "vite": "latest"
+    "vite": "latest",
+    "zod": "^4.4.3"
   }
 }
