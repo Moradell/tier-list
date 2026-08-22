@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "books:validate": "node scripts/books.mjs validate",
-    "books:sort": "node scripts/books.mjs sort",
+    "typecheck": "tsc --noEmit",
+    "books:validate": "node --import tsx scripts/books.ts validate",
+    "books:sort": "node --import tsx scripts/books.ts sort",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -19,5 +20,14 @@
     "react-dom": "latest",
     "vite": "latest",
     "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@types/papaparse": "^5.5.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "sass": "^1.103.1",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
   }
 }

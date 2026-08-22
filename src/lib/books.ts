@@ -1,7 +1,7 @@
 import Papa from 'papaparse'
 import { z } from 'zod'
 
-export const BOOK_TIERS = ['S', 'A', 'B', 'C', 'D', 'F']
+export const BOOK_TIERS = ['S', 'A', 'B', 'C', 'D', 'F'] as const
 
 export const BOOK_COLUMNS = [
   'tier',
@@ -14,7 +14,7 @@ export const BOOK_COLUMNS = [
   'year',
   'read_date',
   'favorite',
-]
+] as const
 
 const rating = z.string().regex(/^(?:[0-4](?:[.,]\d)?|5(?:[.,]0)?)$/, 'ожидалась оценка от 0 до 5')
 
@@ -31,12 +31,15 @@ export const BookSchema = z.object({
   favorite: z.enum(['true', 'false']),
 }).strict()
 
-function formatIssues(issues) {
+export type BookRecord = z.infer<typeof BookSchema>
+export type BookTier = (typeof BOOK_TIERS)[number]
+
+function formatIssues(issues: z.core.$ZodIssue[]): string {
   return issues.map((issue) => `${issue.path.join('.') || 'строка'}: ${issue.message}`).join('; ')
 }
 
-export function parseBooksCsv(csv, sourceName = 'CSV') {
-  const parsed = Papa.parse(csv, {
+export function parseBooksCsv(csv: string, sourceName = 'CSV'): BookRecord[] {
+  const parsed = Papa.parse<Record<string, string>>(csv, {
     header: true,
     skipEmptyLines: 'greedy',
     transformHeader: (header) => header.replace(/^\uFEFF/, '').trim(),

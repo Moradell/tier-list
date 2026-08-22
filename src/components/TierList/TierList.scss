@@ -1,0 +1,50 @@
+.tier-list {
+  min-height: calc(100vh - 114px);
+  overflow: hidden;
+  border: 3px solid #050505;
+  background: #191918;
+}
+
+.tier-row {
+  display: grid;
+  grid-template-columns: clamp(92px, 8vw, 150px) minmax(0, 1fr);
+  min-width: 0;
+  min-height: 196px;
+
+  & + & { border-top: 4px solid #050505; }
+}
+
+.tier-label {
+  display: grid;
+  place-content: center;
+  gap: 9px;
+  border-right: 3px solid #050505;
+  color: #292929;
+  font-size: clamp(2rem, 1.85vw, 2.25rem);
+  line-height: 1;
+  text-align: center;
+  user-select: none;
+
+  small { font-size: 0.75rem; font-weight: 700; opacity: 0.55; }
+}
+
+.tier-content {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 14px 10px;
+  padding: 12px;
+  background: #191918;
+}
+
+@media (max-width: 600px) {
+  .tier-list { min-height: 100vh; border-width: 2px; }
+  .tier-row {
+    grid-template-columns: 64px minmax(0, 1fr);
+    min-height: 170px;
+    & + & { border-top-width: 3px; }
+  }
+  .tier-label { position: sticky; left: 0; z-index: 1; border-right-width: 3px; }
+  .tier-content { gap: 12px 8px; padding: 9px; }
+}
