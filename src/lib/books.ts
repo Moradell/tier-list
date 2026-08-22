@@ -5,6 +5,7 @@ export const BOOK_TIERS = ['S', 'A', 'B', 'C', 'D', 'F'] as const
 
 export const BOOK_COLUMNS = [
   'tier',
+  'position',
   'title',
   'author',
   'user_rating',
@@ -19,6 +20,7 @@ const rating = z.string().regex(/^(?:[0-4](?:[.,]\d)?|5(?:[.,]0)?)$/, 'ожид�
 
 export const BookSchema = z.object({
   tier: z.enum(BOOK_TIERS),
+  position: z.string().regex(/^[1-9]\d*$/, 'ожидался положительный порядковый номер'),
   title: z.string().trim().min(1, 'название не может быть пустым'),
   author: z.string().trim().min(1, 'автор не может быть пустым'),
   user_rating: rating,

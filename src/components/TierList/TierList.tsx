@@ -5,6 +5,7 @@ import type {
   BookDragEndHandler,
   BookDragOverHandler,
   BookDragStartHandler,
+  BookDropHandler,
 } from '@/types/book'
 import { BookCard } from '@components/BookCard'
 import { TIERS } from './constants'
@@ -12,22 +13,26 @@ import './TierList.scss'
 
 interface TierListProps {
   books: Book[]
+  dndEnabled: boolean
   draggedBookId: string | null
   fullMode: boolean
   onDragEnd: BookDragEndHandler
   onDragOverBook: BookDragOverHandler
   onDragStart: BookDragStartHandler
   onDrop: (event: DragEvent<HTMLDivElement>, tier: BookTier) => void
+  onDropBook: BookDropHandler
 }
 
 export function TierList({
   books,
+  dndEnabled,
   draggedBookId,
   fullMode,
   onDragEnd,
   onDragOverBook,
   onDragStart,
   onDrop,
+  onDropBook,
 }: TierListProps) {
   return (
     <div className="tier-list" aria-label="Полотно тир-листа">
@@ -42,18 +47,20 @@ export function TierList({
             </div>
             <div
               className={`tier-content${fullMode ? ' tier-content-full' : ''}`}
-              onDragOver={(event) => event.preventDefault()}
-              onDrop={(event) => onDrop(event, tier.name)}
+              onDragOver={dndEnabled ? (event) => event.preventDefault() : undefined}
+              onDrop={dndEnabled ? (event) => onDrop(event, tier.name) : undefined}
             >
               {tierBooks.map((book) => (
                 <BookCard
                   book={book}
+                  dndEnabled={dndEnabled}
                   fullMode={fullMode}
                   isDragging={book.id === draggedBookId}
                   key={book.id}
                   onDragEnd={onDragEnd}
                   onDragOverBook={onDragOverBook}
                   onDragStart={onDragStart}
+                  onDropBook={onDropBook}
                 />
               ))}
             </div>

@@ -16,11 +16,13 @@ export function BookCategoryPage({ category }: BookCategoryPageProps) {
     return (
       <UnrankedShelf
         books={books}
+        dndEnabled={context.dndEnabled}
         draggedBookId={context.draggedBookId}
         fullMode={context.fullMode}
         onDragEnd={context.onDragEnd}
         onDragOverBook={context.onDragOverBook}
         onDragStart={context.onDragStart}
+        onDropBook={context.onDropBook}
       />
     )
   }
@@ -28,12 +30,14 @@ export function BookCategoryPage({ category }: BookCategoryPageProps) {
   return (
     <TierList
       books={books}
+      dndEnabled={context.dndEnabled}
       draggedBookId={context.draggedBookId}
       fullMode={context.fullMode}
       onDragEnd={context.onDragEnd}
       onDragOverBook={context.onDragOverBook}
       onDragStart={context.onDragStart}
       onDrop={context.onDrop}
+      onDropBook={context.onDropBook}
     />
   )
 }

@@ -34,9 +34,34 @@ function assertNoDuplicates(groups: BookGroup[]): void {
   }
 }
 
+function assertPositions(groups: BookGroup[]): void {
+  for (const group of groups) {
+    const positions = new Map<string, number>()
+    let previousTier = -1
+
+    for (const [index, book] of group.books.entries()) {
+      const key = group.file === 'unranked.csv' ? 'all' : book.tier
+      const expectedPosition = (positions.get(key) ?? 0) + 1
+      if (Number(book.position) !== expectedPosition) {
+        throw new Error(`${group.relativePath}: у «${book.title}» ожидалась позиция ${expectedPosition}`)
+      }
+      positions.set(key, expectedPosition)
+
+      if (group.file !== 'unranked.csv') {
+        const currentTier = tierOrder.get(book.tier) ?? 0
+        if (currentTier < previousTier) throw new Error(`${group.relativePath}: тиры расположены не в порядке S–F`)
+        previousTier = currentTier
+      } else if (Number(book.position) !== index + 1) {
+        throw new Error(`${group.relativePath}: нарушен общий порядок книг`)
+      }
+    }
+  }
+}
+
 async function validate(): Promise<void> {
   const groups = await loadBooks()
   assertNoDuplicates(groups)
+  assertPositions(groups)
   for (const group of groups) console.log(`✓ ${group.relativePath}: ${group.books.length}`)
   console.log(`✓ Всего книг: ${groups.reduce((total, group) => total + group.books.length, 0)}`)
 }
@@ -47,8 +72,16 @@ async function sort(): Promise<void> {
   for (const group of groups) {
     const books = group.books
       .map((book, index) => ({ book, index }))
-      .sort((left, right) => (tierOrder.get(left.book.tier) ?? 0) - (tierOrder.get(right.book.tier) ?? 0) || left.index - right.index)
-      .map(({ book }) => book)
+      .sort((left, right) => group.file === 'unranked.csv'
+        ? Number(left.book.position) - Number(right.book.position) || left.index - right.index
+        : (tierOrder.get(left.book.tier) ?? 0) - (tierOrder.get(right.book.tier) ?? 0)
+          || Number(left.book.position) - Number(right.book.position)
+          || left.index - right.index)
+      .map(({ book }, index, sortedBooks) => {
+        if (group.file === 'unranked.csv') return { ...book, position: String(index + 1) }
+        const position = sortedBooks.slice(0, index).filter((item) => item.book.tier === book.tier).length + 1
+        return { ...book, position: String(position) }
+      })
     const csv = Papa.unparse({ fields: [...BOOK_COLUMNS], data: books }, { newline: '\n' })
     await writeFile(path.join(root, group.relativePath), `${csv}\n`, 'utf8')
     console.log(`✓ Отсортирован ${group.relativePath}`)

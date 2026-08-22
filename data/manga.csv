@@ -1,4 +1,4 @@
-tier,title,author,user_rating,livelib_rating,url,cover,year,read_date
-B,Поднятие уровня в одиночку. Solo Leveling. Книга 1,Чхугон,4,"4,2",https://www.livelib.ru/book/1007679859,/covers/1007679859.jpg,2018,2024-03-20
-B,Поднятие уровня в одиночку. Solo Leveling. Книга 3,Чхугон,4,"4,6",https://www.livelib.ru/book/1009080238,/covers/1009080238.jpg,2018,2024-03-20
-B,Поднятие уровня в одиночку. Solo Leveling. Книга 2,Чхугон,4,"4,5",https://www.livelib.ru/book/1008702787,/covers/1008702787.jpg,2018,2024-03-20
+tier,position,title,author,user_rating,livelib_rating,url,cover,year,read_date
+B,1,Поднятие уровня в одиночку. Solo Leveling. Книга 1,Чхугон,4,"4,2",https://www.livelib.ru/book/1007679859,/covers/1007679859.jpg,2018,2024-03-20
+B,2,Поднятие уровня в одиночку. Solo Leveling. Книга 3,Чхугон,4,"4,6",https://www.livelib.ru/book/1009080238,/covers/1009080238.jpg,2018,2024-03-20
+B,3,Поднятие уровня в одиночку. Solo Leveling. Книга 2,Чхугон,4,"4,5",https://www.livelib.ru/book/1008702787,/covers/1008702787.jpg,2018,2024-03-20

@@ -1,8 +1,10 @@
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
+import { booksApiPlugin } from './vite/plugins/booksApi.ts'
 
 export default defineConfig({
   base: '/tier-list/',
+  plugins: [booksApiPlugin()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

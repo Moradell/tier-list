@@ -11,13 +11,17 @@
 
 .book-card {
   color: inherit;
-  cursor: grab;
+  cursor: pointer;
   outline: none;
   text-decoration: none;
   user-select: none;
 
-  &:active { cursor: grabbing; }
   &:focus-visible .book-cover-wrap { box-shadow: 0 0 0 3px #ffe45e, 0 4px 12px rgb(0 0 0 / 50%); }
+}
+
+.book-card-dnd {
+  cursor: grab;
+  &:active { cursor: grabbing; }
 }
 
 .book-card-shell-full,

@@ -18,12 +18,14 @@ export function BooksLayout() {
   const dnd = useBookDnd(initialBooks)
   const outletContext: BooksOutletContext = {
     books: dnd.books,
+    dndEnabled: dnd.dndEnabled,
     draggedBookId: dnd.draggedBookId,
     fullMode,
     onDragEnd: dnd.handleDragEnd,
     onDragOverBook: dnd.handleDragOverBook,
     onDragStart: dnd.handleDragStart,
     onDrop: dnd.handleDrop,
+    onDropBook: dnd.handleDropBook,
   }
 
   return (
