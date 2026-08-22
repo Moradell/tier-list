@@ -13,7 +13,6 @@ export const BOOK_COLUMNS = [
   'cover',
   'year',
   'read_date',
-  'year_source',
   'favorite',
 ]
 
@@ -28,8 +27,7 @@ export const BookSchema = z.object({
   url: z.string().url().regex(/^https:\/\/(?:www\.)?livelib\.ru\/book\/\d+/, 'ожидалась ссылка на книгу LiveLib'),
   cover: z.string().regex(/^\/covers\/[^/]+\.(?:jpe?g|png|webp)$/i, 'ожидался путь к локальной обложке'),
   year: z.string().trim().min(1, 'год публикации не может быть пустым'),
-  read_date: z.string().regex(/^\d{4}-\d{2}(?:-\d{2})?$/, 'ожидалась дата YYYY-MM или YYYY-MM-DD'),
-  year_source: z.string().url('ожидалась ссылка на источник года'),
+  read_date: z.string().regex(/^(?:-|\d{4}-\d{2}(?:-\d{2})?)$/, 'ожидалась дата YYYY-MM, YYYY-MM-DD или прочерк'),
   favorite: z.enum(['true', 'false']),
 }).strict()
 

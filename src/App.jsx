@@ -32,70 +32,29 @@ const initialBooks = [
 ]
 
 function formatReadDate(readDate) {
-  if (readDate === '2021-10') return '???'
-
   const match = readDate?.match(/^(\d{4})-(\d{2})(?:-(\d{2}))?$/)
-  if (!match) return 'Дата чтения не указана'
+  if (!match) return readDate === '-' ? '—' : 'Дата чтения не указана'
 
   const [, year, month, day] = match
   return day ? `${day}.${month}.${year}` : `${month}.${year}`
 }
 
-async function writeToClipboard(text) {
-  if (navigator.clipboard?.writeText) {
-    try {
-      await navigator.clipboard.writeText(text)
-      return true
-    } catch {
-      // Some browsers expose the API but deny it outside their preferred context.
-    }
-  }
-
-  const textarea = document.createElement('textarea')
-  textarea.value = text
-  textarea.style.position = 'fixed'
-  textarea.style.opacity = '0'
-  document.body.append(textarea)
-  textarea.select()
-  const copied = document.execCommand('copy')
-  textarea.remove()
-  return copied
-}
-
 function BookCard({ book, fullMode, onDragStart }) {
-  const [copied, setCopied] = useState(false)
   const coverUrl = `${import.meta.env.BASE_URL}${book.cover.replace(/^\/+/, '')}`
   const publicationYear = book.year || 'Год не указан'
   const readDate = formatReadDate(book.read_date)
-
-  async function copyBookInfo() {
-    try {
-      const copiedSuccessfully = await writeToClipboard(publicationYear)
-      if (!copiedSuccessfully) return
-      setCopied(true)
-      window.setTimeout(() => setCopied(false), 1400)
-    } catch {
-      setCopied(false)
-    }
-  }
 
   return (
     <div className={`book-card-shell${fullMode ? ' book-card-shell-full' : ''}`}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
-          <article
+          <a
             className={`book-card${fullMode ? ' book-card-full' : ''}`}
+            href={book.url}
+            target="_blank"
+            rel="noreferrer"
             draggable
-            role="button"
-            tabIndex={0}
-            aria-label={`Скопировать дату публикации книги «${book.title}»`}
-            onClick={copyBookInfo}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault()
-                copyBookInfo()
-              }
-            }}
+            aria-label={`Открыть книгу «${book.title}» на LiveLib`}
             onDragStart={(event) => onDragStart(event, book.id)}
           >
             <div className="book-cover-wrap">
@@ -109,10 +68,13 @@ function BookCard({ book, fullMode, onDragStart }) {
               <p className="book-author">{book.author}</p>
               {fullMode && <p className="book-meta">Год публикации: {publicationYear}</p>}
               {fullMode
-                ? <p className="book-meta">Прочитано: {readDate}</p>
+                ? <>
+                    <p className="book-meta">Прочитано: {readDate}</p>
+                    <p className="book-meta">Рейтинг LiveLib: {book.livelib_rating}</p>
+                  </>
                 : <p className="book-year">{publicationYear}</p>}
             </div>
-          </article>
+          </a>
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content className="book-tooltip" sideOffset={8}>
@@ -120,23 +82,12 @@ function BookCard({ book, fullMode, onDragStart }) {
             <span>{book.author}</span>
             <span>Опубликовано: {publicationYear}</span>
             <span>Прочитано: {readDate}</span>
-            <small>Нажмите, чтобы скопировать дату публикации</small>
+            <small>Нажмите, чтобы открыть книгу на LiveLib</small>
             <Tooltip.Arrow className="book-tooltip-arrow" />
           </Tooltip.Content>
         </Tooltip.Portal>
       </Tooltip.Root>
 
-      <Tooltip.Root open={copied}>
-        <Tooltip.Trigger asChild>
-          <span className="copy-tooltip-anchor" aria-hidden="true" />
-        </Tooltip.Trigger>
-        <Tooltip.Portal>
-          <Tooltip.Content className="copy-success-tooltip" side="top" sideOffset={7}>
-            Скопировано
-            <Tooltip.Arrow className="copy-success-arrow" />
-          </Tooltip.Content>
-        </Tooltip.Portal>
-      </Tooltip.Root>
     </div>
   )
 }

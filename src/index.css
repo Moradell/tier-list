@@ -259,8 +259,10 @@ button {
 }
 
 .book-card {
+  color: inherit;
   cursor: grab;
   outline: none;
+  text-decoration: none;
   user-select: none;
 }
 
@@ -409,39 +411,6 @@ button {
 
 .book-tooltip-arrow {
   fill: #f4f3ed;
-}
-
-.copy-tooltip-anchor {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-}
-
-.copy-success-tooltip {
-  z-index: 40;
-  padding: 8px 11px;
-  border: 2px solid #0d4f27;
-  border-radius: 7px;
-  background: #b8f7ca;
-  color: #0d4f27;
-  font-size: 0.76rem;
-  font-weight: 800;
-  box-shadow: 0 8px 24px rgb(0 0 0 / 50%);
-  animation: copy-tooltip-in 140ms ease-out;
-}
-
-.copy-success-arrow {
-  fill: #0d4f27;
-}
-
-@keyframes copy-tooltip-in {
-  from {
-    opacity: 0;
-    transform: translateY(4px) scale(0.96);
-  }
 }
 
 .unranked-shelf {
