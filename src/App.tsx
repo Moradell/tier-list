@@ -1,57 +1,29 @@
-import { useState, type DragEvent } from 'react'
-import novelsCsv from '@data/novels.csv?raw'
-import storiesCsv from '@data/stories.csv?raw'
-import mangaCsv from '@data/manga.csv?raw'
-import unrankedCsv from '@data/unranked.csv?raw'
-import { Tabs } from '@components/Tabs'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { TooltipProvider } from '@components/Tooltip'
-import { parseBooksCsv, type BookTier } from '@lib/books'
-import type { Book, BookCategory, BookDragStartHandler } from '@/types/book'
-
-function prepareBooks(csv: string, category: BookCategory, sourceName: string): Book[] {
-  return parseBooksCsv(csv, sourceName).map((book) => ({
-    ...book,
-    category,
-    id: book.url.match(/\/book\/(\d+)/)?.[1] ?? book.url,
-  }))
-}
-
-const initialBooks: Book[] = [
-  ...prepareBooks(novelsCsv, 'Роман', 'data/novels.csv'),
-  ...prepareBooks(storiesCsv, 'Рассказ', 'data/stories.csv'),
-  ...prepareBooks(mangaCsv, 'Манга', 'data/manga.csv'),
-  ...prepareBooks(unrankedCsv, 'Вне рейтинга', 'data/unranked.csv'),
-]
+import { BooksLayout } from '@/layouts/BooksLayout'
+import { RootLayout } from '@/layouts/RootLayout'
+import { BookCategoryPage } from '@/pages/BookCategoryPage'
+import { MoviesPage } from '@/pages/MoviesPage'
 
 export default function App() {
-  const [books, setBooks] = useState<Book[]>(initialBooks)
-  const [draggedBookId, setDraggedBookId] = useState<string | null>(null)
-  const [fullMode, setFullMode] = useState(false)
-
-  const handleDragStart: BookDragStartHandler = (event, bookId) => {
-    setDraggedBookId(bookId)
-    event.dataTransfer.effectAllowed = 'move'
-    event.dataTransfer.setData('text/plain', bookId)
-  }
-
-  function handleDrop(event: DragEvent<HTMLDivElement>, tierName: BookTier) {
-    event.preventDefault()
-    const bookId = event.dataTransfer.getData('text/plain') || draggedBookId
-    setBooks((currentBooks) => currentBooks.map((book) => (
-      book.id === bookId ? { ...book, tier: tierName } : book
-    )))
-    setDraggedBookId(null)
-  }
-
   return (
     <TooltipProvider delayDuration={250}>
-      <Tabs
-        books={books}
-        fullMode={fullMode}
-        onFullModeChange={setFullMode}
-        onDragStart={handleDragStart}
-        onDrop={handleDrop}
-      />
+      <HashRouter>
+        <Routes>
+          <Route element={<RootLayout />}>
+            <Route index element={<Navigate replace to="/books/novels" />} />
+            <Route path="books" element={<BooksLayout />}>
+              <Route index element={<Navigate replace to="novels" />} />
+              <Route path="novels" element={<BookCategoryPage category="Роман" />} />
+              <Route path="stories" element={<BookCategoryPage category="Рассказ" />} />
+              <Route path="manga" element={<BookCategoryPage category="Манга" />} />
+              <Route path="unranked" element={<BookCategoryPage category="Вне рейтинга" />} />
+            </Route>
+            <Route path="movies" element={<MoviesPage />} />
+            <Route path="*" element={<Navigate replace to="/books/novels" />} />
+          </Route>
+        </Routes>
+      </HashRouter>
     </TooltipProvider>
   )
 }

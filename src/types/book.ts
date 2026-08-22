@@ -11,3 +11,5 @@ export interface Book extends BookRecord {
 }
 
 export type BookDragStartHandler = (event: DragEvent<HTMLElement>, bookId: string) => void
+export type BookDragOverHandler = (event: DragEvent<HTMLDivElement>, bookId: string) => void
+export type BookDragEndHandler = () => void

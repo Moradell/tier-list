@@ -3,6 +3,12 @@
 
 .book-card-shell { position: relative; }
 
+.book-card-shell-dragging {
+  opacity: 0.22;
+  outline: 2px dashed #ffe45e;
+  outline-offset: 3px;
+}
+
 .book-card {
   color: inherit;
   cursor: grab;

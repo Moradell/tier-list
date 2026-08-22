@@ -13,7 +13,6 @@ export const BOOK_COLUMNS = [
   'cover',
   'year',
   'read_date',
-  'favorite',
 ] as const
 
 const rating = z.string().regex(/^(?:[0-4](?:[.,]\d)?|5(?:[.,]0)?)$/, 'ожидалась оценка от 0 до 5')
@@ -28,7 +27,6 @@ export const BookSchema = z.object({
   cover: z.string().regex(/^\/covers\/[^/]+\.(?:jpe?g|png|webp)$/i, 'ожидался путь к локальной обложке'),
   year: z.string().trim().min(1, 'год публикации не может быть пустым'),
   read_date: z.string().regex(/^(?:-|\d{4}-\d{2}(?:-\d{2})?)$/, 'ожидалась дата YYYY-MM, YYYY-MM-DD или прочерк'),
-  favorite: z.enum(['true', 'false']),
 }).strict()
 
 export type BookRecord = z.infer<typeof BookSchema>

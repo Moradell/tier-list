@@ -1,21 +1,39 @@
 import { Tooltip } from '@components/Tooltip'
-import type { Book, BookDragStartHandler } from '@/types/book'
+import type { Book, BookDragEndHandler, BookDragOverHandler, BookDragStartHandler } from '@/types/book'
 import { formatReadDate } from '@utils/formatReadDate'
 import './BookCard.scss'
 
 interface BookCardProps {
   book: Book
   fullMode: boolean
+  isDragging: boolean
+  onDragEnd: BookDragEndHandler
+  onDragOverBook: BookDragOverHandler
   onDragStart: BookDragStartHandler
 }
 
-export function BookCard({ book, fullMode, onDragStart }: BookCardProps) {
+export function BookCard({
+  book,
+  fullMode,
+  isDragging,
+  onDragEnd,
+  onDragOverBook,
+  onDragStart,
+}: BookCardProps) {
   const coverUrl = `${import.meta.env.BASE_URL}${book.cover.replace(/^\/+/, '')}`
   const publicationYear = book.year || 'Год не указан'
   const readDate = formatReadDate(book.read_date)
 
   return (
-    <div className={`book-card-shell${fullMode ? ' book-card-shell-full' : ''}`}>
+    <div
+      className={`book-card-shell${fullMode ? ' book-card-shell-full' : ''}${isDragging ? ' book-card-shell-dragging' : ''}`}
+      onDragOver={(event) => onDragOverBook(event, book.id)}
+      onDrop={(event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        onDragEnd()
+      }}
+    >
       <Tooltip
         contentClassName="book-tooltip"
         arrowClassName="book-tooltip-arrow"
@@ -28,6 +46,7 @@ export function BookCard({ book, fullMode, onDragStart }: BookCardProps) {
             draggable
             aria-label={`Открыть книгу «${book.title}» на LiveLib`}
             onDragStart={(event) => onDragStart(event, book.id)}
+            onDragEnd={onDragEnd}
           >
             <div className="book-cover-wrap">
               <img className="book-cover" src={coverUrl} alt={`Обложка книги «${book.title}»`} />

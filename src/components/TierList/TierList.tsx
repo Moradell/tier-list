@@ -1,18 +1,34 @@
 import type { DragEvent } from 'react'
 import type { BookTier } from '@lib/books'
-import type { Book, BookDragStartHandler } from '@/types/book'
+import type {
+  Book,
+  BookDragEndHandler,
+  BookDragOverHandler,
+  BookDragStartHandler,
+} from '@/types/book'
 import { BookCard } from '@components/BookCard'
 import { TIERS } from './constants'
 import './TierList.scss'
 
 interface TierListProps {
   books: Book[]
+  draggedBookId: string | null
   fullMode: boolean
+  onDragEnd: BookDragEndHandler
+  onDragOverBook: BookDragOverHandler
   onDragStart: BookDragStartHandler
   onDrop: (event: DragEvent<HTMLDivElement>, tier: BookTier) => void
 }
 
-export function TierList({ books, fullMode, onDragStart, onDrop }: TierListProps) {
+export function TierList({
+  books,
+  draggedBookId,
+  fullMode,
+  onDragEnd,
+  onDragOverBook,
+  onDragStart,
+  onDrop,
+}: TierListProps) {
   return (
     <div className="tier-list" aria-label="Полотно тир-листа">
       {TIERS.map((tier) => {
@@ -30,7 +46,15 @@ export function TierList({ books, fullMode, onDragStart, onDrop }: TierListProps
               onDrop={(event) => onDrop(event, tier.name)}
             >
               {tierBooks.map((book) => (
-                <BookCard book={book} fullMode={fullMode} key={book.id} onDragStart={onDragStart} />
+                <BookCard
+                  book={book}
+                  fullMode={fullMode}
+                  isDragging={book.id === draggedBookId}
+                  key={book.id}
+                  onDragEnd={onDragEnd}
+                  onDragOverBook={onDragOverBook}
+                  onDragStart={onDragStart}
+                />
               ))}
             </div>
           </section>
