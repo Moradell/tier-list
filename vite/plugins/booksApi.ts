@@ -12,6 +12,8 @@ const categoryFiles = {
   'Вне рейтинга': 'unranked.csv',
 } as const
 
+const saveQueues = new Map<BookCategory, Promise<void>>()
+
 type BookCategory = keyof typeof categoryFiles
 
 interface OrderItem {
@@ -103,11 +105,11 @@ export function booksApiPlugin(): Plugin {
   return {
     name: 'books-api',
     apply: 'serve',
+    handleHotUpdate(context) {
+      const isBooksCsv = Object.values(categoryFiles).some((file) => context.file.endsWith(`/data/${file}`))
+      if (isBooksCsv) return []
+    },
     configureServer(server) {
-      for (const file of Object.values(categoryFiles)) {
-        server.watcher.unwatch(path.join(server.config.root, 'data', file))
-      }
-
       server.middlewares.use('/api/books/order', async (request, response) => {
         response.setHeader('Content-Type', 'application/json; charset=utf-8')
         if (request.method !== 'POST') {
@@ -118,7 +120,10 @@ export function booksApiPlugin(): Plugin {
 
         try {
           const payload = parsePayload(await readJson(request))
-          await saveOrder(server.config.root, payload)
+          const previousSave = saveQueues.get(payload.category) ?? Promise.resolve()
+          const currentSave = previousSave.catch(() => undefined).then(() => saveOrder(server.config.root, payload))
+          saveQueues.set(payload.category, currentSave)
+          await currentSave
           response.statusCode = 200
           response.end(JSON.stringify({ ok: true }))
         } catch (error) {

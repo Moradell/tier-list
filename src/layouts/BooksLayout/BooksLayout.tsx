@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { Tabs, type TabItem } from '@components/Tabs'
-import { initialBooks } from '@/data/books'
-import { useBookDnd } from '@/dnd'
+import { useBooks } from '@/providers/BooksProvider'
 import type { BooksOutletContext } from '@/types/booksOutlet'
 import './BooksLayout.scss'
 
@@ -14,19 +12,9 @@ const bookSections: TabItem[] = [
 ]
 
 export function BooksLayout() {
-  const [fullMode, setFullMode] = useState(false)
-  const dnd = useBookDnd(initialBooks)
-  const outletContext: BooksOutletContext = {
-    books: dnd.books,
-    dndEnabled: dnd.dndEnabled,
-    draggedBookId: dnd.draggedBookId,
-    fullMode,
-    onDragEnd: dnd.handleDragEnd,
-    onDragOverBook: dnd.handleDragOverBook,
-    onDragStart: dnd.handleDragStart,
-    onDrop: dnd.handleDrop,
-    onDropBook: dnd.handleDropBook,
-  }
+  const booksContext = useBooks()
+  const { setFullMode, ...outletContext } = booksContext
+  const context: BooksOutletContext = outletContext
 
   return (
     <>
@@ -35,14 +23,14 @@ export function BooksLayout() {
         <button
           className="mode-toggle"
           type="button"
-          aria-pressed={fullMode}
-          onClick={() => setFullMode((currentMode) => !currentMode)}
+          aria-pressed={context.fullMode}
+          onClick={() => setFullMode(!context.fullMode)}
         >
           <span className="mode-toggle-track" aria-hidden="true"><span className="mode-toggle-thumb" /></span>
           Полный режим
         </button>
       </div>
-      <Outlet context={outletContext} />
+      <Outlet context={context} />
     </>
   )
 }

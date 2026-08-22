@@ -27,6 +27,8 @@ export function useBookDnd(initialBooks: Book[]) {
   const booksRef = useRef(books)
   const dragStartBooksRef = useRef<Book[] | null>(null)
   const dropHandledRef = useRef(false)
+  const latestCommitRef = useRef(0)
+  const saveQueueRef = useRef<Promise<void>>(Promise.resolve())
 
   function updateBooks(nextBooks: Book[]) {
     booksRef.current = nextBooks
@@ -36,12 +38,20 @@ export function useBookDnd(initialBooks: Book[]) {
   function commitOrder(category: BookCategory) {
     const rollbackBooks = dragStartBooksRef.current
     const nextBooks = recalculatePositions(booksRef.current, category)
+    const commitId = latestCommitRef.current + 1
+    latestCommitRef.current = commitId
     dropHandledRef.current = true
     updateBooks(nextBooks)
 
-    void persistBookOrder(category, nextBooks).catch((error: unknown) => {
-      if (rollbackBooks) updateBooks(rollbackBooks)
+    const currentSave = saveQueueRef.current
+      .catch(() => undefined)
+      .then(() => persistBookOrder(category, nextBooks))
+    saveQueueRef.current = currentSave
+
+    void currentSave.catch((error: unknown) => {
       console.error(error)
+      if (commitId !== latestCommitRef.current) return
+      if (rollbackBooks) updateBooks(rollbackBooks)
       window.alert(error instanceof Error ? error.message : 'Не удалось сохранить порядок книг')
     })
   }

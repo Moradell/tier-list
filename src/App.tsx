@@ -4,12 +4,14 @@ import { BooksLayout } from '@/layouts/BooksLayout'
 import { RootLayout } from '@/layouts/RootLayout'
 import { BookCategoryPage } from '@/pages/BookCategoryPage'
 import { MoviesPage } from '@/pages/MoviesPage'
+import { BooksProvider } from '@/providers/BooksProvider'
 
 export default function App() {
   return (
     <TooltipProvider delayDuration={250}>
-      <HashRouter>
-        <Routes>
+      <BooksProvider>
+        <HashRouter>
+          <Routes>
           <Route element={<RootLayout />}>
             <Route index element={<Navigate replace to="/books/novels" />} />
             <Route path="books" element={<BooksLayout />}>
@@ -22,8 +24,9 @@ export default function App() {
             <Route path="movies" element={<MoviesPage />} />
             <Route path="*" element={<Navigate replace to="/books/novels" />} />
           </Route>
-        </Routes>
-      </HashRouter>
+          </Routes>
+        </HashRouter>
+      </BooksProvider>
     </TooltipProvider>
   )
 }
