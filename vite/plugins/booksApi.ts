@@ -1,9 +1,11 @@
+import { randomUUID } from 'node:crypto'
 import { readFile, rename, writeFile } from 'node:fs/promises'
-import path from 'node:path'
 import type { IncomingMessage } from 'node:http'
+import path from 'node:path'
 import Papa from 'papaparse'
 import type { Plugin } from 'vite'
-import { BOOK_COLUMNS, BOOK_TIERS, parseBooksCsv, type BookRecord, type BookTier } from '../../src/lib/books.ts'
+import { parseHistory, type HistoryData, type HistoryEvent } from '../../src/entities/history/model/history.ts'
+import { BOOK_COLUMNS, BOOK_TIERS, parseBooksCsv, type BookRecord, type BookTier } from '../../src/entities/book/model/books.ts'
 
 const categoryFiles = {
   'Роман': 'novels.csv',
@@ -11,8 +13,6 @@ const categoryFiles = {
   'Манга': 'manga.csv',
   'Вне рейтинга': 'unranked.csv',
 } as const
-
-const saveQueues = new Map<BookCategory, Promise<void>>()
 
 type BookCategory = keyof typeof categoryFiles
 
@@ -23,7 +23,16 @@ interface OrderItem {
 
 interface OrderPayload {
   category: BookCategory
+  movedBookId: string
   books: OrderItem[]
+}
+
+let mutationQueue = Promise.resolve<unknown>(undefined)
+
+function enqueue<T>(operation: () => Promise<T>): Promise<T> {
+  const result = mutationQueue.catch(() => undefined).then(operation)
+  mutationQueue = result
+  return result
 }
 
 function getBookId(book: BookRecord): string {
@@ -32,24 +41,34 @@ function getBookId(book: BookRecord): string {
   return id
 }
 
+function createBookSnapshot(book: BookRecord, category: BookCategory) {
+  return {
+    id: getBookId(book),
+    category,
+    title: book.title,
+    author: book.author,
+    cover: book.cover,
+    url: book.url,
+  }
+}
+
 async function readJson(request: IncomingMessage): Promise<unknown> {
   const chunks: Buffer[] = []
   let size = 0
-
   for await (const chunk of request) {
     const buffer = Buffer.from(chunk)
     size += buffer.length
     if (size > 1_000_000) throw new Error('Слишком большой запрос')
     chunks.push(buffer)
   }
-
   return JSON.parse(Buffer.concat(chunks).toString('utf8'))
 }
 
 function parsePayload(value: unknown): OrderPayload {
   if (!value || typeof value !== 'object') throw new Error('Некорректное тело запроса')
-  const { category, books } = value as Partial<OrderPayload>
+  const { category, movedBookId, books } = value as Partial<OrderPayload>
   if (!category || !(category in categoryFiles)) throw new Error('Неизвестная категория книг')
+  if (!movedBookId || typeof movedBookId !== 'string') throw new Error('Не указана перемещённая книга')
   if (!Array.isArray(books)) throw new Error('Не передан порядок книг')
 
   const ids = new Set<string>()
@@ -60,11 +79,56 @@ function parsePayload(value: unknown): OrderPayload {
     if (ids.has(book.id)) throw new Error(`Книга ${book.id} передана дважды`)
     ids.add(book.id)
   }
+  if (!ids.has(movedBookId)) throw new Error('Перемещённая книга отсутствует в порядке')
 
-  return { category, books }
+  return { category, movedBookId, books }
 }
 
-async function saveOrder(root: string, payload: OrderPayload): Promise<void> {
+async function readHistory(root: string): Promise<HistoryData> {
+  const value = JSON.parse(await readFile(path.join(root, 'data/history.json'), 'utf8')) as unknown
+  return parseHistory(value)
+}
+
+async function writeHistory(root: string, history: HistoryData): Promise<void> {
+  const filePath = path.join(root, 'data/history.json')
+  const temporaryPath = `${filePath}.tmp`
+  await writeFile(temporaryPath, `${JSON.stringify(history, null, 2)}\n`, 'utf8')
+  await rename(temporaryPath, filePath)
+}
+
+async function syncNewBooks(root: string): Promise<{ history: HistoryData; newEvents: HistoryEvent[] }> {
+  const history = await readHistory(root)
+  const knownBookIds = new Set(history.knownBookIds)
+  const newEvents: HistoryEvent[] = []
+
+  for (const [category, file] of Object.entries(categoryFiles) as [BookCategory, string][]) {
+    const relativePath = `data/${file}`
+    const books = parseBooksCsv(await readFile(path.join(root, relativePath), 'utf8'), relativePath)
+    for (const book of books) {
+      const id = getBookId(book)
+      if (knownBookIds.has(id)) continue
+      knownBookIds.add(id)
+      newEvents.push({
+        id: randomUUID(),
+        type: 'new',
+        book: createBookSnapshot(book, category),
+        from: null,
+        to: { tier: book.tier, position: Number(book.position) },
+        createdAt: new Date().toISOString(),
+      })
+    }
+  }
+
+  if (newEvents.length > 0) {
+    history.knownBookIds = [...knownBookIds]
+    history.events.push(...newEvents)
+    await writeHistory(root, history)
+  }
+  return { history, newEvents }
+}
+
+async function saveOrder(root: string, payload: OrderPayload): Promise<{ event: HistoryEvent | null; newEvents: HistoryEvent[] }> {
+  const { history, newEvents } = await syncNewBooks(root)
   const relativePath = `data/${categoryFiles[payload.category]}`
   const filePath = path.join(root, relativePath)
   const sourceBooks = parseBooksCsv(await readFile(filePath, 'utf8'), relativePath)
@@ -78,10 +142,7 @@ async function saveOrder(root: string, payload: OrderPayload): Promise<void> {
   const tierPositions = new Map<BookTier, number>()
   const orderedBooks = payload.books.map(({ id, tier }, index) => {
     const sourceBook = booksById.get(id)!
-    if (payload.category === 'Вне рейтинга') {
-      return { ...sourceBook, position: String(index + 1) }
-    }
-
+    if (payload.category === 'Вне рейтинга') return { ...sourceBook, position: String(index + 1) }
     const position = (tierPositions.get(tier) ?? 0) + 1
     tierPositions.set(tier, position)
     return { ...sourceBook, tier, position: String(position) }
@@ -99,6 +160,30 @@ async function saveOrder(root: string, payload: OrderPayload): Promise<void> {
   const temporaryPath = `${filePath}.tmp`
   await writeFile(temporaryPath, `${csv}\n`, 'utf8')
   await rename(temporaryPath, filePath)
+
+  const before = booksById.get(payload.movedBookId)!
+  const after = orderedBooks.find((book) => getBookId(book) === payload.movedBookId)!
+  const hasMoved = before.tier !== after.tier || before.position !== after.position
+  const event: HistoryEvent | null = hasMoved ? {
+    id: randomUUID(),
+    type: 'move',
+    book: createBookSnapshot(after, payload.category),
+    from: { tier: before.tier, position: Number(before.position) },
+    to: { tier: after.tier, position: Number(after.position) },
+    createdAt: new Date().toISOString(),
+  } : null
+
+  if (event) {
+    history.events.push(event)
+    await writeHistory(root, history)
+  }
+  return { event, newEvents }
+}
+
+function sendJson(response: import('node:http').ServerResponse, status: number, value: unknown) {
+  response.statusCode = status
+  response.setHeader('Content-Type', 'application/json; charset=utf-8')
+  response.end(JSON.stringify(value))
 }
 
 export function booksApiPlugin(): Plugin {
@@ -106,29 +191,27 @@ export function booksApiPlugin(): Plugin {
     name: 'books-api',
     apply: 'serve',
     handleHotUpdate(context) {
-      const isBooksCsv = Object.values(categoryFiles).some((file) => context.file.endsWith(`/data/${file}`))
-      if (isBooksCsv) return []
+      const dataFiles = [...Object.values(categoryFiles), 'history.json']
+      if (dataFiles.some((file) => context.file.endsWith(`/data/${file}`))) return []
     },
     configureServer(server) {
       server.middlewares.use('/api/books/order', async (request, response) => {
-        response.setHeader('Content-Type', 'application/json; charset=utf-8')
-        if (request.method !== 'POST') {
-          response.statusCode = 405
-          response.end(JSON.stringify({ error: 'Method not allowed' }))
-          return
-        }
-
+        if (request.method !== 'POST') return sendJson(response, 405, { error: 'Method not allowed' })
         try {
           const payload = parsePayload(await readJson(request))
-          const previousSave = saveQueues.get(payload.category) ?? Promise.resolve()
-          const currentSave = previousSave.catch(() => undefined).then(() => saveOrder(server.config.root, payload))
-          saveQueues.set(payload.category, currentSave)
-          await currentSave
-          response.statusCode = 200
-          response.end(JSON.stringify({ ok: true }))
+          sendJson(response, 200, { ok: true, ...await enqueue(() => saveOrder(server.config.root, payload)) })
         } catch (error) {
-          response.statusCode = 400
-          response.end(JSON.stringify({ error: error instanceof Error ? error.message : String(error) }))
+          sendJson(response, 400, { error: error instanceof Error ? error.message : String(error) })
+        }
+      })
+
+      server.middlewares.use('/api/books/history', async (request, response) => {
+        if (request.method !== 'GET') return sendJson(response, 405, { error: 'Method not allowed' })
+        try {
+          const { history } = await enqueue(() => syncNewBooks(server.config.root))
+          sendJson(response, 200, history)
+        } catch (error) {
+          sendJson(response, 400, { error: error instanceof Error ? error.message : String(error) })
         }
       })
     },

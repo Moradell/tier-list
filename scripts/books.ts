@@ -2,7 +2,8 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import Papa from 'papaparse'
-import { BOOK_COLUMNS, BOOK_TIERS, parseBooksCsv, type BookRecord } from '@lib/books'
+import { BOOK_COLUMNS, BOOK_TIERS, parseBooksCsv, type BookRecord } from '@entities/book/model/books'
+import { parseHistory } from '@entities/history/model/history'
 
 interface BookGroup {
   file: string
@@ -62,8 +63,20 @@ async function validate(): Promise<void> {
   const groups = await loadBooks()
   assertNoDuplicates(groups)
   assertPositions(groups)
+  const history = parseHistory(JSON.parse(await readFile(path.join(root, 'data/history.json'), 'utf8')) as unknown)
+  const knownBookIds = new Set(history.knownBookIds)
+  for (const group of groups) {
+    for (const book of group.books) {
+      const id = book.url.match(/\/book\/(\d+)/)?.[1]
+      if (!id || !knownBookIds.has(id)) throw new Error(`Книга ${id ?? book.title} отсутствует в базовой отметке истории`)
+    }
+  }
+  if (new Set(history.events.map((event) => event.id)).size !== history.events.length) {
+    throw new Error('В истории есть повторяющиеся события')
+  }
   for (const group of groups) console.log(`✓ ${group.relativePath}: ${group.books.length}`)
   console.log(`✓ Всего книг: ${groups.reduce((total, group) => total + group.books.length, 0)}`)
+  console.log(`✓ История: ${history.events.length} событий`)
 }
 
 async function sort(): Promise<void> {

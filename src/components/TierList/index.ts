@@ -1,1 +1,0 @@
-export { TierList } from './TierList'
