@@ -1,0 +1,27 @@
+.section-back-link {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 8px;
+  color: #8f8e88;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 150ms ease;
+
+  &:hover {
+    color: #ffe45e;
+
+    .section-back-link__arrow { transform: translateX(-3px); }
+  }
+
+  &:focus-visible { outline: 2px solid #ffe45e; outline-offset: 5px; }
+}
+
+.section-back-link__arrow {
+  color: #ffe45e;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: transform 150ms ease;
+}

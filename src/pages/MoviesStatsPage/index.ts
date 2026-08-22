@@ -1,0 +1,1 @@
+export { MoviesStatsPage } from './MoviesStatsPage'

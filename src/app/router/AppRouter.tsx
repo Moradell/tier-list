@@ -1,7 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { BookCategoryPage } from '@/pages/books/BookCategoryPage'
 import { BooksPage } from '@/pages/books/BooksPage'
+import { BooksStatsPage } from '@/pages/books/BooksStatsPage'
 import { MoviesPage } from '@/pages/MoviesPage'
+import { MoviesStatsPage } from '@/pages/MoviesStatsPage'
 import { RootLayout } from '../layouts/RootLayout'
 
 export function AppRouter() {
@@ -16,7 +18,9 @@ export function AppRouter() {
           <Route path="manga" element={<BookCategoryPage category="Манга" />} />
           <Route path="unranked" element={<BookCategoryPage category="Вне рейтинга" />} />
         </Route>
+        <Route path="books/stats" element={<BooksStatsPage />} />
         <Route path="movies" element={<MoviesPage />} />
+        <Route path="movies/stats" element={<MoviesStatsPage />} />
         <Route path="*" element={<Navigate replace to="/books/novels" />} />
       </Route>
     </Routes>
