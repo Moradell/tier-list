@@ -69,6 +69,14 @@ const initialBooks = [
   ...prepareBooks(unrankedCsv, 'Вне рейтинга'),
 ]
 
+function formatReadDate(readDate) {
+  const match = readDate?.match(/^(\d{4})-(\d{2})(?:-(\d{2}))?$/)
+  if (!match) return 'Дата чтения не указана'
+
+  const [, year, month, day] = match
+  return day ? `${day}.${month}.${year}` : `${month}.${year}`
+}
+
 async function writeToClipboard(text) {
   if (navigator.clipboard?.writeText) {
     try {
@@ -90,15 +98,15 @@ async function writeToClipboard(text) {
   return copied
 }
 
-function BookCard({ book, onDragStart }) {
+function BookCard({ book, fullMode, onDragStart }) {
   const [copied, setCopied] = useState(false)
   const coverUrl = `${import.meta.env.BASE_URL}${book.cover.replace(/^\/+/, '')}`
-  const year = book.year || 'Год не указан'
-  const bookInfo = `${book.title}\n${book.author}\n${year}`
+  const publicationYear = book.year || 'Год не указан'
+  const readDate = formatReadDate(book.read_date)
 
   async function copyBookInfo() {
     try {
-      const copiedSuccessfully = await writeToClipboard(bookInfo)
+      const copiedSuccessfully = await writeToClipboard(publicationYear)
       if (!copiedSuccessfully) return
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1400)
@@ -108,15 +116,15 @@ function BookCard({ book, onDragStart }) {
   }
 
   return (
-    <div className="book-card-shell">
+    <div className={`book-card-shell${fullMode ? ' book-card-shell-full' : ''}`}>
       <Tooltip.Root>
         <Tooltip.Trigger asChild>
           <article
-            className="book-card"
+            className={`book-card${fullMode ? ' book-card-full' : ''}`}
             draggable
             role="button"
             tabIndex={0}
-            aria-label={`Скопировать информацию о книге «${book.title}»`}
+            aria-label={`Скопировать дату публикации книги «${book.title}»`}
             onClick={copyBookInfo}
             onKeyDown={(event) => {
               if (event.key === 'Enter' || event.key === ' ') {
@@ -132,17 +140,23 @@ function BookCard({ book, onDragStart }) {
                 {book.user_rating || '—'}
               </span>
             </div>
-            <h2 className="book-title">{book.title}</h2>
-            <p className="book-author">{book.author}</p>
-            <p className="book-year">{year}</p>
+            <div className="book-details">
+              <h2 className="book-title">{book.title}</h2>
+              <p className="book-author">{book.author}</p>
+              {fullMode && <p className="book-meta">Год публикации: {publicationYear}</p>}
+              {fullMode
+                ? <p className="book-meta">Прочитано: {readDate}</p>
+                : <p className="book-year">{publicationYear}</p>}
+            </div>
           </article>
         </Tooltip.Trigger>
         <Tooltip.Portal>
           <Tooltip.Content className="book-tooltip" sideOffset={8}>
             <strong>{book.title}</strong>
             <span>{book.author}</span>
-            <span>{year}</span>
-            <small>Нажмите, чтобы скопировать</small>
+            <span>Опубликовано: {publicationYear}</span>
+            <span>Прочитано: {readDate}</span>
+            <small>Нажмите, чтобы скопировать дату публикации</small>
             <Tooltip.Arrow className="book-tooltip-arrow" />
           </Tooltip.Content>
         </Tooltip.Portal>
@@ -163,7 +177,7 @@ function BookCard({ book, onDragStart }) {
   )
 }
 
-function TierBoard({ books, onDragStart, onDrop }) {
+function TierBoard({ books, fullMode, onDragStart, onDrop }) {
   return (
     <div className="tier-list" aria-label="Полотно тир-листа">
       {tiers.map((tier) => {
@@ -176,12 +190,12 @@ function TierBoard({ books, onDragStart, onDrop }) {
               <small>{tierBooks.length}</small>
             </div>
             <div
-              className="tier-content"
+              className={`tier-content${fullMode ? ' tier-content-full' : ''}`}
               onDragOver={(event) => event.preventDefault()}
               onDrop={(event) => onDrop(event, tier.name)}
             >
               {tierBooks.map((book) => (
-                <BookCard book={book} key={book.id} onDragStart={onDragStart} />
+                <BookCard book={book} fullMode={fullMode} key={book.id} onDragStart={onDragStart} />
               ))}
             </div>
           </section>
@@ -191,16 +205,16 @@ function TierBoard({ books, onDragStart, onDrop }) {
   )
 }
 
-function UnrankedShelf({ books, onDragStart }) {
+function UnrankedShelf({ books, fullMode, onDragStart }) {
   return (
     <section className="unranked-shelf" aria-label="Книги вне рейтинга">
       <header className="unranked-header">
         <h1>Вне рейтинга</h1>
         <span>{books.length} книг</span>
       </header>
-      <div className="unranked-grid">
+      <div className={`unranked-grid${fullMode ? ' unranked-grid-full' : ''}`}>
         {books.map((book) => (
-          <BookCard book={book} key={book.id} onDragStart={onDragStart} />
+          <BookCard book={book} fullMode={fullMode} key={book.id} onDragStart={onDragStart} />
         ))}
       </div>
     </section>
@@ -210,6 +224,7 @@ function UnrankedShelf({ books, onDragStart }) {
 export default function App() {
   const [books, setBooks] = useState(initialBooks)
   const [draggedBookId, setDraggedBookId] = useState(null)
+  const [fullMode, setFullMode] = useState(false)
 
   function handleDragStart(event, bookId) {
     setDraggedBookId(bookId)
@@ -252,16 +267,30 @@ export default function App() {
 
         <Tabs.Content value="books">
           <Tabs.Root className="book-tabs" defaultValue="novels">
-            <Tabs.List className="sub-tabs" aria-label="Категории книг">
-              <Tabs.Trigger className="sub-tab" value="novels">Романы</Tabs.Trigger>
-              <Tabs.Trigger className="sub-tab" value="stories">Рассказы</Tabs.Trigger>
-              <Tabs.Trigger className="sub-tab" value="manga">Манга</Tabs.Trigger>
-              <Tabs.Trigger className="sub-tab" value="unranked">Вне рейтинга</Tabs.Trigger>
-            </Tabs.List>
+            <div className="book-tabs-toolbar">
+              <Tabs.List className="sub-tabs" aria-label="Категории книг">
+                <Tabs.Trigger className="sub-tab" value="novels">Романы</Tabs.Trigger>
+                <Tabs.Trigger className="sub-tab" value="stories">Рассказы</Tabs.Trigger>
+                <Tabs.Trigger className="sub-tab" value="manga">Манга</Tabs.Trigger>
+                <Tabs.Trigger className="sub-tab" value="unranked">Вне рейтинга</Tabs.Trigger>
+              </Tabs.List>
+              <button
+                className="mode-toggle"
+                type="button"
+                aria-pressed={fullMode}
+                onClick={() => setFullMode((currentMode) => !currentMode)}
+              >
+                <span className="mode-toggle-track" aria-hidden="true">
+                  <span className="mode-toggle-thumb" />
+                </span>
+                Полный режим
+              </button>
+            </div>
 
             <Tabs.Content value="novels">
               <TierBoard
                 books={books.filter((book) => book.category === 'Роман')}
+                fullMode={fullMode}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
@@ -269,6 +298,7 @@ export default function App() {
             <Tabs.Content value="stories">
               <TierBoard
                 books={books.filter((book) => book.category === 'Рассказ')}
+                fullMode={fullMode}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
@@ -276,6 +306,7 @@ export default function App() {
             <Tabs.Content value="manga">
               <TierBoard
                 books={books.filter((book) => book.category === 'Манга')}
+                fullMode={fullMode}
                 onDragStart={handleDragStart}
                 onDrop={handleDrop}
               />
@@ -283,6 +314,7 @@ export default function App() {
             <Tabs.Content value="unranked">
               <UnrankedShelf
                 books={books.filter((book) => book.category === 'Вне рейтинга')}
+                fullMode={fullMode}
                 onDragStart={handleDragStart}
               />
             </Tabs.Content>

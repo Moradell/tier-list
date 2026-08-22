@@ -88,12 +88,21 @@ button {
   opacity: 0.42;
 }
 
-.sub-tabs {
+.book-tabs-toolbar {
+  display: flex;
   min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 7px 15px;
   border: 3px solid #050505;
   border-bottom: 0;
   background: #1d1d1c;
+}
+
+.sub-tabs {
+  min-height: 48px;
+  padding: 0;
 }
 
 .sub-tab {
@@ -107,6 +116,60 @@ button {
 .sub-tab[data-state='active'] {
   background: #343432;
   color: #ffe45e;
+}
+
+.mode-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #aaa9a4;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mode-toggle:hover,
+.mode-toggle[aria-pressed='true'] {
+  color: #fff;
+}
+
+.mode-toggle:focus-visible {
+  outline: 2px solid #ffe45e;
+  outline-offset: 2px;
+}
+
+.mode-toggle-track {
+  position: relative;
+  width: 34px;
+  height: 19px;
+  border-radius: 999px;
+  background: #555550;
+  transition: background 150ms ease;
+}
+
+.mode-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #f4f3ed;
+  transition: transform 150ms ease;
+}
+
+.mode-toggle[aria-pressed='true'] .mode-toggle-track {
+  background: #ffe45e;
+}
+
+.mode-toggle[aria-pressed='true'] .mode-toggle-thumb {
+  background: #111110;
+  transform: translateX(15px);
 }
 
 [data-radix-tabs-content] {
@@ -199,6 +262,45 @@ button {
   cursor: grab;
   outline: none;
   user-select: none;
+}
+
+.book-card-shell-full,
+.book-card-full {
+  width: 310px;
+}
+
+.book-card-full {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.book-card-full .book-cover-wrap {
+  width: 92px;
+  height: 134px;
+}
+
+.book-card-full .book-details {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.book-card-full .book-title {
+  margin-top: 0;
+  font-size: 0.92rem;
+  -webkit-line-clamp: 3;
+}
+
+.book-card-full .book-author {
+  margin-top: 7px;
+  font-size: 0.76rem;
+}
+
+.book-meta {
+  margin: 9px 0 0;
+  color: #aaa9a4;
+  font-size: 0.72rem;
+  line-height: 1.25;
 }
 
 .book-card:active {
@@ -387,6 +489,11 @@ button {
 
   .sub-tabs {
     overflow-x: auto;
+  }
+
+  .book-tabs-toolbar {
+    overflow: hidden;
+    padding: 6px 8px;
     border-width: 2px;
     border-bottom: 0;
   }
@@ -429,6 +536,27 @@ button {
 
   .book-cover-wrap {
     height: 128px;
+  }
+
+  .book-card-shell-full,
+  .book-card-full {
+    width: min(280px, calc(100vw - 94px));
+  }
+
+  .book-card-full {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .book-card-full .book-cover-wrap {
+    width: 78px;
+    height: 113px;
+  }
+
+  .mode-toggle {
+    gap: 5px;
+    padding-inline: 4px;
+    white-space: nowrap;
   }
 
   .unranked-shelf {
