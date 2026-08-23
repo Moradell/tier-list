@@ -12,13 +12,17 @@ export interface AuthorStatistic {
   booksCount: number
 }
 
+export interface DecadeStatistic extends StatisticItem {
+  averageUserRating: number
+}
+
 export interface BookStatisticsData {
   total: number
   averageUserRating: number
   averageLivelibRating: number
   byRating: StatisticItem[]
   byReadYear: StatisticItem[]
-  byDecade: StatisticItem[]
+  byDecade: DecadeStatistic[]
   topAuthors: AuthorStatistic[]
 }
 
@@ -49,9 +53,12 @@ function average(books: Book[], getValue: (book: Book) => number): number {
 export function buildBookStatistics(books: Book[]): BookStatisticsData {
   const ratingCounts = countBy(books, (book) => String(numberValue(book.user_rating)))
   const readYearCounts = countBy(books, (book) => book.read_date === '-' ? 'N/A' : book.read_date.slice(0, 4))
-  const decadeCounts = countBy(books, (book) => {
+  const decadeBooks = new Map<string, Book[]>()
+  books.forEach((book) => {
     const year = Number.parseInt(book.year, 10)
-    return Number.isFinite(year) ? `${Math.floor(year / 10) * 10}-е` : null
+    if (!Number.isFinite(year)) return
+    const decade = `${Math.floor(year / 10) * 10}-е`
+    decadeBooks.set(decade, [...(decadeBooks.get(decade) ?? []), book])
   })
   const authorBooks = new Map<string, Book[]>()
   books.forEach((book) => authorBooks.set(book.author, [...(authorBooks.get(book.author) ?? []), book]))
@@ -66,7 +73,11 @@ export function buildBookStatistics(books: Book[]): BookStatisticsData {
       if (b.label === 'N/A') return -1
       return a.label.localeCompare(b.label)
     }),
-    byDecade: mapItems(decadeCounts).sort((a, b) => Number.parseInt(a.label, 10) - Number.parseInt(b.label, 10)),
+    byDecade: [...decadeBooks].map(([label, booksByDecade]) => ({
+      label,
+      value: booksByDecade.length,
+      averageUserRating: average(booksByDecade, (book) => numberValue(book.user_rating)),
+    })).sort((a, b) => Number.parseInt(a.label, 10) - Number.parseInt(b.label, 10)),
     topAuthors: [...authorBooks].map(([author, booksByAuthor]) => ({
       author,
       booksCount: booksByAuthor.length,

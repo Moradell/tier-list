@@ -1,12 +1,12 @@
 import { useState, type CSSProperties } from 'react'
 import type { Book } from '@entities/book'
-import type { StatisticItem } from '../../model/buildBookStatistics'
+import type { DecadeStatistic } from '../../model/buildBookStatistics'
 import { StatisticsBookCard } from '../StatisticsBookCard'
 import './DecadeDistribution.scss'
 
 interface DecadeDistributionProps {
   books: Book[]
-  items: StatisticItem[]
+  items: DecadeStatistic[]
 }
 
 type DecadeStyle = CSSProperties & {
@@ -28,6 +28,7 @@ function getCenturyLabel(year: number): string {
 }
 
 export function DecadeDistribution({ books, items }: DecadeDistributionProps) {
+  const [mode, setMode] = useState<'count' | 'average'>('count')
   const [selectedDecade, setSelectedDecade] = useState<string | null>(null)
   const decades = items.map((item) => ({ ...item, decade: Number.parseInt(item.label, 10) }))
   const maximum = Math.max(...decades.map((item) => item.value), 1)
@@ -45,6 +46,24 @@ export function DecadeDistribution({ books, items }: DecadeDistributionProps) {
     <section className="decade-distribution">
       <div className="decade-distribution__heading">
         <h2>Десятилетия публикации</h2>
+        <div className="decade-distribution__modes" role="group" aria-label="Показатель тепловой карты">
+          <button
+            className={mode === 'count' ? 'decade-distribution__mode--active' : ''}
+            type="button"
+            aria-pressed={mode === 'count'}
+            onClick={() => setMode('count')}
+          >
+            Количество книг
+          </button>
+          <button
+            className={mode === 'average' ? 'decade-distribution__mode--active' : ''}
+            type="button"
+            aria-pressed={mode === 'average'}
+            onClick={() => setMode('average')}
+          >
+            Средняя оценка
+          </button>
+        </div>
       </div>
 
       <div className="decade-heatmap">
@@ -58,20 +77,30 @@ export function DecadeDistribution({ books, items }: DecadeDistributionProps) {
               const item = valuesByDecade.get(decade)
               const label = `${decade}-е`
               const isSelected = selectedDecade === label
-              const style: DecadeStyle = item ? { '--decade-intensity': 0.18 + (item.value / maximum) * 0.82 } : {}
+              const averageRating = item?.averageUserRating ?? 0
+              const displayedValue = mode === 'count'
+                ? String(item?.value ?? 0)
+                : averageRating.toLocaleString('ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 2 })
+              const intensity = mode === 'count'
+                ? (item?.value ?? 0) / maximum
+                : averageRating / 5
+              const style: DecadeStyle = item ? { '--decade-intensity': 0.18 + intensity * 0.82 } : {}
+              const ariaValue = mode === 'count'
+                ? `${item?.value ?? 0} книг`
+                : `средняя оценка ${displayedValue}`
 
               return item ? (
                 <button
                   className={`decade-heatmap__cell${isSelected ? ' decade-heatmap__cell--selected' : ''}`}
                   type="button"
                   aria-pressed={isSelected}
-                  aria-label={`${label}: ${item.value} книг`}
+                  aria-label={`${label}: ${ariaValue}`}
                   key={decade}
                   style={style}
-                  title={`${label}: ${item.value} книг`}
+                  title={`${label}: ${ariaValue}`}
                   onClick={() => selectDecade(label)}
                 >
-                  {item.value}
+                  <span className="decade-heatmap__value">{displayedValue}</span>
                 </button>
               ) : <span className="decade-heatmap__cell decade-heatmap__cell--empty" key={decade}>—</span>
             })}
