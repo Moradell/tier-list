@@ -5,6 +5,7 @@ import { BackLink } from '@shared/ui/BackLink'
 import {
   AuthorLeaderboard,
   buildBookStatistics,
+  DecadeDistribution,
   ExpandableStatisticsPanel,
   RatingDistribution,
 } from '@widgets/BookStatistics'
@@ -15,12 +16,7 @@ function formatAverage(value: number): string {
 }
 
 function readYearGroup(book: Book): string | null {
-  return book.read_date === '-' ? null : book.read_date.slice(0, 4)
-}
-
-function publicationDecadeGroup(book: Book): string | null {
-  const year = Number.parseInt(book.year, 10)
-  return Number.isFinite(year) ? `${Math.floor(year / 10) * 10}-е` : null
+  return book.read_date === '-' ? 'N/A' : book.read_date.slice(0, 4)
 }
 
 export function BooksStatsPage() {
@@ -53,8 +49,8 @@ export function BooksStatsPage() {
       <RatingDistribution books={books} items={statistics.byRating} />
 
       <div className="stats-grid">
+        <DecadeDistribution books={books} items={statistics.byDecade} />
         <ExpandableStatisticsPanel books={books} getGroup={readYearGroup} items={statistics.byReadYear} title="Прочитано по годам" />
-        <ExpandableStatisticsPanel books={books} getGroup={publicationDecadeGroup} items={statistics.byDecade} title="Десятилетия публикации" />
       </div>
     </main>
   )

@@ -1,4 +1,5 @@
 export { AuthorLeaderboard } from './ui/AuthorLeaderboard'
+export { DecadeDistribution } from './ui/DecadeDistribution'
 export { ExpandableStatisticsPanel } from './ui/ExpandableStatisticsPanel'
 export { RatingDistribution } from './ui/RatingDistribution'
 export { buildBookStatistics } from './model/buildBookStatistics'

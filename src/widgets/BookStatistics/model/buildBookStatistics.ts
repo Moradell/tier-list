@@ -47,9 +47,8 @@ function average(books: Book[], getValue: (book: Book) => number): number {
 }
 
 export function buildBookStatistics(books: Book[]): BookStatisticsData {
-  const datedBooks = books.filter((book) => book.read_date !== '-')
   const ratingCounts = countBy(books, (book) => String(numberValue(book.user_rating)))
-  const readYearCounts = countBy(datedBooks, (book) => book.read_date.slice(0, 4))
+  const readYearCounts = countBy(books, (book) => book.read_date === '-' ? 'N/A' : book.read_date.slice(0, 4))
   const decadeCounts = countBy(books, (book) => {
     const year = Number.parseInt(book.year, 10)
     return Number.isFinite(year) ? `${Math.floor(year / 10) * 10}-е` : null
@@ -62,8 +61,12 @@ export function buildBookStatistics(books: Book[]): BookStatisticsData {
     averageUserRating: average(books, (book) => numberValue(book.user_rating)),
     averageLivelibRating: average(books, (book) => numberValue(book.livelib_rating)),
     byRating: mapItems(ratingCounts).sort((a, b) => Number(b.label) - Number(a.label)),
-    byReadYear: mapItems(readYearCounts).sort((a, b) => a.label.localeCompare(b.label)),
-    byDecade: mapItems(decadeCounts).sort((a, b) => b.value - a.value).slice(0, 8),
+    byReadYear: mapItems(readYearCounts).sort((a, b) => {
+      if (a.label === 'N/A') return 1
+      if (b.label === 'N/A') return -1
+      return a.label.localeCompare(b.label)
+    }),
+    byDecade: mapItems(decadeCounts).sort((a, b) => Number.parseInt(a.label, 10) - Number.parseInt(b.label, 10)),
     topAuthors: [...authorBooks].map(([author, booksByAuthor]) => ({
       author,
       booksCount: booksByAuthor.length,
