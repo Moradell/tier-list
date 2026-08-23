@@ -1,0 +1,1 @@
+export { StatisticsBookCard } from './StatisticsBookCard'

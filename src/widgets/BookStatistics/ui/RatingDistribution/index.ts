@@ -1,0 +1,1 @@
+export { RatingDistribution } from './RatingDistribution'

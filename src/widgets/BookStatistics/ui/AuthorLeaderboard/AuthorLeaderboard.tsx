@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { authorPhotoPlaceholder, getAuthorPhoto, type Book } from '@entities/book'
-import type { AuthorStatistic } from '../model/buildBookStatistics'
-import { StatisticsBookCard } from './StatisticsBookCard'
+import type { AuthorStatistic } from '../../model/buildBookStatistics'
+import { StatisticsBookCard } from '../StatisticsBookCard'
+import './AuthorLeaderboard.scss'
 
 interface AuthorLeaderboardProps {
   authors: AuthorStatistic[]

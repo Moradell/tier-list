@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import type { Book } from '@entities/book'
-import type { StatisticItem } from '../model/buildBookStatistics'
-import { StatisticsBookCard } from './StatisticsBookCard'
+import type { StatisticItem } from '../../model/buildBookStatistics'
+import { StatisticsBookCard } from '../StatisticsBookCard'
+import './ExpandableStatisticsPanel.scss'
 
 interface ExpandableStatisticsPanelProps {
   books: Book[]
