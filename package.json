@@ -4,14 +4,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run movies:sync",
     "dev": "vite",
+    "prebuild": "npm run movies:sync",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "books:validate": "node --import tsx scripts/books.ts validate",
     "books:sort": "node --import tsx scripts/books.ts sort",
+    "movies:meta": "node --import tsx scripts/moviesMeta.ts",
+    "movies:history": "node --import tsx scripts/moviesHistory.ts",
+    "movies:enrich": "node --import tsx scripts/moviesEnrich.ts",
+    "movies:sync": "npm run movies:meta && npm run movies:history",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.23",
+    "@radix-ui/react-select": "^2.3.7",
     "@radix-ui/react-tooltip": "^1.2.16",
     "@vitejs/plugin-react": "latest",
     "react": "latest",

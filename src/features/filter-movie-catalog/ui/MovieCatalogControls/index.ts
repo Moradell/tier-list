@@ -1,0 +1,1 @@
+export { MovieCatalogControls } from './MovieCatalogControls'

@@ -1,6 +1,6 @@
 import { useRef, useState, type DragEvent } from 'react'
 import type { Book, BookCategory, BookTier } from '@entities/book'
-import type { HistoryEvent } from '@entities/history'
+import type { BookHistoryEvent } from '@entities/book-history'
 import type { BookDragOverHandler, BookDragStartHandler } from './types'
 import { persistBookOrder } from '../api/persistBookOrder'
 
@@ -22,7 +22,7 @@ function recalculatePositions(books: Book[], category: BookCategory): Book[] {
   })
 }
 
-export function useBookDnd(initialBooks: Book[], onHistoryEvents: (events: HistoryEvent[]) => void) {
+export function useBookDnd(initialBooks: Book[], onHistoryEvents: (events: BookHistoryEvent[]) => void) {
   const [books, setBooks] = useState<Book[]>(initialBooks)
   const [draggedBookId, setDraggedBookId] = useState<string | null>(null)
   const booksRef = useRef(books)

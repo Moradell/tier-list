@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import './Tabs.scss'
 
 export interface TabItem {
+  count?: number
   label: string
   to: string
 }
@@ -24,7 +25,10 @@ export function Tabs({ ariaLabel, items, level = 'primary' }: TabsProps) {
           key={item.to}
           to={item.to}
         >
-          {item.label}
+          <span>{item.label}</span>
+          {item.count !== undefined && (
+            <span className="tab-count">{item.count.toLocaleString('ru-RU')}</span>
+          )}
         </NavLink>
       ))}
     </nav>

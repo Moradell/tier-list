@@ -2,12 +2,12 @@ import { z } from 'zod'
 
 const HISTORY_TIERS = ['S', 'A', 'B', 'C', 'D', 'F'] as const
 
-const HistoryPositionSchema = z.object({
+const BookHistoryPositionSchema = z.object({
   tier: z.enum(HISTORY_TIERS),
   position: z.number().int().positive(),
 })
 
-const HistoryBookSchema = z.object({
+const BookHistoryBookSchema = z.object({
   id: z.string().min(1),
   category: z.enum(['Роман', 'Рассказ', 'Манга', 'Вне рейтинга']),
   title: z.string().min(1),
@@ -16,24 +16,24 @@ const HistoryBookSchema = z.object({
   url: z.string().url(),
 })
 
-export const HistoryEventSchema = z.object({
+export const BookHistoryEventSchema = z.object({
   id: z.string().min(1),
   type: z.enum(['move', 'new']),
-  book: HistoryBookSchema,
-  from: HistoryPositionSchema.nullable(),
-  to: HistoryPositionSchema,
+  book: BookHistoryBookSchema,
+  from: BookHistoryPositionSchema.nullable(),
+  to: BookHistoryPositionSchema,
   createdAt: z.string().datetime({ offset: true }),
 })
 
-export const HistoryDataSchema = z.object({
+export const BookHistoryDataSchema = z.object({
   version: z.literal(1),
   knownBookIds: z.array(z.string()).refine((ids) => new Set(ids).size === ids.length, 'ID книг должны быть уникальными'),
-  events: z.array(HistoryEventSchema),
+  events: z.array(BookHistoryEventSchema),
 })
 
-export type HistoryEvent = z.infer<typeof HistoryEventSchema>
-export type HistoryData = z.infer<typeof HistoryDataSchema>
+export type BookHistoryEvent = z.infer<typeof BookHistoryEventSchema>
+export type BookHistoryData = z.infer<typeof BookHistoryDataSchema>
 
-export function parseHistory(value: unknown): HistoryData {
-  return HistoryDataSchema.parse(value)
+export function parseBookHistory(value: unknown): BookHistoryData {
+  return BookHistoryDataSchema.parse(value)
 }

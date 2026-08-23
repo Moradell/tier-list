@@ -1,6 +1,6 @@
 import { createContext, useContext, type ReactNode } from 'react'
 import { initialBooks } from '@entities/book'
-import type { HistoryEvent } from '@entities/history'
+import type { BookHistoryEvent } from '@entities/book-history'
 import { useBookDnd } from './model/useBookDnd'
 
 type BookReorderContextValue = ReturnType<typeof useBookDnd>
@@ -9,7 +9,7 @@ const BookReorderContext = createContext<BookReorderContextValue | null>(null)
 
 interface BookReorderProviderProps {
   children: ReactNode
-  onHistoryEvents: (events: HistoryEvent[]) => void
+  onHistoryEvents: (events: BookHistoryEvent[]) => void
 }
 
 export function BookReorderProvider({ children, onHistoryEvents }: BookReorderProviderProps) {

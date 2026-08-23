@@ -1,0 +1,31 @@
+.movie-list {
+  min-height: calc(100vh - 61px);
+  border: 3px solid #050505;
+  background: #191918;
+}
+
+.movie-list__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 24px 16px;
+  padding: 24px 28px 36px;
+}
+
+.movie-list__empty {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+  padding: 32px;
+  color: #92928e;
+  font-size: 0.84rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .movie-list { border-width: 2px; }
+  .movie-list__grid {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    gap: 20px 11px;
+    padding: 18px 14px 28px;
+  }
+}

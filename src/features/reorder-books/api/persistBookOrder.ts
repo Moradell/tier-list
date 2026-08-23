@@ -1,9 +1,9 @@
 import type { Book, BookCategory } from '@entities/book'
-import type { HistoryEvent } from '@entities/history'
+import type { BookHistoryEvent } from '@entities/book-history'
 
 interface PersistResult {
-  event: HistoryEvent | null
-  newEvents: HistoryEvent[]
+  event: BookHistoryEvent | null
+  newEvents: BookHistoryEvent[]
 }
 
 export async function persistBookOrder(category: BookCategory, books: Book[], movedBookId: string): Promise<PersistResult> {

@@ -3,14 +3,18 @@ import { readFile, rename, writeFile } from 'node:fs/promises'
 import type { IncomingMessage } from 'node:http'
 import path from 'node:path'
 import type { Plugin } from 'vite'
-import { parseHistory, type HistoryData, type HistoryEvent } from '../../src/entities/history/model/history.ts'
+import {
+  parseBookHistory,
+  type BookHistoryData,
+  type BookHistoryEvent,
+} from '../../src/entities/book-history/model/bookHistory.ts'
 import { BOOK_TIERS, parseBooksJson, type BookRecord, type BookTier } from '../../src/entities/book/model/books.ts'
 
 const categoryFiles = {
-  'Роман': 'novels.json',
-  'Рассказ': 'stories.json',
-  'Манга': 'manga.json',
-  'Вне рейтинга': 'unranked.json',
+  'Роман': 'books/novels.json',
+  'Рассказ': 'books/stories.json',
+  'Манга': 'books/manga.json',
+  'Вне рейтинга': 'books/unranked.json',
 } as const
 
 type BookCategory = keyof typeof categoryFiles
@@ -83,22 +87,22 @@ function parsePayload(value: unknown): OrderPayload {
   return { category, movedBookId, books }
 }
 
-async function readHistory(root: string): Promise<HistoryData> {
-  const value = JSON.parse(await readFile(path.join(root, 'data/history.json'), 'utf8')) as unknown
-  return parseHistory(value)
+async function readHistory(root: string): Promise<BookHistoryData> {
+  const value = JSON.parse(await readFile(path.join(root, 'data/books/history.json'), 'utf8')) as unknown
+  return parseBookHistory(value)
 }
 
-async function writeHistory(root: string, history: HistoryData): Promise<void> {
-  const filePath = path.join(root, 'data/history.json')
+async function writeHistory(root: string, history: BookHistoryData): Promise<void> {
+  const filePath = path.join(root, 'data/books/history.json')
   const temporaryPath = `${filePath}.tmp`
   await writeFile(temporaryPath, `${JSON.stringify(history, null, 2)}\n`, 'utf8')
   await rename(temporaryPath, filePath)
 }
 
-async function syncNewBooks(root: string): Promise<{ history: HistoryData; newEvents: HistoryEvent[] }> {
+async function syncNewBooks(root: string): Promise<{ history: BookHistoryData; newEvents: BookHistoryEvent[] }> {
   const history = await readHistory(root)
   const knownBookIds = new Set(history.knownBookIds)
-  const newEvents: HistoryEvent[] = []
+  const newEvents: BookHistoryEvent[] = []
 
   for (const [category, file] of Object.entries(categoryFiles) as [BookCategory, string][]) {
     const relativePath = `data/${file}`
@@ -127,7 +131,7 @@ async function syncNewBooks(root: string): Promise<{ history: HistoryData; newEv
   return { history, newEvents }
 }
 
-async function saveOrder(root: string, payload: OrderPayload): Promise<{ event: HistoryEvent | null; newEvents: HistoryEvent[] }> {
+async function saveOrder(root: string, payload: OrderPayload): Promise<{ event: BookHistoryEvent | null; newEvents: BookHistoryEvent[] }> {
   const { history, newEvents } = await syncNewBooks(root)
   const relativePath = `data/${categoryFiles[payload.category]}`
   const filePath = path.join(root, relativePath)
@@ -164,7 +168,7 @@ async function saveOrder(root: string, payload: OrderPayload): Promise<{ event: 
   const before = booksById.get(payload.movedBookId)!
   const after = orderedBooks.find((book) => getBookId(book) === payload.movedBookId)!
   const hasMoved = before.tier !== after.tier || before.position !== after.position
-  const event: HistoryEvent | null = hasMoved ? {
+  const event: BookHistoryEvent | null = hasMoved ? {
     id: randomUUID(),
     type: 'move',
     book: createBookSnapshot(after, payload.category),
@@ -191,7 +195,7 @@ export function booksApiPlugin(): Plugin {
     name: 'books-api',
     apply: 'serve',
     handleHotUpdate(context) {
-      const dataFiles = [...Object.values(categoryFiles), 'history.json']
+      const dataFiles = [...Object.values(categoryFiles), 'books/history.json']
       if (dataFiles.some((file) => context.file.endsWith(`/data/${file}`))) return []
     },
     configureServer(server) {

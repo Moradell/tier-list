@@ -1,0 +1,6 @@
+export { MovieCatalogFiltersProvider, useMovieCatalogFilters } from './model/MovieCatalogFiltersContext'
+export { buildMovieFilterOptions } from './lib/buildMovieFilterOptions'
+export { filterMovies } from './lib/filterMovies'
+export { sortMovies } from './lib/sortMovies'
+export { MovieCatalogControls } from './ui/MovieCatalogControls'
+export type { MovieFilterOptions, MovieFilters, MovieSortOrder } from './model/types'

@@ -1,0 +1,1 @@
+export { MovieCategoryPage } from './MovieCategoryPage'

@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { BOOK_TIERS, parseBooksJson, type BookRecord } from '@entities/book/model/books'
-import { parseHistory } from '@entities/history/model/history'
+import { parseBookHistory } from '@entities/book-history/model/bookHistory'
 
 interface BookGroup {
   file: string
@@ -11,12 +11,13 @@ interface BookGroup {
 }
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const dataDirectory = 'data/books'
 const files = ['novels.json', 'stories.json', 'manga.json', 'unranked.json']
 const tierOrder = new Map(BOOK_TIERS.map((tier, index) => [tier, index]))
 
 async function loadBooks(): Promise<BookGroup[]> {
   return Promise.all(files.map(async (file) => {
-    const relativePath = `data/${file}`
+    const relativePath = `${dataDirectory}/${file}`
     const value = JSON.parse(await readFile(path.join(root, relativePath), 'utf8')) as unknown
     return { file, relativePath, books: parseBooksJson(value, relativePath) }
   }))
@@ -62,7 +63,7 @@ async function validate(): Promise<void> {
   const groups = await loadBooks()
   assertNoDuplicates(groups)
   assertPositions(groups)
-  const history = parseHistory(JSON.parse(await readFile(path.join(root, 'data/history.json'), 'utf8')) as unknown)
+  const history = parseBookHistory(JSON.parse(await readFile(path.join(root, dataDirectory, 'history.json'), 'utf8')) as unknown)
   const knownBookIds = new Set(history.knownBookIds)
   for (const group of groups) {
     for (const book of group.books) {

@@ -1,4 +1,4 @@
-import authorPhotos from '@data/authors/files.json'
+import authorPhotos from '@data/books/authors/files.json'
 
 const photos = authorPhotos as Record<string, string | null>
 

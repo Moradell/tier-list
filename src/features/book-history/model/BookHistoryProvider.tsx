@@ -1,23 +1,23 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
-import historyJson from '@data/history.json?raw'
-import { parseHistory, type HistoryEvent } from '@entities/history'
+import historyJson from '@data/books/history.json?raw'
+import { parseBookHistory, type BookHistoryEvent } from '@entities/book-history'
 
-interface HistoryContextValue {
-  events: HistoryEvent[]
+interface BookHistoryContextValue {
+  events: BookHistoryEvent[]
   isOpen: boolean
-  addEvents: (events: HistoryEvent[]) => void
+  addEvents: (events: BookHistoryEvent[]) => void
   closeHistory: () => void
   openHistory: () => void
 }
 
-const initialHistory = parseHistory(JSON.parse(historyJson) as unknown)
-const HistoryContext = createContext<HistoryContextValue | null>(null)
+const initialHistory = parseBookHistory(JSON.parse(historyJson) as unknown)
+const BookHistoryContext = createContext<BookHistoryContextValue | null>(null)
 
-export function HistoryProvider({ children }: { children: ReactNode }) {
+export function BookHistoryProvider({ children }: { children: ReactNode }) {
   const [events, setEvents] = useState(initialHistory.events)
   const [isOpen, setIsOpen] = useState(false)
 
-  const addEvents = useCallback((newEvents: HistoryEvent[]) => {
+  const addEvents = useCallback((newEvents: BookHistoryEvent[]) => {
     if (newEvents.length === 0) return
     setEvents((currentEvents) => {
       const knownIds = new Set(currentEvents.map((event) => event.id))
@@ -30,13 +30,13 @@ export function HistoryProvider({ children }: { children: ReactNode }) {
     void fetch('/api/books/history')
       .then(async (response) => {
         if (!response.ok) throw new Error(`Не удалось загрузить историю (${response.status})`)
-        return parseHistory(await response.json() as unknown)
+        return parseBookHistory(await response.json() as unknown)
       })
       .then((history) => setEvents(history.events))
       .catch((error: unknown) => console.error(error))
   }, [])
 
-  const value = useMemo<HistoryContextValue>(() => ({
+  const value = useMemo<BookHistoryContextValue>(() => ({
     events,
     isOpen,
     addEvents,
@@ -44,11 +44,11 @@ export function HistoryProvider({ children }: { children: ReactNode }) {
     openHistory: () => setIsOpen(true),
   }), [addEvents, events, isOpen])
 
-  return <HistoryContext.Provider value={value}>{children}</HistoryContext.Provider>
+  return <BookHistoryContext.Provider value={value}>{children}</BookHistoryContext.Provider>
 }
 
-export function useHistory(): HistoryContextValue {
-  const context = useContext(HistoryContext)
-  if (!context) throw new Error('useHistory должен использоваться внутри HistoryProvider')
+export function useBookHistory(): BookHistoryContextValue {
+  const context = useContext(BookHistoryContext)
+  if (!context) throw new Error('useBookHistory должен использоваться внутри BookHistoryProvider')
   return context
 }

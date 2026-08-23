@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Tabs, type TabItem } from '@shared/ui/Tabs'
-import { HistoryDrawer, useHistory } from '@features/history'
+import { BookHistoryDrawer, useBookHistory } from '@features/book-history'
+import { MovieHistoryDrawer, useMovieHistory } from '@features/movie-history'
 import './RootLayout.scss'
 
 const sections: TabItem[] = [
@@ -9,35 +10,37 @@ const sections: TabItem[] = [
 ]
 
 export function RootLayout() {
-  const { events, openHistory } = useHistory()
+  const bookHistory = useBookHistory()
+  const movieHistory = useMovieHistory()
   const { pathname } = useLocation()
-  const statisticsPath = pathname.startsWith('/movies') ? '/movies/stats' : '/books/stats'
-  const statisticsReturnPath = pathname.startsWith('/movies')
-    ? '/movies'
-    : pathname.startsWith('/books/') && pathname !== '/books/stats'
-      ? pathname
-      : '/books/novels'
+  const isMoviesSection = pathname.startsWith('/movies')
+  const activeHistory = isMoviesSection ? movieHistory : bookHistory
+  const statisticsReturnPath = pathname.startsWith('/books/') && pathname !== '/books/stats'
+    ? pathname
+    : '/books/novels'
 
   return (
     <>
       <header className="app-nav">
         <Tabs ariaLabel="Разделы" items={sections} />
         <div className="app-nav-actions">
-          <NavLink
-            className={({ isActive }) => `statistics-trigger${isActive ? ' statistics-trigger--active' : ''}`}
-            state={{ returnTo: statisticsReturnPath }}
-            to={statisticsPath}
-          >
-            Статистика
-          </NavLink>
-          <button className="history-trigger" type="button" onClick={openHistory}>
+          {!isMoviesSection && (
+            <NavLink
+              className={({ isActive }) => `statistics-trigger${isActive ? ' statistics-trigger--active' : ''}`}
+              state={{ returnTo: statisticsReturnPath }}
+              to="/books/stats"
+            >
+              Статистика
+            </NavLink>
+          )}
+          <button className="history-trigger" type="button" onClick={activeHistory.openHistory}>
             История
-            {events.length > 0 && <span>{events.length}</span>}
+            {activeHistory.events.length > 0 && <span>{activeHistory.events.length}</span>}
           </button>
         </div>
       </header>
       <Outlet />
-      <HistoryDrawer />
+      {isMoviesSection ? <MovieHistoryDrawer /> : <BookHistoryDrawer />}
     </>
   )
 }

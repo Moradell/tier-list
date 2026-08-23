@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { BookCategoryPage } from '@/pages/books/BookCategoryPage'
 import { BooksPage } from '@/pages/books/BooksPage'
 import { BooksStatsPage } from '@/pages/books/BooksStatsPage'
-import { MoviesPage } from '@/pages/MoviesPage'
+import { MovieCategoryPage, MoviesPage } from '@/pages/MoviesPage'
 import { MoviesStatsPage } from '@/pages/MoviesStatsPage'
 import { RootLayout } from '../layouts/RootLayout'
 
@@ -19,7 +19,12 @@ export function AppRouter() {
           <Route path="unranked" element={<BookCategoryPage category="Вне рейтинга" />} />
         </Route>
         <Route path="books/stats" element={<BooksStatsPage />} />
-        <Route path="movies" element={<MoviesPage />} />
+        <Route path="movies" element={<MoviesPage />}>
+          <Route index element={<Navigate replace to="films" />} />
+          <Route path="films" element={<MovieCategoryPage category="film" />} />
+          <Route path="series" element={<MovieCategoryPage category="series" />} />
+          <Route path="anime" element={<MovieCategoryPage category="anime" />} />
+        </Route>
         <Route path="movies/stats" element={<MoviesStatsPage />} />
         <Route path="*" element={<Navigate replace to="/books/novels" />} />
       </Route>

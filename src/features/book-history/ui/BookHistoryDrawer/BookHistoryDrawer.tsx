@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import type { HistoryEvent } from '@entities/history'
-import { useHistory } from '../HistoryProvider'
-import './HistoryDrawer.scss'
+import type { BookHistoryEvent } from '@entities/book-history'
+import { useBookHistory } from '../../model/BookHistoryProvider'
+import './BookHistoryDrawer.scss'
 
-function formatPosition(event: HistoryEvent, position: HistoryEvent['to']): string {
+function formatPosition(event: BookHistoryEvent, position: BookHistoryEvent['to']): string {
   return event.book.category === 'Вне рейтинга'
     ? `№${position.position}`
     : `${position.tier}${position.position}`
@@ -33,8 +33,8 @@ function formatExactDate(value: string): string {
   }).format(new Date(value))
 }
 
-export function HistoryDrawer() {
-  const { closeHistory, events, isOpen } = useHistory()
+export function BookHistoryDrawer() {
+  const { closeHistory, events, isOpen } = useBookHistory()
   const newestEvents = [...events].reverse()
 
   useEffect(() => {

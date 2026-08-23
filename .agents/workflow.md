@@ -7,6 +7,10 @@ npm run dev
 npm run typecheck
 npm run books:validate
 npm run books:sort
+npm run movies:meta
+npm run movies:history
+npm run movies:enrich
+npm run movies:sync
 npm run build
 npm run preview
 ```

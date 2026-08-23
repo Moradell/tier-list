@@ -1,7 +1,7 @@
-import novelsJson from '@data/novels.json'
-import storiesJson from '@data/stories.json'
-import mangaJson from '@data/manga.json'
-import unrankedJson from '@data/unranked.json'
+import novelsJson from '@data/books/novels.json'
+import storiesJson from '@data/books/stories.json'
+import mangaJson from '@data/books/manga.json'
+import unrankedJson from '@data/books/unranked.json'
 import { parseBooksJson } from './books'
 import type { Book, BookCategory } from './types'
 
@@ -14,8 +14,8 @@ function prepareBooks(value: unknown, category: BookCategory, sourceName: string
 }
 
 export const initialBooks: Book[] = [
-  ...prepareBooks(novelsJson, 'Роман', 'data/novels.json'),
-  ...prepareBooks(storiesJson, 'Рассказ', 'data/stories.json'),
-  ...prepareBooks(mangaJson, 'Манга', 'data/manga.json'),
-  ...prepareBooks(unrankedJson, 'Вне рейтинга', 'data/unranked.json'),
+  ...prepareBooks(novelsJson, 'Роман', 'data/books/novels.json'),
+  ...prepareBooks(storiesJson, 'Рассказ', 'data/books/stories.json'),
+  ...prepareBooks(mangaJson, 'Манга', 'data/books/manga.json'),
+  ...prepareBooks(unrankedJson, 'Вне рейтинга', 'data/books/unranked.json'),
 ]

@@ -1,19 +1,22 @@
 import type { ReactNode } from 'react'
 import { BookReorderProvider } from '@features/reorder-books'
-import { HistoryProvider, useHistory } from '@features/history'
+import { BookHistoryProvider, useBookHistory } from '@features/book-history'
+import { MovieHistoryProvider } from '@features/movie-history'
 import { TooltipProvider } from '@shared/ui/Tooltip'
 
 function ReorderProviderBridge({ children }: { children: ReactNode }) {
-  const { addEvents } = useHistory()
+  const { addEvents } = useBookHistory()
   return <BookReorderProvider onHistoryEvents={addEvents}>{children}</BookReorderProvider>
 }
 
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <TooltipProvider delayDuration={250}>
-      <HistoryProvider>
-        <ReorderProviderBridge>{children}</ReorderProviderBridge>
-      </HistoryProvider>
+      <BookHistoryProvider>
+        <MovieHistoryProvider>
+          <ReorderProviderBridge>{children}</ReorderProviderBridge>
+        </MovieHistoryProvider>
+      </BookHistoryProvider>
     </TooltipProvider>
   )
 }
