@@ -1,0 +1,38 @@
+[
+  {
+    "tier": "B",
+    "position": "1",
+    "title": "Поднятие уровня в одиночку. Solo Leveling. Книга 1",
+    "author": "Чхугон",
+    "user_rating": "4",
+    "livelib_rating": "4,2",
+    "url": "https://www.livelib.ru/book/1007679859",
+    "cover": "/covers/1007679859.jpg",
+    "year": "2018",
+    "read_date": "2024-03-20"
+  },
+  {
+    "tier": "B",
+    "position": "2",
+    "title": "Поднятие уровня в одиночку. Solo Leveling. Книга 3",
+    "author": "Чхугон",
+    "user_rating": "4",
+    "livelib_rating": "4,6",
+    "url": "https://www.livelib.ru/book/1009080238",
+    "cover": "/covers/1009080238.jpg",
+    "year": "2018",
+    "read_date": "2024-03-20"
+  },
+  {
+    "tier": "B",
+    "position": "3",
+    "title": "Поднятие уровня в одиночку. Solo Leveling. Книга 2",
+    "author": "Чхугон",
+    "user_rating": "4",
+    "livelib_rating": "4,5",
+    "url": "https://www.livelib.ru/book/1008702787",
+    "cover": "/covers/1008702787.jpg",
+    "year": "2018",
+    "read_date": "2024-03-20"
+  }
+]

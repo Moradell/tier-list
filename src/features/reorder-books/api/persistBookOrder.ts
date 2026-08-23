@@ -19,7 +19,7 @@ export async function persistBookOrder(category: BookCategory, books: Book[], mo
 
   if (!response.ok) {
     const result = await response.json().catch(() => null) as { error?: string } | null
-    throw new Error(result?.error ?? `Не удалось сохранить CSV (${response.status})`)
+    throw new Error(result?.error ?? `Не удалось сохранить данные книг (${response.status})`)
   }
 
   return response.json() as Promise<PersistResult>

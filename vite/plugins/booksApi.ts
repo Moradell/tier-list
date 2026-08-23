@@ -2,16 +2,15 @@ import { randomUUID } from 'node:crypto'
 import { readFile, rename, writeFile } from 'node:fs/promises'
 import type { IncomingMessage } from 'node:http'
 import path from 'node:path'
-import Papa from 'papaparse'
 import type { Plugin } from 'vite'
 import { parseHistory, type HistoryData, type HistoryEvent } from '../../src/entities/history/model/history.ts'
-import { BOOK_COLUMNS, BOOK_TIERS, parseBooksCsv, type BookRecord, type BookTier } from '../../src/entities/book/model/books.ts'
+import { BOOK_TIERS, parseBooksJson, type BookRecord, type BookTier } from '../../src/entities/book/model/books.ts'
 
 const categoryFiles = {
-  'Роман': 'novels.csv',
-  'Рассказ': 'stories.csv',
-  'Манга': 'manga.csv',
-  'Вне рейтинга': 'unranked.csv',
+  'Роман': 'novels.json',
+  'Рассказ': 'stories.json',
+  'Манга': 'manga.json',
+  'Вне рейтинга': 'unranked.json',
 } as const
 
 type BookCategory = keyof typeof categoryFiles
@@ -103,7 +102,8 @@ async function syncNewBooks(root: string): Promise<{ history: HistoryData; newEv
 
   for (const [category, file] of Object.entries(categoryFiles) as [BookCategory, string][]) {
     const relativePath = `data/${file}`
-    const books = parseBooksCsv(await readFile(path.join(root, relativePath), 'utf8'), relativePath)
+    const value = JSON.parse(await readFile(path.join(root, relativePath), 'utf8')) as unknown
+    const books = parseBooksJson(value, relativePath)
     for (const book of books) {
       const id = getBookId(book)
       if (knownBookIds.has(id)) continue
@@ -131,10 +131,11 @@ async function saveOrder(root: string, payload: OrderPayload): Promise<{ event: 
   const { history, newEvents } = await syncNewBooks(root)
   const relativePath = `data/${categoryFiles[payload.category]}`
   const filePath = path.join(root, relativePath)
-  const sourceBooks = parseBooksCsv(await readFile(filePath, 'utf8'), relativePath)
+  const sourceValue = JSON.parse(await readFile(filePath, 'utf8')) as unknown
+  const sourceBooks = parseBooksJson(sourceValue, relativePath)
   const booksById = new Map(sourceBooks.map((book) => [getBookId(book), book]))
 
-  if (payload.books.length !== sourceBooks.length) throw new Error('Количество книг не совпадает с CSV')
+  if (payload.books.length !== sourceBooks.length) throw new Error('Количество книг не совпадает с файлом данных')
   for (const { id } of payload.books) {
     if (!booksById.has(id)) throw new Error(`Книга ${id} отсутствует в ${relativePath}`)
   }
@@ -156,9 +157,8 @@ async function saveOrder(root: string, payload: OrderPayload): Promise<{ event: 
     ))
   }
 
-  const csv = Papa.unparse({ fields: [...BOOK_COLUMNS], data: orderedBooks }, { newline: '\n' })
   const temporaryPath = `${filePath}.tmp`
-  await writeFile(temporaryPath, `${csv}\n`, 'utf8')
+  await writeFile(temporaryPath, `${JSON.stringify(orderedBooks, null, 2)}\n`, 'utf8')
   await rename(temporaryPath, filePath)
 
   const before = booksById.get(payload.movedBookId)!

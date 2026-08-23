@@ -26,7 +26,7 @@ src/
 │   ├── reorder-books/         # DnD и сохранение порядка
 │   └── history/               # Provider и шторка истории
 ├── entities/                  # Бизнес-сущности
-│   ├── book/                  # Модель, CSV-схема и BookCard
+│   ├── book/                  # Модель, JSON-схема и BookCard
 │   └── history/               # Модель события истории
 └── shared/                    # Предметно-независимый код
     └── ui/                    # Tabs, Tooltip и будущие общие компоненты
@@ -62,21 +62,31 @@ DnD: widget передаёт ему обычные DOM-обработчики, �
 
 ## Данные и локальное редактирование
 
-Книги хранятся в `data/*.csv`. Порядок колонок:
+Книги хранятся в массивах объектов `data/*.json`. Поля книги:
 
-```text
-tier, position, title, author, user_rating, livelib_rating,
-url, cover, year, read_date
+```json
+{
+  "tier": "S",
+  "position": "1",
+  "title": "Название",
+  "author": "Автор",
+  "user_rating": "5",
+  "livelib_rating": "4.5",
+  "url": "https://www.livelib.ru/book/...",
+  "cover": "/covers/example.jpg",
+  "year": "2020",
+  "read_date": "2024-01-31"
+}
 ```
 
 `position` начинается с `1` внутри каждого тира. Файл должен быть расположен в
-порядке `S → A → B → C → D → F`. Для `unranked.csv` позиция сквозная.
+порядке `S → A → B → C → D → F`. Для `unranked.json` позиция сквозная.
 
 История хранится в `data/history.json`. Текущая библиотека внесена в
 `knownBookIds`, поэтому события `new` создаются только для книг, добавленных
 после появления истории.
 
-DnD работает только в `npm run dev`. Dev-only Vite API атомарно обновляет CSV,
+DnD работает только в `npm run dev`. Dev-only Vite API атомарно обновляет JSON,
 пересчитывает позиции и добавляет событие истории. В production и на GitHub
 Pages карточки не являются draggable.
 
@@ -102,8 +112,8 @@ npm run build
 ```
 
 - `typecheck` проверяет TypeScript без генерации файлов.
-- `books:validate` проверяет CSV, позиции, дубликаты и историю.
-- `books:sort` сортирует CSV и пересчитывает позиции.
+- `books:validate` проверяет JSON, позиции, дубликаты и историю.
+- `books:sort` сортирует JSON и пересчитывает позиции.
 - `build` создаёт production-сборку в `dist`.
 
 Локальный `BACKLOG.md` добавлен в `.gitignore` и не публикуется.

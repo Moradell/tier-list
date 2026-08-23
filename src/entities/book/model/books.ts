@@ -1,20 +1,6 @@
-import Papa from 'papaparse'
 import { z } from 'zod'
 
 export const BOOK_TIERS = ['S', 'A', 'B', 'C', 'D', 'F'] as const
-
-export const BOOK_COLUMNS = [
-  'tier',
-  'position',
-  'title',
-  'author',
-  'user_rating',
-  'livelib_rating',
-  'url',
-  'cover',
-  'year',
-  'read_date',
-] as const
 
 const rating = z.string().regex(/^(?:[0-4](?:[.,]\d)?|5(?:[.,]0)?)$/, 'ожидалась оценка от 0 до 5')
 
@@ -34,34 +20,14 @@ export const BookSchema = z.object({
 export type BookRecord = z.infer<typeof BookSchema>
 export type BookTier = (typeof BOOK_TIERS)[number]
 
+const BooksFileSchema = z.array(BookSchema)
+
 function formatIssues(issues: z.core.$ZodIssue[]): string {
   return issues.map((issue) => `${issue.path.join('.') || 'строка'}: ${issue.message}`).join('; ')
 }
 
-export function parseBooksCsv(csv: string, sourceName = 'CSV'): BookRecord[] {
-  const parsed = Papa.parse<Record<string, string>>(csv, {
-    header: true,
-    skipEmptyLines: 'greedy',
-    transformHeader: (header) => header.replace(/^\uFEFF/, '').trim(),
-  })
-
-  if (parsed.errors.length > 0) {
-    const details = parsed.errors
-      .map((error) => `строка ${(error.row ?? 0) + 2}: ${error.message}`)
-      .join('; ')
-    throw new Error(`${sourceName}: ошибка CSV: ${details}`)
-  }
-
-  const actualColumns = parsed.meta.fields ?? []
-  if (actualColumns.join(',') !== BOOK_COLUMNS.join(',')) {
-    throw new Error(`${sourceName}: ожидались колонки ${BOOK_COLUMNS.join(',')}`)
-  }
-
-  return parsed.data.map((row, index) => {
-    const result = BookSchema.safeParse(row)
-    if (!result.success) {
-      throw new Error(`${sourceName}, строка ${index + 2}: ${formatIssues(result.error.issues)}`)
-    }
-    return result.data
-  })
+export function parseBooksJson(value: unknown, sourceName = 'JSON'): BookRecord[] {
+  const result = BooksFileSchema.safeParse(value)
+  if (!result.success) throw new Error(`${sourceName}: ${formatIssues(result.error.issues)}`)
+  return result.data
 }

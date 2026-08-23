@@ -1,12 +1,12 @@
-import novelsCsv from '@data/novels.csv?raw'
-import storiesCsv from '@data/stories.csv?raw'
-import mangaCsv from '@data/manga.csv?raw'
-import unrankedCsv from '@data/unranked.csv?raw'
-import { parseBooksCsv } from './books'
+import novelsJson from '@data/novels.json'
+import storiesJson from '@data/stories.json'
+import mangaJson from '@data/manga.json'
+import unrankedJson from '@data/unranked.json'
+import { parseBooksJson } from './books'
 import type { Book, BookCategory } from './types'
 
-function prepareBooks(csv: string, category: BookCategory, sourceName: string): Book[] {
-  return parseBooksCsv(csv, sourceName).map((book) => ({
+function prepareBooks(value: unknown, category: BookCategory, sourceName: string): Book[] {
+  return parseBooksJson(value, sourceName).map((book) => ({
     ...book,
     category,
     id: book.url.match(/\/book\/(\d+)/)?.[1] ?? book.url,
@@ -14,8 +14,8 @@ function prepareBooks(csv: string, category: BookCategory, sourceName: string): 
 }
 
 export const initialBooks: Book[] = [
-  ...prepareBooks(novelsCsv, 'Роман', 'data/novels.csv'),
-  ...prepareBooks(storiesCsv, 'Рассказ', 'data/stories.csv'),
-  ...prepareBooks(mangaCsv, 'Манга', 'data/manga.csv'),
-  ...prepareBooks(unrankedCsv, 'Вне рейтинга', 'data/unranked.csv'),
+  ...prepareBooks(novelsJson, 'Роман', 'data/novels.json'),
+  ...prepareBooks(storiesJson, 'Рассказ', 'data/stories.json'),
+  ...prepareBooks(mangaJson, 'Манга', 'data/manga.json'),
+  ...prepareBooks(unrankedJson, 'Вне рейтинга', 'data/unranked.json'),
 ]

@@ -151,6 +151,27 @@
         "position": 7
       },
       "createdAt": "2026-08-22T16:56:55.859Z"
+    },
+    {
+      "id": "81b64f86-be3e-44c1-b133-29a4803198db",
+      "type": "move",
+      "book": {
+        "id": "1012337903",
+        "category": "Роман",
+        "title": "Дикий зверь",
+        "author": "Жоэль Диккер",
+        "cover": "/covers/1012337903.jpg",
+        "url": "https://www.livelib.ru/book/1012337903"
+      },
+      "from": {
+        "tier": "B",
+        "position": 3
+      },
+      "to": {
+        "tier": "B",
+        "position": 2
+      },
+      "createdAt": "2026-08-23T12:54:28.821Z"
     }
   ]
 }

@@ -28,7 +28,7 @@ npm run build
 git diff --check
 ```
 
-При изменении модели, CSV, DnD, history или Vite API также обязательно:
+При изменении модели, данных книг, DnD, history или Vite API также обязательно:
 
 ```bash
 npm run books:validate

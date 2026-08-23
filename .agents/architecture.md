@@ -23,9 +23,9 @@ app → pages → widgets → features → entities → shared
 
 ### `entities/book`
 
-- Zod-схема и CSV parser книги.
+- Zod-схема и JSON parser книги.
 - Типы `Book`, `BookCategory`, `BookTier`.
-- Начальная загрузка CSV.
+- Начальная загрузка JSON.
 - `BookCard`.
 - Книжный `formatReadDate`.
 

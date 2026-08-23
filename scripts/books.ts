@@ -1,8 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
-import Papa from 'papaparse'
-import { BOOK_COLUMNS, BOOK_TIERS, parseBooksCsv, type BookRecord } from '@entities/book/model/books'
+import { BOOK_TIERS, parseBooksJson, type BookRecord } from '@entities/book/model/books'
 import { parseHistory } from '@entities/history/model/history'
 
 interface BookGroup {
@@ -12,14 +11,14 @@ interface BookGroup {
 }
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
-const files = ['novels.csv', 'stories.csv', 'manga.csv', 'unranked.csv']
+const files = ['novels.json', 'stories.json', 'manga.json', 'unranked.json']
 const tierOrder = new Map(BOOK_TIERS.map((tier, index) => [tier, index]))
 
 async function loadBooks(): Promise<BookGroup[]> {
   return Promise.all(files.map(async (file) => {
     const relativePath = `data/${file}`
-    const csv = await readFile(path.join(root, relativePath), 'utf8')
-    return { file, relativePath, books: parseBooksCsv(csv, relativePath) }
+    const value = JSON.parse(await readFile(path.join(root, relativePath), 'utf8')) as unknown
+    return { file, relativePath, books: parseBooksJson(value, relativePath) }
   }))
 }
 
@@ -41,14 +40,14 @@ function assertPositions(groups: BookGroup[]): void {
     let previousTier = -1
 
     for (const [index, book] of group.books.entries()) {
-      const key = group.file === 'unranked.csv' ? 'all' : book.tier
+      const key = group.file === 'unranked.json' ? 'all' : book.tier
       const expectedPosition = (positions.get(key) ?? 0) + 1
       if (Number(book.position) !== expectedPosition) {
         throw new Error(`${group.relativePath}: у «${book.title}» ожидалась позиция ${expectedPosition}`)
       }
       positions.set(key, expectedPosition)
 
-      if (group.file !== 'unranked.csv') {
+      if (group.file !== 'unranked.json') {
         const currentTier = tierOrder.get(book.tier) ?? 0
         if (currentTier < previousTier) throw new Error(`${group.relativePath}: тиры расположены не в порядке S–F`)
         previousTier = currentTier
@@ -85,18 +84,17 @@ async function sort(): Promise<void> {
   for (const group of groups) {
     const books = group.books
       .map((book, index) => ({ book, index }))
-      .sort((left, right) => group.file === 'unranked.csv'
+      .sort((left, right) => group.file === 'unranked.json'
         ? Number(left.book.position) - Number(right.book.position) || left.index - right.index
         : (tierOrder.get(left.book.tier) ?? 0) - (tierOrder.get(right.book.tier) ?? 0)
           || Number(left.book.position) - Number(right.book.position)
           || left.index - right.index)
       .map(({ book }, index, sortedBooks) => {
-        if (group.file === 'unranked.csv') return { ...book, position: String(index + 1) }
+        if (group.file === 'unranked.json') return { ...book, position: String(index + 1) }
         const position = sortedBooks.slice(0, index).filter((item) => item.book.tier === book.tier).length + 1
         return { ...book, position: String(position) }
       })
-    const csv = Papa.unparse({ fields: [...BOOK_COLUMNS], data: books }, { newline: '\n' })
-    await writeFile(path.join(root, group.relativePath), `${csv}\n`, 'utf8')
+    await writeFile(path.join(root, group.relativePath), `${JSON.stringify(books, null, 2)}\n`, 'utf8')
     console.log(`✓ Отсортирован ${group.relativePath}`)
   }
   await validate()

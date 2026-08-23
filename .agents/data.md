@@ -1,28 +1,39 @@
 # Данные книг и история
 
-## CSV
+## JSON
 
 Файлы находятся в `data/`:
 
-- `novels.csv`
-- `stories.csv`
-- `manga.csv`
-- `unranked.csv`
+- `novels.json`
+- `stories.json`
+- `manga.json`
+- `unranked.json`
 
 Схема определена в `src/entities/book/model/books.ts`.
 
-```text
-tier,position,title,author,user_rating,livelib_rating,url,cover,year,read_date
+```json
+{
+  "tier": "S",
+  "position": "1",
+  "title": "Название",
+  "author": "Автор",
+  "user_rating": "5",
+  "livelib_rating": "4.5",
+  "url": "https://www.livelib.ru/book/...",
+  "cover": "/covers/example.jpg",
+  "year": "2020",
+  "read_date": "2024-01-31"
+}
 ```
 
 Правила:
 
 - `tier`: только `S`, `A`, `B`, `C`, `D`, `F`.
 - `position`: положительное целое число строкой.
-- В рейтинговых CSV позиция начинается с `1` внутри каждого тира.
+- В рейтинговых JSON-файлах позиция начинается с `1` внутри каждого тира.
 - Тиры располагаются в порядке `S → A → B → C → D → F`.
-- В `unranked.csv` позиция сквозная для всего файла.
-- Порядок строк внутри тира — пользовательский и не должен меняться случайно.
+- В `unranked.json` позиция сквозная для всего файла.
+- Порядок объектов внутри тира — пользовательский и не должен меняться случайно.
 - `read_date`: `YYYY-MM-DD`, `YYYY-MM` или `-`.
 - Обложки хранятся локально в `public/covers`.
 
@@ -53,7 +64,7 @@ npm run books:validate
 Dev-only API реализован в `vite/plugins/booksApi.ts`.
 
 - Запись выполняется последовательно.
-- CSV и JSON заменяются через временный файл.
+- JSON-файлы заменяются через временный файл.
 - Изменения данных не должны запускать HMR и сбрасывать состояние.
 - API отсутствует в production.
 
