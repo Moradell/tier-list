@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">Фотография автора отсутствует</title>
+  <rect width="160" height="160" rx="20" fill="#2c2c29"/>
+  <circle cx="80" cy="60" r="30" fill="#66655f"/>
+  <path d="M28 145c4-33 23-50 52-50s48 17 52 50" fill="#66655f"/>
+  <circle cx="128" cy="30" r="17" fill="#ffe45e"/>
+  <path d="M128 21v12m0 7v1" stroke="#242421" stroke-width="5" stroke-linecap="round"/>
+</svg>

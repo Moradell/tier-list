@@ -1,0 +1,339 @@
+{
+  "Агата Кристи": {
+    "file": "author-01.jpg",
+    "matchedLabel": "Кристи, Агата",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9A%D1%80%D0%B8%D1%81%D1%82%D0%B8%2C_%D0%90%D0%B3%D0%B0%D1%82%D0%B0",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Agatha_Christie_in_Nederland_%28detectiveschrijfster%29%2C_bij_aankomst_op_Schiphol_me%2C_Bestanddeelnr_916-8898_%28cropped%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Адитья Бхаргава": null,
+  "Айзек Азимов": {
+    "file": "author-03.jpg",
+    "matchedLabel": "Азимов, Айзек",
+    "source": "https://ru.wikipedia.org/wiki/%D0%90%D0%B7%D0%B8%D0%BC%D0%BE%D0%B2%2C_%D0%90%D0%B9%D0%B7%D0%B5%D0%BA",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/3/34/Isaac.Asimov01.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Айн Рэнд": {
+    "file": "author-04.jpg",
+    "matchedLabel": "Айн Рэнд",
+    "source": "https://ru.wikipedia.org/wiki/%D0%90%D0%B9%D0%BD_%D0%A0%D1%8D%D0%BD%D0%B4",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Ayn_Rand_%281943_Talbot_portrait%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Александр Пушкин": {
+    "file": "author-05.jpg",
+    "matchedLabel": "Пушкин, Александр Сергеевич",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9F%D1%83%D1%88%D0%BA%D0%B8%D0%BD%2C_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80_%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%D0%B8%D1%87",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/5/56/Kiprensky_Pushkin.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Альфред Бестер": null,
+  "Анджей Сапковский": {
+    "file": "author-07.jpg",
+    "matchedLabel": "Сапковский, Анджей",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BF%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9%2C_%D0%90%D0%BD%D0%B4%D0%B6%D0%B5%D0%B9",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/7/71/Andrzej_Sapkowski_-_Lucca_Comics_%26_Games_2015.JPG?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Артур Кларк": {
+    "file": "author-08.jpg",
+    "matchedLabel": "Кларк, Артур Чарльз",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9A%D0%BB%D0%B0%D1%80%D0%BA%2C_%D0%90%D1%80%D1%82%D1%83%D1%80_%D0%A7%D0%B0%D1%80%D0%BB%D1%8C%D0%B7",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/b/be/Arthur_C._Clarke_1965_%28cropped%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Бен Элтон": null,
+  "Бернар Вербер": {
+    "file": "author-10.jpg",
+    "matchedLabel": "Вербер, Бернар",
+    "source": "https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D1%80%D0%B1%D0%B5%D1%80%2C_%D0%91%D0%B5%D1%80%D0%BD%D0%B0%D1%80",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/24/Bernard_WERBER_par_Michel_Restany.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Борис Васильев": {
+    "file": "author-11.png",
+    "matchedLabel": "Борис Васильев",
+    "source": "Предоставлено пользователем",
+    "imageSource": "Локальное вложение",
+    "attribution": "Изображение предоставлено пользователем для личного проекта."
+  },
+  "Владимир Баженов": null,
+  "Владимир Сорокин": null,
+  "Габриэль Гарсиа Маркес": {
+    "file": "author-14.jpg",
+    "matchedLabel": "Гарсиа Маркес, Габриэль",
+    "source": "https://ru.wikipedia.org/wiki/%D0%93%D0%B0%D1%80%D1%81%D0%B8%D0%B0_%D0%9C%D0%B0%D1%80%D0%BA%D0%B5%D1%81%2C_%D0%93%D0%B0%D0%B1%D1%80%D0%B8%D1%8D%D0%BB%D1%8C",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Gabriel_Garcia_Marquez.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Герберт Уэллс": {
+    "file": "author-15.jpg",
+    "matchedLabel": "Уэллс, Герберт Джордж",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A3%D1%8D%D0%BB%D0%BB%D1%81%2C_%D0%93%D0%B5%D1%80%D0%B1%D0%B5%D1%80%D1%82_%D0%94%D0%B6%D0%BE%D1%80%D0%B4%D0%B6",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/4/4b/H.G._Wells_by_Beresford.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Гузель Яхина": {
+    "file": "author-17.jpg",
+    "matchedLabel": "Яхина, Гузель Шамилевна",
+    "source": "https://ru.wikipedia.org/wiki/%D0%AF%D1%85%D0%B8%D0%BD%D0%B0%2C_%D0%93%D1%83%D0%B7%D0%B5%D0%BB%D1%8C_%D0%A8%D0%B0%D0%BC%D0%B8%D0%BB%D0%B5%D0%B2%D0%BD%D0%B0",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/4/4e/%D0%9F%D0%BE%D1%80%D1%82%D1%80%D0%B5%D1%82_%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9_%D0%B3%D1%83%D0%B7%D0%B5%D0%BB%D1%8C_%D1%8F%D1%85%D0%B8%D0%BD%D0%BE%D0%B9.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Джеймс Кори": null,
+  "Джейсон Шрейер": {
+    "file": "author-19.png",
+    "matchedLabel": "Шрейер, Джейсон",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A8%D1%80%D0%B5%D0%B9%D0%B5%D1%80%2C_%D0%94%D0%B6%D0%B5%D0%B9%D1%81%D0%BE%D0%BD",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Jason_Schreier_March_2025.png?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Джек Лондон": {
+    "file": "author-20.jpg",
+    "matchedLabel": "Лондон, Джек",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%BD%D0%B4%D0%BE%D0%BD%2C_%D0%94%D0%B6%D0%B5%D0%BA",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Jack_London_young.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Джон Каррейру": null,
+  "Джордж Оруэлл": {
+    "file": "author-22.jpg",
+    "matchedLabel": "Оруэлл, Джордж",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9E%D1%80%D1%83%D1%8D%D0%BB%D0%BB%2C_%D0%94%D0%B6%D0%BE%D1%80%D0%B4%D0%B6",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/8/82/George_Orwell%2C_c._1940_%2841928180381%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Дэн Симмонс": {
+    "file": "author-23.jpg",
+    "matchedLabel": "Симмонс, Дэн",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BC%D0%BC%D0%BE%D0%BD%D1%81%2C_%D0%94%D1%8D%D0%BD",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/9/97/Dan_Simmons.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Дэниел Киз": null,
+  "Евгений Замятин": {
+    "file": "author-25.jpg",
+    "matchedLabel": "Замятин, Евгений Иванович",
+    "source": "https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%D0%BD%2C_%D0%95%D0%B2%D0%B3%D0%B5%D0%BD%D0%B8%D0%B9_%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%B8%D1%87",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/0/04/Zamjatin.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Жоэль Диккер": {
+    "file": "author-26.jpg",
+    "matchedLabel": "Диккер, Жоэль",
+    "source": "https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D0%BA%D0%BA%D0%B5%D1%80%2C_%D0%96%D0%BE%D1%8D%D0%BB%D1%8C",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/7/7a/PR_0044_JoelDicker_crop.JPG?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Кир Булычёв": {
+    "file": "author-27.jpg",
+    "matchedLabel": "Кир Булычёв",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9A%D0%B8%D1%80_%D0%91%D1%83%D0%BB%D1%8B%D1%87%D1%91%D0%B2",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/8/87/Kir_Bulychev_1997.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Марти Каган": null,
+  "Михаил Булгаков": {
+    "file": "author-29.jpg",
+    "matchedLabel": "Булгаков, Михаил Афанасьевич",
+    "source": "https://ru.wikipedia.org/wiki/%D0%91%D1%83%D0%BB%D0%B3%D0%B0%D0%BA%D0%BE%D0%B2%2C_%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%90%D1%84%D0%B0%D0%BD%D0%B0%D1%81%D1%8C%D0%B5%D0%B2%D0%B8%D1%87",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c1/%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB-%D0%91%D1%83%D0%BB%D0%B3%D0%B0%D0%BA%D0%BE%D0%B2.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Михаил Лермонтов": {
+    "file": "author-30.jpg",
+    "matchedLabel": "Лермонтов, Михаил Юрьевич",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B5%D1%80%D0%BC%D0%BE%D0%BD%D1%82%D0%BE%D0%B2%2C_%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%AE%D1%80%D1%8C%D0%B5%D0%B2%D0%B8%D1%87",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/24/Mikhail_lermontov.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Михаил Шолохов": {
+    "file": "author-31.jpg",
+    "matchedLabel": "Шолохов, Михаил Александрович",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A8%D0%BE%D0%BB%D0%BE%D1%85%D0%BE%D0%B2%2C_%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/27/%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87_%D0%A8%D0%BE%D0%BB%D0%BE%D1%85%D0%BE%D0%B2.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Мишель Уэльбек": {
+    "file": "author-32.jpg",
+    "matchedLabel": "Уэльбек, Мишель",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A3%D1%8D%D0%BB%D1%8C%D0%B1%D0%B5%D0%BA%2C_%D0%9C%D0%B8%D1%88%D0%B5%D0%BB%D1%8C",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Michel_Houellebecq_no_Fronteiras_do_Pensamento_Porto_Alegre_2016_%2830895029365%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Николай Гоголь": {
+    "file": "author-33.jpg",
+    "matchedLabel": "Гоголь, Николай Васильевич",
+    "source": "https://ru.wikipedia.org/wiki/%D0%93%D0%BE%D0%B3%D0%BE%D0%BB%D1%8C%2C_%D0%9D%D0%B8%D0%BA%D0%BE%D0%BB%D0%B0%D0%B9_%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D1%8C%D0%B5%D0%B2%D0%B8%D1%87",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/b/b2/N.Gogol_by_F.Moller_%281840%2C_Tretyakov_gallery%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Олдос Хаксли": {
+    "file": "author-34.jpg",
+    "matchedLabel": "Хаксли, Олдос",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A5%D0%B0%D0%BA%D1%81%D0%BB%D0%B8%2C_%D0%9E%D0%BB%D0%B4%D0%BE%D1%81",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/ru/4/45/%D0%9E%D0%BB%D0%B4%D0%BE%D1%81_%D0%A5%D0%B0%D0%BA%D1%81%D0%BB%D0%B8.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Оскар Уайльд": {
+    "file": "author-35.jpg",
+    "matchedLabel": "Уайльд, Оскар",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A3%D0%B0%D0%B9%D0%BB%D1%8C%D0%B4%2C_%D0%9E%D1%81%D0%BA%D0%B0%D1%80",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Oscar_Wilde_portrait.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Питер Тиль, Блейк Мастерс": {
+    "file": "author-36.jpg",
+    "matchedLabel": "Тиль, Питер",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A2%D0%B8%D0%BB%D1%8C%2C_%D0%9F%D0%B8%D1%82%D0%B5%D1%80",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Peter_Thiel_by_Gage_Skidmore.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Роб Фитцпатрик": null,
+  "Роберт Гэлбрейт": {
+    "file": "author-38.jpg",
+    "matchedLabel": "Роулинг, Джоан",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%83%D0%BB%D0%B8%D0%BD%D0%B3%2C_%D0%94%D0%B6%D0%BE%D0%B0%D0%BD",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/5/5d/J._K._Rowling_2010.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Роберт Мартин": null,
+  "Роберт Хайнлайн": {
+    "file": "author-40.jpg",
+    "matchedLabel": "Хайнлайн, Роберт",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A5%D0%B0%D0%B9%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD%2C_%D0%A0%D0%BE%D0%B1%D0%B5%D1%80%D1%82",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/0/01/Robert_A._Heinlein_%28Doubleday_photo%29_%28retouched%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Рэй Брэдбери": {
+    "file": "author-41.jpg",
+    "matchedLabel": "Брэдбери, Рэй",
+    "source": "https://ru.wikipedia.org/wiki/%D0%91%D1%80%D1%8D%D0%B4%D0%B1%D0%B5%D1%80%D0%B8%2C_%D0%A0%D1%8D%D0%B9",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Ray_Bradbury_%281975%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Сергей Носов": null,
+  "Станислав Лем": {
+    "file": "author-43.jpg",
+    "matchedLabel": "Лем, Станислав",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B5%D0%BC%2C_%D0%A1%D1%82%D0%B0%D0%BD%D0%B8%D1%81%D0%BB%D0%B0%D0%B2",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/26/St_Lem_resize.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Стивен Кинг": {
+    "file": "author-44.jpg",
+    "matchedLabel": "Кинг, Стивен",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9A%D0%B8%D0%BD%D0%B3%2C_%D0%A1%D1%82%D0%B8%D0%B2%D0%B5%D0%BD",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/2/24/Stephen_King_at_the_2024_Toronto_International_Film_Festival_2_%28cropped%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Стиг Ларссон": null,
+  "Сунь-Цзы": {
+    "file": "author-46.jpg",
+    "matchedLabel": "Сунь-цзы",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A1%D1%83%D0%BD%D1%8C-%D1%86%D0%B7%D1%8B",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/3/37/Enchoen27n3200.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Теодор Драйзер": {
+    "file": "author-47.jpg",
+    "matchedLabel": "Драйзер, Теодор",
+    "source": "https://ru.wikipedia.org/wiki/%D0%94%D1%80%D0%B0%D0%B9%D0%B7%D0%B5%D1%80%2C_%D0%A2%D0%B5%D0%BE%D0%B4%D0%BE%D1%80",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Theodore_Dreiser_1.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Томас Чаморро-Премузик": null,
+  "Уильям Голдинг": {
+    "file": "author-49.jpg",
+    "matchedLabel": "Голдинг, Уильям",
+    "source": "https://ru.wikipedia.org/wiki/%D0%93%D0%BE%D0%BB%D0%B4%D0%B8%D0%BD%D0%B3%2C_%D0%A3%D0%B8%D0%BB%D1%8C%D1%8F%D0%BC",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/f/f9/William_Golding_1983.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Франк Тилье": {
+    "file": "author-50.png",
+    "matchedLabel": "Франк Тилье",
+    "source": "Предоставлено пользователем",
+    "imageSource": "Локальное вложение",
+    "attribution": "Изображение предоставлено пользователем для личного проекта."
+  },
+  "Фрэнк Герберт": {
+    "file": "author-51.jpg",
+    "matchedLabel": "Герберт, Фрэнк",
+    "source": "https://ru.wikipedia.org/wiki/%D0%93%D0%B5%D1%80%D0%B1%D0%B5%D1%80%D1%82%2C_%D0%A4%D1%80%D1%8D%D0%BD%D0%BA",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Frank_Herbert_1984_%28square%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Харпер Ли": {
+    "file": "author-52.jpg",
+    "matchedLabel": "Ли, Харпер",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%2C_%D0%A5%D0%B0%D1%80%D0%BF%D0%B5%D1%80",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Photo_portrait_of_Harper_Lee_%28To_Kill_a_Mockingbird_dust_jacket%2C_1960%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Чак Паланик": {
+    "file": "author-53.jpg",
+    "matchedLabel": "Паланик, Чак",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9F%D0%B0%D0%BB%D0%B0%D0%BD%D0%B8%D0%BA%2C_%D0%A7%D0%B0%D0%BA",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Chuck_Palahniuk_%2821955%29_%28cropped%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Чарльз Буковски": {
+    "file": "author-54.jpg",
+    "matchedLabel": "Буковски, Чарльз",
+    "source": "https://ru.wikipedia.org/wiki/%D0%91%D1%83%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%2C_%D0%A7%D0%B0%D1%80%D0%BB%D1%8C%D0%B7",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/7/78/CharlesBukowski-1.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Чхугон": {
+    "file": "author-55.png",
+    "matchedLabel": "Чхугон",
+    "source": "Предоставлено пользователем",
+    "imageSource": "Локальное вложение",
+    "attribution": "Пользовательская иллюстрация для личного проекта; не является фотографией автора."
+  },
+  "Эдвард де Боно": {
+    "file": "author-56.jpg",
+    "matchedLabel": "Боно, Эдвард де",
+    "source": "https://ru.wikipedia.org/wiki/%D0%91%D0%BE%D0%BD%D0%BE%2C_%D0%AD%D0%B4%D0%B2%D0%B0%D1%80%D0%B4_%D0%B4%D0%B5",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/8/83/Edward_de_Bono_on_Channel_4_%22Opinions%22.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Энди Вейер": {
+    "file": "author-57.jpg",
+    "matchedLabel": "Вейер, Энди",
+    "source": "https://ru.wikipedia.org/wiki/%D0%92%D0%B5%D0%B9%D0%B5%D1%80%2C_%D0%AD%D0%BD%D0%B4%D0%B8",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/8/84/Andy_Weir_by_Gage_Skidmore.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Эрих Мария Ремарк": {
+    "file": "author-58.jpg",
+    "matchedLabel": "Ремарк, Эрих Мария",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A0%D0%B5%D0%BC%D0%B0%D1%80%D0%BA%2C_%D0%AD%D1%80%D0%B8%D1%85_%D0%9C%D0%B0%D1%80%D0%B8%D1%8F",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Erich_Maria_Remarque1.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Эрнест Хемингуэй": null,
+  "Ю Несбё": {
+    "file": "author-60.jpg",
+    "matchedLabel": "Несбё, Ю",
+    "source": "https://ru.wikipedia.org/wiki/%D0%9D%D0%B5%D1%81%D0%B1%D1%91%2C_%D0%AE",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Jo_Nesbo.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Юваль Ной Харари": {
+    "file": "author-61.jpg",
+    "matchedLabel": "Харари, Юваль Ной",
+    "source": "https://ru.wikipedia.org/wiki/%D0%A5%D0%B0%D1%80%D0%B0%D1%80%D0%B8%2C_%D0%AE%D0%B2%D0%B0%D0%BB%D1%8C_%D0%9D%D0%BE%D0%B9",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/5/58/MKr364751_Yuval_Noah_Harari_%28Frankfurter_Buchmesse_2024%29.jpg?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  },
+  "Юкито Аяцудзи": {
+    "file": "author-62.png",
+    "matchedLabel": "Аяцудзи, Юкито",
+    "source": "https://ru.wikipedia.org/wiki/%D0%90%D1%8F%D1%86%D1%83%D0%B4%D0%B7%D0%B8%2C_%D0%AE%D0%BA%D0%B8%D1%82%D0%BE",
+    "imageSource": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Ayatsuji_Yukito_signature.png?utm_source=ru.wikipedia.org&utm_campaign=api&utm_content=original",
+    "attribution": "Изображение из Wikipedia/Wikimedia; условия использования указаны на странице-источнике."
+  }
+}

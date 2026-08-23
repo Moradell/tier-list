@@ -1,7 +1,8 @@
 import type { Book } from '@entities/book'
 import { BackLink } from '@shared/ui/BackLink'
+import { AuthorLeaderboard } from './AuthorLeaderboard'
 import { ExpandableStatisticsPanel } from './ExpandableStatisticsPanel'
-import { buildBookStatistics } from './model/buildBookStatistics'
+import { buildBookStatistics } from '../model/buildBookStatistics'
 import './BookStatistics.scss'
 
 interface BookStatisticsProps {
@@ -45,8 +46,9 @@ export function BookStatistics({ backTo, books }: BookStatisticsProps) {
         <article><span>Средняя на LiveLib</span><strong>{formatAverage(statistics.averageLivelibRating)}</strong></article>
       </section>
 
+      <AuthorLeaderboard authors={statistics.topAuthors} books={books} />
+
       <div className="stats-grid">
-        <ExpandableStatisticsPanel books={books} getGroup={(book) => book.author} items={statistics.topAuthors} title="Самые читаемые авторы" />
         <ExpandableStatisticsPanel books={books} getGroup={ratingGroup} items={statistics.byRating} title="По личной оценке" />
         <ExpandableStatisticsPanel books={books} getGroup={readYearGroup} items={statistics.byReadYear} title="Прочитано по годам" />
         <ExpandableStatisticsPanel books={books} getGroup={publicationDecadeGroup} items={statistics.byDecade} title="Десятилетия публикации" />

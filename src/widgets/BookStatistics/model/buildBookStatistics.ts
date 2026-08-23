@@ -5,6 +5,13 @@ export interface StatisticItem {
   value: number
 }
 
+export interface AuthorStatistic {
+  author: string
+  averageLivelibRating: number
+  averageUserRating: number
+  booksCount: number
+}
+
 export interface BookStatisticsData {
   total: number
   averageUserRating: number
@@ -12,7 +19,7 @@ export interface BookStatisticsData {
   byRating: StatisticItem[]
   byReadYear: StatisticItem[]
   byDecade: StatisticItem[]
-  topAuthors: StatisticItem[]
+  topAuthors: AuthorStatistic[]
 }
 
 function numberValue(value: string): number {
@@ -47,7 +54,8 @@ export function buildBookStatistics(books: Book[]): BookStatisticsData {
     const year = Number.parseInt(book.year, 10)
     return Number.isFinite(year) ? `${Math.floor(year / 10) * 10}-е` : null
   })
-  const authorCounts = countBy(books, (book) => book.author)
+  const authorBooks = new Map<string, Book[]>()
+  books.forEach((book) => authorBooks.set(book.author, [...(authorBooks.get(book.author) ?? []), book]))
 
   return {
     total: books.length,
@@ -56,6 +64,11 @@ export function buildBookStatistics(books: Book[]): BookStatisticsData {
     byRating: mapItems(ratingCounts).sort((a, b) => Number(b.label) - Number(a.label)),
     byReadYear: mapItems(readYearCounts).sort((a, b) => a.label.localeCompare(b.label)),
     byDecade: mapItems(decadeCounts).sort((a, b) => b.value - a.value).slice(0, 8),
-    topAuthors: mapItems(authorCounts).sort((a, b) => b.value - a.value || a.label.localeCompare(b.label)).slice(0, 10),
+    topAuthors: [...authorBooks].map(([author, booksByAuthor]) => ({
+      author,
+      booksCount: booksByAuthor.length,
+      averageUserRating: average(booksByAuthor, (book) => numberValue(book.user_rating)),
+      averageLivelibRating: average(booksByAuthor, (book) => numberValue(book.livelib_rating)),
+    })).sort((a, b) => b.booksCount - a.booksCount || a.author.localeCompare(b.author)),
   }
 }

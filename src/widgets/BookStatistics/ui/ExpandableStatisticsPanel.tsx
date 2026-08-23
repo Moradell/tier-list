@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { Book } from '@entities/book'
-import type { StatisticItem } from './model/buildBookStatistics'
+import type { StatisticItem } from '../model/buildBookStatistics'
+import { StatisticsBookCard } from './StatisticsBookCard'
 
 interface ExpandableStatisticsPanelProps {
   books: Book[]
@@ -42,20 +43,7 @@ export function ExpandableStatisticsPanel({ books, getGroup, items, title }: Exp
               {isExpanded && (
                 <div className="stats-breakdown__books" id={panelId}>
                   {groupBooks.map((book) => (
-                    <a
-                      className="stats-breakdown-book"
-                      href={book.url}
-                      key={book.id}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Открыть книгу «${book.title}» на LiveLib`}
-                    >
-                      <img src={`${import.meta.env.BASE_URL}${book.cover.replace(/^\/+/, '')}`} alt="" />
-                      <span>
-                        <strong>{book.title}</strong>
-                        <small>{book.author} · {book.year} · оценка {book.user_rating}</small>
-                      </span>
-                    </a>
+                    <StatisticsBookCard book={book} key={book.id} />
                   ))}
                 </div>
               )}
