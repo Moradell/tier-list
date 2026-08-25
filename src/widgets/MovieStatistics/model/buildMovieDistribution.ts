@@ -38,6 +38,10 @@ export function buildDirectorDistribution(movies: Movie[]): MovieDistributionIte
   return buildDistribution(movies, (movie) => movie.directors.filter((director) => director !== 'Спецвыпуск'))
 }
 
+export function buildCountryDistribution(movies: Movie[]): MovieDistributionItem[] {
+  return buildDistribution(movies, (movie) => movie.countries)
+}
+
 export function buildGenreDistribution(movies: Movie[]): MovieDistributionItem[] {
   return buildDistribution(movies, (movie) => [movie.genre])
 }

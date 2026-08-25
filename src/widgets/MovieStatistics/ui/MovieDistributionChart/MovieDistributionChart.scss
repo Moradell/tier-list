@@ -54,7 +54,7 @@
 
 .movie-distribution-chart__content {
   display: grid;
-  grid-template-columns: minmax(170px, 0.8fr) minmax(230px, 1.2fr);
+  grid-template-columns: 1fr;
   align-items: center;
   gap: 24px;
 }

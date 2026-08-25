@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { loadMovies, type Movie } from '@entities/movie'
 import { BackLink } from '@shared/ui/BackLink'
 import {
+  buildCountryDistribution,
   buildDirectorDistribution,
   buildGenreDistribution,
   MovieDistributionChart,
@@ -61,7 +62,7 @@ export function MoviesStatsPage() {
 
   if (loadError) throw loadError
 
-  const openFilteredCatalog = (filter: 'director' | 'genre', value: string) => {
+  const openFilteredCatalog = (filter: 'country' | 'director' | 'genre', value: string) => {
     navigate({ pathname: returnTo, search: new URLSearchParams({ [filter]: value }).toString() })
   }
 
@@ -105,6 +106,11 @@ export function MoviesStatsPage() {
               items={buildGenreDistribution(statistics.movies)}
               onItemSelect={(genre) => openFilteredCatalog('genre', genre)}
               title="Жанры"
+            />
+            <MovieDistributionChart
+              items={buildCountryDistribution(statistics.movies)}
+              onItemSelect={(country) => openFilteredCatalog('country', country)}
+              title="Страны"
             />
           </div>
         </>
