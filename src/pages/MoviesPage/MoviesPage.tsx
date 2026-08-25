@@ -11,10 +11,18 @@ const movieSections: TabItem[] = [
 ]
 
 export function MoviesPage() {
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
+  const searchParams = new URLSearchParams(search)
+  const initialFilters = {
+    country: searchParams.get('country') ?? '',
+    director: searchParams.get('director') ?? '',
+    genre: searchParams.get('genre') ?? '',
+    rating: searchParams.get('rating') ?? '',
+    year: searchParams.get('year') ?? '',
+  }
 
   return (
-    <MovieCatalogFiltersProvider resetKey={pathname}>
+    <MovieCatalogFiltersProvider initialFilters={initialFilters} resetKey={`${pathname}${search}`}>
       <MovieCatalogControls
         navigation={<Tabs ariaLabel="Категории фильмотеки" items={movieSections} level="secondary" />}
       />

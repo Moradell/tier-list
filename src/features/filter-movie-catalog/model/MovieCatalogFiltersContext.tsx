@@ -20,17 +20,18 @@ const MovieCatalogFiltersContext = createContext<MovieCatalogFiltersContextValue
 
 interface MovieCatalogFiltersProviderProps {
   children: ReactNode
+  initialFilters?: Partial<MovieFilters>
   resetKey: string
 }
 
-export function MovieCatalogFiltersProvider({ children, resetKey }: MovieCatalogFiltersProviderProps) {
-  const [filters, setFilters] = useState<MovieFilters>(emptyFilters)
+export function MovieCatalogFiltersProvider({ children, initialFilters = {}, resetKey }: MovieCatalogFiltersProviderProps) {
+  const [filters, setFilters] = useState<MovieFilters>({ ...emptyFilters, ...initialFilters })
   const [filterOptions, setFilterOptions] = useState<MovieFilterOptions>(emptyFilterOptions)
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOrder, setSortOrder] = useState<MovieSortOrder>('watch-date')
 
   useEffect(() => {
-    setFilters(emptyFilters)
+    setFilters({ ...emptyFilters, ...initialFilters })
     setFilterOptions(emptyFilterOptions)
   }, [resetKey])
 

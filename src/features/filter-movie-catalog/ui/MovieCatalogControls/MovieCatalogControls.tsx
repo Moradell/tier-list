@@ -38,6 +38,10 @@ export function MovieCatalogControls({ navigation }: MovieCatalogControlsProps) 
     if (isSearchOpen) searchInputRef.current?.focus()
   }, [isSearchOpen])
 
+  useEffect(() => {
+    if (Object.values(filters).some(Boolean)) setIsFiltersOpen(true)
+  }, [filters])
+
   return (
     <>
       <div className="movie-tabs-toolbar">

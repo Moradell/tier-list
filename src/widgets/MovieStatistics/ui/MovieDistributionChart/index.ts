@@ -1,0 +1,1 @@
+export { MovieDistributionChart } from './MovieDistributionChart'

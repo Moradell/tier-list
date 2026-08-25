@@ -1,26 +1,104 @@
 .movies-stats-page {
   min-height: calc(100vh - 58px);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 18px;
   padding: 32px;
   border: 3px solid #050505;
   background: #171716;
   color: #f4f3ed;
 
-  span {
+  h1 { margin: 5px 0 0; font-size: clamp(1.8rem, 4vw, 3.2rem); }
+}
+
+.movies-stats-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: 24px;
+
+  div > span {
     color: #ffe45e;
     font-size: 0.7rem;
     font-weight: 900;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
+}
 
-  h1 { margin: 5px 0 8px; font-size: clamp(1.8rem, 4vw, 3.2rem); }
-  p { margin: 0; color: #92918b; }
+.movie-stats-summary {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid #3b3b38;
+  border-radius: 12px;
+  background: #20201f;
+  margin-bottom: 12px;
+
+  article {
+    display: flex;
+    min-height: 86px;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 18px;
+    border-left: 1px solid #3b3b38;
+
+    &:first-child { border-left: 0; }
+  }
+
+  span {
+    color: #92918b;
+    font-size: 0.72rem;
+    font-weight: 750;
+  }
+
+  strong {
+    color: #f4f3ed;
+    font-size: 1.65rem;
+    line-height: 1;
+  }
+
+  .movie-stats-summary__total strong { color: #ffe45e; }
+}
+
+.movie-statistics-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.movies-stats-page__loader {
+  display: grid;
+  min-height: 240px;
+  place-items: center;
+
+  span {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #494943;
+    border-top-color: #ffe45e;
+    border-radius: 50%;
+    animation: movie-stats-spin 700ms linear infinite;
+  }
+}
+
+@keyframes movie-stats-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .movie-stats-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .movie-stats-summary article:nth-child(3) { border-left: 0; border-top: 1px solid #3b3b38; }
+  .movie-stats-summary article:nth-child(4) { border-top: 1px solid #3b3b38; }
+  .movie-statistics-charts { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
   .movies-stats-page { padding: 24px 14px; border-width: 2px; }
+}
+
+@media (max-width: 440px) {
+  .movie-stats-summary { grid-template-columns: 1fr; }
+  .movie-stats-summary article {
+    min-height: 70px;
+    border-top: 1px solid #3b3b38;
+    border-left: 0;
+  }
+  .movie-stats-summary article:first-child { border-top: 0; }
 }

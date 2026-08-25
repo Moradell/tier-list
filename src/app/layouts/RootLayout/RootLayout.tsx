@@ -15,24 +15,27 @@ export function RootLayout() {
   const { pathname } = useLocation()
   const isMoviesSection = pathname.startsWith('/movies')
   const activeHistory = isMoviesSection ? movieHistory : bookHistory
-  const statisticsReturnPath = pathname.startsWith('/books/') && pathname !== '/books/stats'
-    ? pathname
-    : '/books/novels'
+  const statisticsPath = isMoviesSection ? '/movies/stats' : '/books/stats'
+  const statisticsReturnPath = isMoviesSection
+    ? pathname.startsWith('/movies/') && pathname !== '/movies/stats'
+      ? pathname
+      : '/movies/films'
+    : pathname.startsWith('/books/') && pathname !== '/books/stats'
+      ? pathname
+      : '/books/novels'
 
   return (
     <>
       <header className="app-nav">
         <Tabs ariaLabel="Разделы" items={sections} />
         <div className="app-nav-actions">
-          {!isMoviesSection && (
-            <NavLink
-              className={({ isActive }) => `statistics-trigger${isActive ? ' statistics-trigger--active' : ''}`}
-              state={{ returnTo: statisticsReturnPath }}
-              to="/books/stats"
-            >
-              Статистика
-            </NavLink>
-          )}
+          <NavLink
+            className={({ isActive }) => `statistics-trigger${isActive ? ' statistics-trigger--active' : ''}`}
+            state={{ returnTo: statisticsReturnPath }}
+            to={statisticsPath}
+          >
+            Статистика
+          </NavLink>
           <button className="history-trigger" type="button" onClick={activeHistory.openHistory}>
             История
             {activeHistory.events.length > 0 && <span>{activeHistory.events.length}</span>}

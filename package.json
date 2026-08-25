@@ -25,6 +25,7 @@
     "@vitejs/plugin-react": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-minimal-pie-chart": "^9.1.2",
     "react-router-dom": "^7.18.2",
     "vite": "latest",
     "zod": "^4.4.3"
