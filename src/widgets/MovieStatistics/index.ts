@@ -1,4 +1,5 @@
 export { MovieDistributionChart } from './ui/MovieDistributionChart'
+export { WatchTimeSummary } from './ui/WatchTimeSummary'
 export {
   buildActorDistribution,
   buildCountryDistribution,

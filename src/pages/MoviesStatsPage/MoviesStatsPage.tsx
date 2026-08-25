@@ -8,14 +8,18 @@ import {
   buildDirectorDistribution,
   buildGenreDistribution,
   MovieDistributionChart,
+  WatchTimeSummary,
   type MovieDistributionKind,
 } from '@widgets/MovieStatistics'
 import './MoviesStatsPage.scss'
 
 interface MovieStatistics {
   animeAverage: number | null
+  animeMinutes: number
   filmsAverage: number | null
+  filmMinutes: number
   seriesAverage: number | null
+  seriesMinutes: number
   total: number
   distributionMovies: Movie[]
 }
@@ -24,6 +28,10 @@ function calculateAverage(movies: Movie[]): number | null {
   const ratings = movies.flatMap(({ user_rating }) => user_rating === null ? [] : [user_rating])
   if (ratings.length === 0) return null
   return ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length
+}
+
+function calculateMinutes(movies: Movie[]): number {
+  return movies.reduce((sum, movie) => sum + movie.duration_min, 0)
 }
 
 function formatAverage(value: number | null): string {
@@ -50,8 +58,11 @@ export function MoviesStatsPage() {
         if (!active) return
         setStatistics({
           animeAverage: calculateAverage(anime),
+          animeMinutes: calculateMinutes(anime),
           filmsAverage: calculateAverage(films),
+          filmMinutes: calculateMinutes(films),
           seriesAverage: calculateAverage(series),
+          seriesMinutes: calculateMinutes(series),
           total: films.length + series.length + anime.length,
           distributionMovies: [...films, ...series],
         })
@@ -106,6 +117,11 @@ export function MoviesStatsPage() {
               genre: buildGenreDistribution(statistics.distributionMovies),
             }}
             onItemSelect={openFilteredCatalog}
+          />
+          <WatchTimeSummary
+            animeMinutes={statistics.animeMinutes}
+            filmMinutes={statistics.filmMinutes}
+            seriesMinutes={statistics.seriesMinutes}
           />
         </>
       ) : (

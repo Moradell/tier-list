@@ -12,6 +12,7 @@ const MovieSchema = z.object({
   actors: z.array(z.string().min(1)),
   countries: z.array(z.string().min(1)),
   directors: z.array(z.string().min(1)),
+  duration_min: z.number().int().positive(),
   added_at: z.string().nullable(),
 })
 
