@@ -1,46 +1,38 @@
 .movie-distribution-chart {
   min-width: 0;
-  padding: 20px;
+  padding: 24px;
   border: 1px solid #3b3b38;
-  border-radius: 12px;
+  border-radius: 14px;
   background: #20201f;
 }
 
 .movie-distribution-chart__header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 22px;
-
-  > div:first-child > span {
-    color: #85847d;
-    font-size: 0.6rem;
-    font-weight: 850;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  h2 { margin: 4px 0 0; font-size: 1.05rem; }
+  display: grid;
+  grid-template-columns: calc(75% - 12px) calc(25% - 36px);
+  align-items: center;
+  gap: 48px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #343431;
 }
 
-.movie-distribution-chart__modes {
+.movie-distribution-chart__modes,
+.movie-distribution-chart__tabs {
   display: flex;
-  flex: 0 0 auto;
+  width: fit-content;
   gap: 3px;
   padding: 3px;
   border: 1px solid #3b3b38;
-  border-radius: 8px;
+  border-radius: 9px;
   background: #191918;
 
   button {
-    min-height: 30px;
-    padding: 0 10px;
+    min-height: 32px;
+    padding: 0 13px;
     border: 0;
-    border-radius: 5px;
+    border-radius: 6px;
     background: transparent;
     color: #898881;
-    font-size: 0.63rem;
+    font-size: 0.68rem;
     font-weight: 800;
     cursor: pointer;
 
@@ -49,34 +41,52 @@
   }
 
   .movie-distribution-chart__mode--active,
-  .movie-distribution-chart__mode--active:hover { background: #e3c653; color: #171716; }
+  .movie-distribution-chart__tab--active { background: #e3c653; color: #171716; }
+}
+
+.movie-distribution-chart__modes {
+  width: 100%;
+
+  button { flex: 1; min-width: 0; }
+}
+
+.movie-distribution-chart__tabs {
+  width: 100%;
+  border-radius: 9px;
+  padding: 3px;
+
+  button { flex: 1; min-width: 96px; min-height: 34px; font-size: 0.7rem; }
+}
+
+.movie-distribution-chart__modes {
+  border-radius: 9px;
 }
 
 .movie-distribution-chart__content {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(420px, 1.2fr);
   align-items: center;
-  gap: 24px;
+  gap: clamp(32px, 6vw, 90px);
+  min-height: 390px;
+  padding: 26px clamp(10px, 3vw, 42px) 10px;
+}
+
+.movie-distribution-chart__visual {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+
+  > p { margin: 0; color: #77766f; font-size: 0.65rem; font-weight: 750; letter-spacing: 0.03em; }
 }
 
 .movie-distribution-chart__donut {
   position: relative;
   display: grid;
-  width: min(100%, 220px);
+  width: min(100%, 360px);
   aspect-ratio: 1;
   place-items: center;
-  justify-self: center;
-  place-items: center;
 
-  svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    filter: drop-shadow(0 8px 10px rgb(0 0 0 / 28%));
-  }
-
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 10px 14px rgb(0 0 0 / 30%)); }
   path:focus { outline: none; }
 }
 
@@ -89,20 +99,20 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #393936;
   border-radius: 50%;
   background: #1a1a19;
-  box-shadow: inset 0 0 20px rgb(0 0 0 / 22%);
+  box-shadow: inset 0 0 24px rgb(0 0 0 / 25%);
   text-align: center;
 
-  strong { color: #f4f3ed; font-size: 1.45rem; line-height: 1; }
-  span { margin-top: 5px; color: #85847d; font-size: 0.54rem; font-weight: 750; line-height: 1.2; }
+  strong { color: #f4f3ed; font-size: 1.8rem; line-height: 1; }
+  span { margin-top: 6px; color: #85847d; font-size: 0.58rem; font-weight: 750; line-height: 1.2; }
 }
 
 .movie-distribution-chart__legend {
   display: grid;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
   margin: 0;
   padding: 0;
@@ -112,13 +122,13 @@
     display: grid;
     width: 100%;
     min-width: 0;
-    grid-template-columns: 9px minmax(0, 1fr) auto;
+    grid-template-columns: 24px 10px minmax(0, 1fr) auto;
     align-items: center;
-    gap: 8px;
-    min-height: 27px;
-    padding: 0 5px;
+    gap: 11px;
+    min-height: 38px;
+    padding: 0 10px 0 4px;
     border: 0;
-    border-radius: 5px;
+    border-radius: 7px;
     background: transparent;
     color: inherit;
     font: inherit;
@@ -130,25 +140,30 @@
     &:focus { outline: none; }
   }
 
-  i { width: 8px; height: 8px; border-radius: 2px; background: var(--marker-color); }
-  span { overflow: hidden; color: #bbb9b2; font-size: 0.7rem; text-overflow: ellipsis; white-space: nowrap; }
-  strong { color: #f4f3ed; font-size: 0.7rem; font-variant-numeric: tabular-nums; }
+  i { width: 9px; height: 9px; border-radius: 3px; background: var(--marker-color); transition: 160ms ease; }
+  span { overflow: hidden; color: #c8c6bf; font-size: 0.76rem; text-overflow: ellipsis; white-space: nowrap; }
+  strong { color: #f4f3ed; font-size: 0.78rem; font-variant-numeric: tabular-nums; }
+  .movie-distribution-chart__position { color: #66655f; font-size: 0.62rem; text-align: right; }
 
   .movie-distribution-chart__legend-item--active {
     span { color: #fff; }
     strong { color: #ffe45e; }
-    i { transform: scale(1.35); box-shadow: 0 0 7px var(--marker-color); }
+    i { transform: scale(1.4); box-shadow: 0 0 8px var(--marker-color); }
   }
 }
 
-@media (max-width: 1200px) {
-  .movie-distribution-chart__header { flex-direction: column; }
-  .movie-distribution-chart__content { grid-template-columns: 1fr; }
-  .movie-distribution-chart__donut { width: min(100%, 200px); }
+@media (max-width: 800px) {
+  .movie-distribution-chart__header { grid-template-columns: 1fr; align-items: stretch; gap: 14px; }
+  .movie-distribution-chart__tabs,
+  .movie-distribution-chart__modes { border: 1px solid #3b3b38; border-radius: 9px; }
+  .movie-distribution-chart__content { grid-template-columns: 1fr; gap: 24px; padding-inline: 0; }
+  .movie-distribution-chart__donut { width: min(100%, 270px); }
 }
 
 @media (max-width: 600px) {
   .movie-distribution-chart { padding: 16px; }
   .movie-distribution-chart__modes { width: 100%; }
   .movie-distribution-chart__modes button { min-width: 0; flex: 1; }
+  .movie-distribution-chart__tabs { width: 100%; overflow-x: auto; }
+  .movie-distribution-chart__tabs button { flex: 0 0 auto; padding-inline: 16px; }
 }

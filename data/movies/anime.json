@@ -478,7 +478,14 @@
     "directors": [
       "Деннис Ботс"
     ],
-    "actors": [],
+    "actors": [
+      "Daan Hugaert",
+      "Iris Hesseling",
+      "Jennifer Welts",
+      "Loek Beernink",
+      "Lucien van Geffen",
+      "Sven de Wijn"
+    ],
     "duration_min": null,
     "list_id": null,
     "list_name": null,
@@ -2170,7 +2177,9 @@
     "directors": [
       "Юдзуру Татикава"
     ],
-    "actors": [],
+    "actors": [
+      "Мамору Мияно"
+    ],
     "duration_min": null,
     "list_id": null,
     "list_name": null,

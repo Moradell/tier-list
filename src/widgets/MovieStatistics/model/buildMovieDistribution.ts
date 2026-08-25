@@ -6,6 +6,8 @@ export interface MovieDistributionItem {
   label: string
 }
 
+export type MovieDistributionKind = 'director' | 'actor' | 'genre' | 'country'
+
 interface MutableDistributionItem {
   count: number
   ratingCount: number
@@ -36,6 +38,10 @@ function buildDistribution(movies: Movie[], getLabels: (movie: Movie) => string[
 
 export function buildDirectorDistribution(movies: Movie[]): MovieDistributionItem[] {
   return buildDistribution(movies, (movie) => movie.directors.filter((director) => director !== 'Спецвыпуск'))
+}
+
+export function buildActorDistribution(movies: Movie[]): MovieDistributionItem[] {
+  return buildDistribution(movies, (movie) => movie.actors)
 }
 
 export function buildCountryDistribution(movies: Movie[]): MovieDistributionItem[] {

@@ -14,6 +14,7 @@ export function MoviesPage() {
   const { pathname, search } = useLocation()
   const searchParams = new URLSearchParams(search)
   const initialFilters = {
+    actor: searchParams.get('actor') ?? '',
     country: searchParams.get('country') ?? '',
     director: searchParams.get('director') ?? '',
     genre: searchParams.get('genre') ?? '',

@@ -9,6 +9,7 @@ const MovieSchema = z.object({
   genre: z.string(),
   user_rating: z.number().min(0).max(10).nullable(),
   poster: z.string().url(),
+  actors: z.array(z.string().min(1)),
   countries: z.array(z.string().min(1)),
   directors: z.array(z.string().min(1)),
   added_at: z.string().nullable(),

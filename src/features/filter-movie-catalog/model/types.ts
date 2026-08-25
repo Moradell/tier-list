@@ -1,6 +1,7 @@
 export type MovieSortOrder = 'watch-date' | 'rating-desc' | 'rating-asc'
 
 export interface MovieFilters {
+  actor: string
   country: string
   director: string
   genre: string
@@ -9,6 +10,7 @@ export interface MovieFilters {
 }
 
 export interface MovieFilterOptions {
+  actors: string[]
   countries: string[]
   directors: string[]
   genres: string[]

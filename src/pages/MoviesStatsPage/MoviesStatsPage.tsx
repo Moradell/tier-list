@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { loadMovies, type Movie } from '@entities/movie'
 import { BackLink } from '@shared/ui/BackLink'
 import {
+  buildActorDistribution,
   buildCountryDistribution,
   buildDirectorDistribution,
   buildGenreDistribution,
   MovieDistributionChart,
+  type MovieDistributionKind,
 } from '@widgets/MovieStatistics'
 import './MoviesStatsPage.scss'
 
@@ -15,7 +17,7 @@ interface MovieStatistics {
   filmsAverage: number | null
   seriesAverage: number | null
   total: number
-  movies: Movie[]
+  distributionMovies: Movie[]
 }
 
 function calculateAverage(movies: Movie[]): number | null {
@@ -51,7 +53,7 @@ export function MoviesStatsPage() {
           filmsAverage: calculateAverage(films),
           seriesAverage: calculateAverage(series),
           total: films.length + series.length + anime.length,
-          movies: [...films, ...series, ...anime],
+          distributionMovies: [...films, ...series],
         })
       })
       .catch((error: unknown) => {
@@ -62,7 +64,7 @@ export function MoviesStatsPage() {
 
   if (loadError) throw loadError
 
-  const openFilteredCatalog = (filter: 'country' | 'director' | 'genre', value: string) => {
+  const openFilteredCatalog = (filter: MovieDistributionKind, value: string) => {
     navigate({ pathname: returnTo, search: new URLSearchParams({ [filter]: value }).toString() })
   }
 
@@ -96,23 +98,15 @@ export function MoviesStatsPage() {
               <strong>{formatAverage(statistics.animeAverage)}</strong>
             </article>
           </section>
-          <div className="movie-statistics-charts">
-            <MovieDistributionChart
-              items={buildDirectorDistribution(statistics.movies)}
-              onItemSelect={(director) => openFilteredCatalog('director', director)}
-              title="Режиссёры"
-            />
-            <MovieDistributionChart
-              items={buildGenreDistribution(statistics.movies)}
-              onItemSelect={(genre) => openFilteredCatalog('genre', genre)}
-              title="Жанры"
-            />
-            <MovieDistributionChart
-              items={buildCountryDistribution(statistics.movies)}
-              onItemSelect={(country) => openFilteredCatalog('country', country)}
-              title="Страны"
-            />
-          </div>
+          <MovieDistributionChart
+            distributions={{
+              actor: buildActorDistribution(statistics.distributionMovies),
+              country: buildCountryDistribution(statistics.distributionMovies),
+              director: buildDirectorDistribution(statistics.distributionMovies),
+              genre: buildGenreDistribution(statistics.distributionMovies),
+            }}
+            onItemSelect={openFilteredCatalog}
+          />
         </>
       ) : (
         <div className="movies-stats-page__loader" role="status" aria-label="Загружаем статистику">

@@ -3,6 +3,8 @@ import type { MovieFilterOptions } from '../model/types'
 
 export function buildMovieFilterOptions(movies: Movie[]): MovieFilterOptions {
   return {
+    actors: [...new Set(movies.flatMap((movie) => movie.actors))]
+      .sort((first, second) => first.localeCompare(second, 'ru')),
     countries: [...new Set(movies.flatMap((movie) => movie.countries))]
       .sort((first, second) => first.localeCompare(second, 'ru')),
     directors: [...new Set(movies.flatMap((movie) => movie.directors))]

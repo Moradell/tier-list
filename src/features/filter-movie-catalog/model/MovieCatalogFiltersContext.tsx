@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { MovieFilterOptions, MovieFilters, MovieSortOrder } from './types'
 
-const emptyFilters: MovieFilters = { country: '', director: '', genre: '', rating: '', year: '' }
-const emptyFilterOptions: MovieFilterOptions = { countries: [], directors: [], genres: [], years: [] }
+const emptyFilters: MovieFilters = { actor: '', country: '', director: '', genre: '', rating: '', year: '' }
+const emptyFilterOptions: MovieFilterOptions = { actors: [], countries: [], directors: [], genres: [], years: [] }
 
 interface MovieCatalogFiltersContextValue {
   filterOptions: MovieFilterOptions

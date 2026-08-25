@@ -6,6 +6,7 @@ export function filterMovies(movies: Movie[], filters: MovieFilters, searchQuery
 
   return movies.filter((movie) => {
     if (normalizedQuery && !movie.title.toLocaleLowerCase('ru-RU').includes(normalizedQuery)) return false
+    if (filters.actor && !movie.actors.includes(filters.actor)) return false
     if (filters.country && !movie.countries.includes(filters.country)) return false
     if (filters.director && !movie.directors.includes(filters.director)) return false
     if (filters.genre && movie.genre !== filters.genre) return false
