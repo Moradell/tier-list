@@ -10,6 +10,7 @@ npm run books:sort
 npm run movies:meta
 npm run movies:history
 npm run movies:enrich
+npm run movies:enrich:kinopoisk
 npm run movies:sync
 npm run build
 npm run preview

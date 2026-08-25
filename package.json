@@ -14,6 +14,7 @@
     "movies:meta": "node --import tsx scripts/moviesMeta.ts",
     "movies:history": "node --import tsx scripts/moviesHistory.ts",
     "movies:enrich": "node --import tsx scripts/moviesEnrich.ts",
+    "movies:enrich:kinopoisk": "node --env-file-if-exists=.env.local --import tsx scripts/moviesEnrichKinopoisk.ts",
     "movies:sync": "npm run movies:meta && npm run movies:history",
     "preview": "vite preview"
   },

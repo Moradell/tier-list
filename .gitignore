@@ -4,3 +4,4 @@ dist
 *.local
 BACKLOG.md
 data/movies/.wikidata-enrichment-cache.json
+data/movies/.kinopoisk-enrichment-cache.json

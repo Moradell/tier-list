@@ -67,6 +67,7 @@ npm run books:validate
 - `data/movies/catalog-meta.json` генерируется командой `npm run movies:meta` и содержит счётчики табов.
 - `data/movies/history.json` хранит известные `kp_id` и события добавления новых записей.
 - `countries` и `directors` обогащаются пакетно из Wikidata по `kp_id` командой `npm run movies:enrich`.
+- Оставшиеся пропуски заполняются через Kinopoisk Unofficial API командой `npm run movies:enrich:kinopoisk`; токен `KINOPOISK_API_KEY` хранится только в `.env.local`.
 - Обогащение не перезаписывает уже заполненные массивы и сохраняет порядок записей каталога.
 - Порядок объектов является пользовательскими данными и сохраняется при импорте.
 - Три файла загружаются раздельно только при открытии соответствующего подраздела.

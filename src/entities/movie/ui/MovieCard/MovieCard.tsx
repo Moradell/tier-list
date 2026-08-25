@@ -5,14 +5,7 @@ interface MovieCardProps {
   movie: Movie
 }
 
-const kindLabels: Record<Movie['kind'], string> = {
-  film: 'Фильм',
-  series: 'Сериал',
-}
-
 export function MovieCard({ movie }: MovieCardProps) {
-  const kindLabel = movie.genre === 'аниме' ? 'Аниме' : kindLabels[movie.kind]
-
   return (
     <a
       className="movie-card"
@@ -36,7 +29,6 @@ export function MovieCard({ movie }: MovieCardProps) {
       <div className="movie-card__details">
         <h2>{movie.title}</h2>
         <p>{movie.year || 'Год не указан'} · {movie.genre}</p>
-        <span>{kindLabel}</span>
       </div>
     </a>
   )
