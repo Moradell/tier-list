@@ -5,6 +5,7 @@ import { BackLink } from '@shared/ui/BackLink'
 import {
   buildActorDistribution,
   buildCountryDistribution,
+  buildDecadeDistribution,
   buildDirectorDistribution,
   buildGenreDistribution,
   MovieDistributionChart,
@@ -113,6 +114,7 @@ export function MoviesStatsPage() {
             distributions={{
               actor: buildActorDistribution(statistics.distributionMovies),
               country: buildCountryDistribution(statistics.distributionMovies),
+              decade: buildDecadeDistribution(statistics.distributionMovies),
               director: buildDirectorDistribution(statistics.distributionMovies),
               genre: buildGenreDistribution(statistics.distributionMovies),
             }}

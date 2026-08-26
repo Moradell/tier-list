@@ -98,21 +98,6 @@ export function MovieCatalogControls({ navigation }: MovieCatalogControlsProps) 
       {isFiltersOpen && (
         <div className="movie-filters" aria-label="Фильтры каталога">
           <div className="movie-filter-field">
-            <span className="movie-filter-label">Актёр</span>
-            <DropdownSelect
-              ariaLabel="Фильтр по актёру"
-              className="movie-filter-select"
-              searchable
-              scrollable
-              value={filters.actor}
-              options={[
-                { label: 'Все актёры', value: '' },
-                ...filterOptions.actors.map((actor) => ({ label: actor, value: actor })),
-              ]}
-              onValueChange={(value) => setFilter('actor', value)}
-            />
-          </div>
-          <div className="movie-filter-field">
             <span className="movie-filter-label">Режиссёр</span>
             <DropdownSelect
               ariaLabel="Фильтр по режиссёру"
@@ -183,6 +168,21 @@ export function MovieCatalogControls({ navigation }: MovieCatalogControlsProps) 
               value={filters.rating}
               options={ratingOptions}
               onValueChange={(value) => setFilter('rating', value)}
+            />
+          </div>
+          <div className="movie-filter-field">
+            <span className="movie-filter-label">Актёр</span>
+            <DropdownSelect
+              ariaLabel="Фильтр по актёру"
+              className="movie-filter-select"
+              searchable
+              scrollable
+              value={filters.actor}
+              options={[
+                { label: 'Все актёры', value: '' },
+                ...filterOptions.actors.map((actor) => ({ label: actor, value: actor })),
+              ]}
+              onValueChange={(value) => setFilter('actor', value)}
             />
           </div>
         </div>

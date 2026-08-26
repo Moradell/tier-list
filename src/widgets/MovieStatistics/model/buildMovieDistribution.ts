@@ -6,7 +6,7 @@ export interface MovieDistributionItem {
   label: string
 }
 
-export type MovieDistributionKind = 'director' | 'actor' | 'genre' | 'country'
+export type MovieDistributionKind = 'director' | 'actor' | 'genre' | 'country' | 'decade'
 
 interface MutableDistributionItem {
   count: number
@@ -50,4 +50,12 @@ export function buildCountryDistribution(movies: Movie[]): MovieDistributionItem
 
 export function buildGenreDistribution(movies: Movie[]): MovieDistributionItem[] {
   return buildDistribution(movies, (movie) => [movie.genre])
+}
+
+export function buildDecadeDistribution(movies: Movie[]): MovieDistributionItem[] {
+  return buildDistribution(movies, (movie) => {
+    const year = Number(movie.year)
+    if (!Number.isInteger(year) || year <= 0) return []
+    return [`${Math.floor(year / 10) * 10}-е`]
+  })
 }

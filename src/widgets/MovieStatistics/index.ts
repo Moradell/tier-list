@@ -3,6 +3,7 @@ export { WatchTimeSummary } from './ui/WatchTimeSummary'
 export {
   buildActorDistribution,
   buildCountryDistribution,
+  buildDecadeDistribution,
   buildDirectorDistribution,
   buildGenreDistribution,
 } from './model/buildMovieDistribution'

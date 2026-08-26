@@ -17,6 +17,7 @@ const distributionKinds: Array<{ kind: MovieDistributionKind; label: string }> =
   { kind: 'actor', label: 'Актёры' },
   { kind: 'genre', label: 'Жанры' },
   { kind: 'country', label: 'Страны' },
+  { kind: 'decade', label: 'Десятилетия' },
 ]
 
 const colors = [
@@ -36,7 +37,9 @@ export function MovieDistributionChart({ distributions, onItemSelect }: MovieDis
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const activeKind = distributionKinds.find((item) => item.kind === kind)!
   const topItems = useMemo(() => [...distributions[kind]]
-    .sort((left, right) => right.count - left.count || left.label.localeCompare(right.label, 'ru'))
+    .sort((left, right) => kind === 'decade'
+      ? Number.parseInt(right.label) - Number.parseInt(left.label)
+      : right.count - left.count || left.label.localeCompare(right.label, 'ru'))
     .slice(0, 10), [distributions, kind])
   const chartData = topItems.map((item, index) => ({
     color: colors[index],

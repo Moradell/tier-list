@@ -10,7 +10,14 @@ export function filterMovies(movies: Movie[], filters: MovieFilters, searchQuery
     if (filters.country && !movie.countries.includes(filters.country)) return false
     if (filters.director && !movie.directors.includes(filters.director)) return false
     if (filters.genre && movie.genre !== filters.genre) return false
-    if (filters.year && movie.year !== filters.year) return false
+    if (filters.year) {
+      const decadeMatch = filters.year.match(/^(\d{4})-е$/)
+      if (decadeMatch) {
+        const decade = Number(decadeMatch[1])
+        const year = Number(movie.year)
+        if (!Number.isInteger(year) || year < decade || year >= decade + 10) return false
+      } else if (movie.year !== filters.year) return false
+    }
     if (filters.rating === 'unrated' && movie.user_rating !== null) return false
     if (filters.rating && filters.rating !== 'unrated' && movie.user_rating !== Number(filters.rating)) return false
     return true
