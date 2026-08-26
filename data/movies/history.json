@@ -1814,7 +1814,20 @@
     408758,
     283290,
     804558,
-    406148
+    406148,
+    75458
   ],
-  "events": []
+  "events": [
+    {
+      "id": "movie-new-75458-1787733001684",
+      "movie": {
+        "id": 75458,
+        "category": "film",
+        "title": "Пятая печать",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/75458.jpg",
+        "url": "https://www.kinopoisk.ru/film/75458/"
+      },
+      "createdAt": "2026-08-26T08:29:45.992Z"
+    }
+  ]
 }

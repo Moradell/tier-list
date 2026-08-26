@@ -1,5 +1,52 @@
 [
   {
+    "kp_id": 75458,
+    "kind": "film",
+    "url": "https://www.kinopoisk.ru/film/75458/",
+    "title": "Пятая печать",
+    "year": "1976",
+    "genre": "драма",
+    "user_rating": 10,
+    "user_rating_sentiment": "positive",
+    "rated_at": "2026-08-26T08:29:45.992Z",
+    "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/75458.jpg",
+    "alt": "Пятая печать. 1976, драма",
+    "original_title": "Az ötödik pecsét",
+    "countries": [
+      "Венгрия"
+    ],
+    "detail_genres": [
+      "военный",
+      "история"
+    ],
+    "directors": [
+      "Золтан Фабри"
+    ],
+    "actors": [
+      "Лайош Эзе",
+      "Ласло Маркуш",
+      "Ференц Бенце",
+      "Шандор Хорват",
+      "Иштван Деги",
+      "Золтан Латинович",
+      "Габор Надь",
+      "Дьёрдь Банффи",
+      "Йожеф Вандор",
+      "Ноэми Апор",
+      "Ильдико Печи",
+      "Марианна Моор",
+      "Рита Бекеш",
+      "Дьёрдь Черхальми",
+      "Габор Кишш",
+      "Габриэлла Кишш"
+    ],
+    "duration_min": 111,
+    "list_id": null,
+    "list_name": null,
+    "list_position": null,
+    "added_at": "2026-08-26T08:29:45.992Z"
+  },
+  {
     "kp_id": 4502606,
     "kind": "film",
     "url": "https://www.kinopoisk.ru/film/4502606/",
