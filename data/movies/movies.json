@@ -1,5 +1,42 @@
 [
   {
+    "kp_id": 221481,
+    "kind": "film",
+    "url": "https://www.kinopoisk.ru/film/221481/",
+    "title": "Частный урок",
+    "year": "1968",
+    "genre": "драма",
+    "user_rating": 3,
+    "user_rating_sentiment": "negative",
+    "rated_at": "2026-08-26T15:07:29.921Z",
+    "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/221481.jpg",
+    "alt": "Частный урок. 1968, драма",
+    "original_title": "La leçon particulière",
+    "countries": [
+      "Франция"
+    ],
+    "detail_genres": [],
+    "directors": [
+      "Мишель Буарон"
+    ],
+    "actors": [
+      "Натали Делон",
+      "Рено Верле",
+      "Робер Оссейн",
+      "Бернар Ле Кок",
+      "Катя Кристин",
+      "Мартин Сарси",
+      "Николь Десайи",
+      "Мишель Буарон",
+      "Анри Ламбер"
+    ],
+    "duration_min": 95,
+    "list_id": null,
+    "list_name": null,
+    "list_position": null,
+    "added_at": "2026-08-26T15:07:29.921Z"
+  },
+  {
     "kp_id": 75458,
     "kind": "film",
     "url": "https://www.kinopoisk.ru/film/75458/",

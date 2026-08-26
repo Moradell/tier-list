@@ -56,7 +56,10 @@ export function MovieHistoryDrawer() {
             {[...events].reverse().map((event) => (
               <a className="movie-history-item" href={event.movie.url} target="_blank" rel="noreferrer" key={event.id}>
                 <img src={event.movie.poster} alt="" loading="lazy" />
-                <strong>{event.movie.title}</strong>
+                <div className="movie-history-details">
+                  <strong>{event.movie.title}</strong>
+                  <span>Оценка: {event.movie.rating ?? '—'}</span>
+                </div>
                 <time dateTime={event.createdAt}>{formatDate(event.createdAt)}</time>
               </a>
             ))}

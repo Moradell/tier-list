@@ -8,6 +8,7 @@ export const MovieHistoryEventSchema = z.object({
     title: z.string().min(1),
     poster: z.string().url(),
     url: z.string().url(),
+    rating: z.number().min(0).max(10).nullable(),
   }),
   createdAt: z.string().datetime({ offset: true }),
 })

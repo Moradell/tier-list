@@ -65,7 +65,14 @@ async function syncMovieHistory(): Promise<void> {
     history.knownMovieIds.push(movie.kp_id)
     history.events.push({
       id: `movie-new-${movie.kp_id}-${Date.now()}`,
-      movie: { id: movie.kp_id, category, title: movie.title, poster: movie.poster, url: movie.url },
+      movie: {
+        id: movie.kp_id,
+        category,
+        title: movie.title,
+        poster: movie.poster,
+        url: movie.url,
+        rating: movie.user_rating,
+      },
       createdAt: getAddedAt(movie),
     })
   }

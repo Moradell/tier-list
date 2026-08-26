@@ -1815,7 +1815,8 @@
     283290,
     804558,
     406148,
-    75458
+    75458,
+    221481
   ],
   "events": [
     {
@@ -1825,9 +1826,22 @@
         "category": "film",
         "title": "Пятая печать",
         "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/75458.jpg",
-        "url": "https://www.kinopoisk.ru/film/75458/"
+        "url": "https://www.kinopoisk.ru/film/75458/",
+        "rating": 10
       },
       "createdAt": "2026-08-26T08:29:45.992Z"
+    },
+    {
+      "id": "movie-new-221481-1787756860364",
+      "movie": {
+        "id": 221481,
+        "category": "film",
+        "title": "Частный урок",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/221481.jpg",
+        "url": "https://www.kinopoisk.ru/film/221481/",
+        "rating": 3
+      },
+      "createdAt": "2026-08-26T15:07:29.921Z"
     }
   ]
 }
