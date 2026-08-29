@@ -1,5 +1,75 @@
 [
   {
+    "kp_id": 45465,
+    "kind": "film",
+    "url": "https://www.kinopoisk.ru/film/45465/",
+    "title": "Человек с киноаппаратом",
+    "year": "1929",
+    "genre": "документальный",
+    "user_rating": 1,
+    "user_rating_sentiment": "negative",
+    "rated_at": "2026-08-28T19:38:53.705Z",
+    "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/45465.jpg",
+    "alt": "Человек с киноаппаратом. 1929, документальный",
+    "original_title": null,
+    "countries": [
+      "СССР"
+    ],
+    "detail_genres": [],
+    "directors": [
+      "Дзига Вертов"
+    ],
+    "actors": [
+      "Михаил Кауфман"
+    ],
+    "duration_min": 68,
+    "list_id": null,
+    "list_name": null,
+    "list_position": null,
+    "added_at": "2026-08-28T19:38:53.705Z"
+  },
+  {
+    "kp_id": 63838,
+    "kind": "film",
+    "url": "https://www.kinopoisk.ru/film/63838/",
+    "title": "Кандагар",
+    "year": "2001",
+    "genre": "драма",
+    "user_rating": 3,
+    "user_rating_sentiment": "negative",
+    "rated_at": "2026-08-28T19:13:43.674Z",
+    "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/63838.jpg",
+    "alt": "Кандагар. 2001, драма",
+    "original_title": "Safar-e Ghandehar",
+    "countries": [
+      "Франция",
+      "Иран"
+    ],
+    "detail_genres": [],
+    "directors": [
+      "Мохсен Махмальбаф"
+    ],
+    "actors": [
+      "Ике Огут",
+      "Нилуфар Пазира",
+      "Хассан Тантаи",
+      "Саду Теймури",
+      "Хоятала Хакими",
+      "Фахим Фазли",
+      "Моника Ханкиевич",
+      "Kamihejazi",
+      "Ноам Моргенштерн",
+      "Захра Шафахи",
+      "Сафдар Шоджаи",
+      "Моллазахер Теймури"
+    ],
+    "duration_min": 85,
+    "list_id": null,
+    "list_name": null,
+    "list_position": null,
+    "added_at": "2026-08-28T19:13:43.674Z"
+  },
+  {
     "kp_id": 64131,
     "kind": "film",
     "url": "https://www.kinopoisk.ru/film/64131/",
