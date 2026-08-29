@@ -1,0 +1,19 @@
+[
+  { "brand": "Red Bull", "flavor": "Классический", "tier": "S", "position": 1, "image": "/energy_drink/red-bull-classic.jpg" },
+  { "brand": "Red Bull", "flavor": "Классический без сахара", "tier": "C", "position": 4, "image": "/energy_drink/red-bull-sugarfree-classic.jpg" },
+  { "brand": "Red Bull", "flavor": "Клубника и абрикос", "tier": "D", "position": 2, "image": "/energy_drink/red-bull-strawberry-apricot.jpeg" },
+  { "brand": "Red Bull", "flavor": "Белый персик", "tier": "S", "position": 3, "image": "/energy_drink/red-bull-peach.jpg" },
+  { "brand": "Red Bull", "flavor": "Черника", "tier": "S", "position": 2, "image": "/energy_drink/red-bull-blueberry.jpeg" },
+  { "brand": "Red Bull", "flavor": "Драконий фрукт", "tier": "B", "position": 2, "image": "/energy_drink/red-bull-dragon-fruit.jpeg" },
+  { "brand": "Red Bull", "flavor": "Тропические фрукты", "tier": "B", "position": 1, "image": "/energy_drink/red-bull-tropical.jpg" },
+  { "brand": "Red Bull", "flavor": "Арбуз", "tier": "C", "position": 3, "image": "/energy_drink/red-bull-watermelon.jpeg" },
+  { "brand": "Red Bull", "flavor": "Клюква", "tier": "C", "position": 5, "image": "/energy_drink/red-bull-cranberry.jpg" },
+  { "brand": "Red Bull", "flavor": "Судачи и лайм", "tier": "D", "position": 1, "image": "/energy_drink/red-bull-sudachi-lime.png" },
+  { "brand": "Red Bull", "flavor": "Киви и яблоко", "tier": "A", "position": 1, "image": "/energy_drink/red-bull-kiwi-apple.jpg" },
+  { "brand": "Red Bull", "flavor": "Ледяные мармеладные мишки", "tier": "C", "position": 2, "image": "/energy_drink/red-bull-iced-gummy-bear.jpg" },
+  { "brand": "Red Bull", "flavor": "Виноград Кёхо", "tier": "S", "position": 4, "image": "/energy_drink/red-bull-kyoho-grape.png" },
+  { "brand": "Red Bull", "flavor": "Виноград Мускат", "tier": "S", "position": 5, "image": "/energy_drink/red-bull-muscat-grape.png" },
+  { "brand": "Red Bull", "flavor": "Кокос и черника", "tier": "C", "position": 1, "image": "/energy_drink/red-bull-coconut-berry.jpg" },
+  { "brand": "Red Bull", "flavor": "Ирга", "tier": "C", "position": 6, "image": "/energy_drink/red-bull-juneberry.jpeg" },
+  { "brand": "Red Bull", "flavor": "Вишня и сакура", "tier": null, "position": 1, "visible": false, "image": "/energy_drink/red-bull-cherry-sakura.png" }
+]

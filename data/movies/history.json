@@ -1816,7 +1816,13 @@
     804558,
     406148,
     75458,
-    221481
+    221481,
+    45465,
+    63838,
+    64131,
+    7355,
+    257337,
+    5282956
   ],
   "events": [
     {
@@ -1842,6 +1848,78 @@
         "rating": 3
       },
       "createdAt": "2026-08-26T15:07:29.921Z"
+    },
+    {
+      "id": "movie-new-45465-1788031415300",
+      "movie": {
+        "id": 45465,
+        "category": "film",
+        "title": "Человек с киноаппаратом",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/45465.jpg",
+        "url": "https://www.kinopoisk.ru/film/45465/",
+        "rating": 1
+      },
+      "createdAt": "2026-08-28T19:38:53.705Z"
+    },
+    {
+      "id": "movie-new-63838-1788031415300",
+      "movie": {
+        "id": 63838,
+        "category": "film",
+        "title": "Кандагар",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/63838.jpg",
+        "url": "https://www.kinopoisk.ru/film/63838/",
+        "rating": 3
+      },
+      "createdAt": "2026-08-28T19:13:43.674Z"
+    },
+    {
+      "id": "movie-new-64131-1788031415300",
+      "movie": {
+        "id": 64131,
+        "category": "film",
+        "title": "Жить",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/64131.jpg",
+        "url": "https://www.kinopoisk.ru/film/64131/",
+        "rating": 2
+      },
+      "createdAt": "2026-08-28T18:25:08.474Z"
+    },
+    {
+      "id": "movie-new-7355-1788031415300",
+      "movie": {
+        "id": 7355,
+        "category": "film",
+        "title": "Лестница Иакова",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/7355.jpg",
+        "url": "https://www.kinopoisk.ru/film/7355/",
+        "rating": 6
+      },
+      "createdAt": "2026-08-27T22:00:26.093Z"
+    },
+    {
+      "id": "movie-new-257337-1788031415300",
+      "movie": {
+        "id": 257337,
+        "category": "film",
+        "title": "Остров",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/257337.jpg",
+        "url": "https://www.kinopoisk.ru/film/257337/",
+        "rating": 6
+      },
+      "createdAt": "2026-08-27T19:35:21.980Z"
+    },
+    {
+      "id": "movie-new-5282956-1788031415300",
+      "movie": {
+        "id": 5282956,
+        "category": "film",
+        "title": "Присяжный номер два",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/5282956.jpg",
+        "url": "https://www.kinopoisk.ru/film/5282956/",
+        "rating": 6
+      },
+      "createdAt": "2026-08-26T21:34:26.306Z"
     }
   ]
 }

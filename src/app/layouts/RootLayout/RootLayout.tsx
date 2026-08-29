@@ -7,6 +7,7 @@ import './RootLayout.scss'
 const sections: TabItem[] = [
   { label: 'Книги', to: '/books' },
   { label: 'Фильмы', to: '/movies' },
+  { label: 'Энергетики', to: '/energy-drinks' },
 ]
 
 export function RootLayout() {
@@ -14,6 +15,7 @@ export function RootLayout() {
   const movieHistory = useMovieHistory()
   const { pathname } = useLocation()
   const isMoviesSection = pathname.startsWith('/movies')
+  const isEnergyDrinksSection = pathname.startsWith('/energy-drinks')
   const activeHistory = isMoviesSection ? movieHistory : bookHistory
   const statisticsPath = isMoviesSection ? '/movies/stats' : '/books/stats'
   const statisticsReturnPath = isMoviesSection
@@ -28,7 +30,7 @@ export function RootLayout() {
     <>
       <header className="app-nav">
         <Tabs ariaLabel="Разделы" items={sections} />
-        <div className="app-nav-actions">
+        {!isEnergyDrinksSection && <div className="app-nav-actions">
           <NavLink
             className={({ isActive }) => `statistics-trigger${isActive ? ' statistics-trigger--active' : ''}`}
             state={{ returnTo: statisticsReturnPath }}
@@ -40,10 +42,10 @@ export function RootLayout() {
             История
             {activeHistory.events.length > 0 && <span>{activeHistory.events.length}</span>}
           </button>
-        </div>
+        </div>}
       </header>
       <Outlet />
-      {isMoviesSection ? <MovieHistoryDrawer /> : <BookHistoryDrawer />}
+      {!isEnergyDrinksSection && (isMoviesSection ? <MovieHistoryDrawer /> : <BookHistoryDrawer />)}
     </>
   )
 }
