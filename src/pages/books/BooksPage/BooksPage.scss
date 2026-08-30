@@ -55,5 +55,16 @@
 
 @media (max-width: 600px) {
   .book-tabs-toolbar { overflow: hidden; padding: 6px 8px; border-width: 2px; border-bottom: 0; }
+  .book-tabs-toolbar .sub-tabs { width: auto; flex: 0 0 auto; gap: 4px; overflow: visible; }
+  .book-tabs-toolbar .sub-tab {
+    width: auto;
+    max-width: 36px;
+    justify-content: flex-start;
+    overflow: hidden;
+    padding: 0 9px;
+    transition: max-width 220ms ease, background 150ms ease, color 150ms ease;
+  }
+  .book-tabs-toolbar .sub-tab.tab-active { max-width: 170px; }
   .mode-toggle { gap: 5px; padding-inline: 4px; white-space: nowrap; }
+  .mode-toggle-label { display: none; }
 }

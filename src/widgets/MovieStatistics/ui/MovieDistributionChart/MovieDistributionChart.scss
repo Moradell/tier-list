@@ -58,6 +58,8 @@
   button { flex: 1; min-width: 96px; min-height: 34px; font-size: 0.7rem; }
 }
 
+.movie-distribution-chart__tab-icon { display: none; }
+
 .movie-distribution-chart__modes {
   border-radius: 9px;
 }
@@ -162,8 +164,38 @@
 
 @media (max-width: 600px) {
   .movie-distribution-chart { padding: 16px; }
+  .movie-distribution-chart__header { gap: 8px; padding-bottom: 12px; }
   .movie-distribution-chart__modes { width: 100%; }
   .movie-distribution-chart__modes button { min-width: 0; flex: 1; }
-  .movie-distribution-chart__tabs { width: 100%; overflow-x: auto; }
-  .movie-distribution-chart__tabs button { flex: 0 0 auto; padding-inline: 16px; }
+  .movie-distribution-chart__tabs {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  }
+  .movie-distribution-chart__tabs button {
+    display: inline-flex;
+    flex: 0 0 34px;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+    padding-inline: 0;
+    font-size: 0.64rem;
+    transition: flex-basis 220ms ease, padding 220ms ease, background 150ms ease, color 150ms ease;
+  }
+  .movie-distribution-chart__tabs .movie-distribution-chart__tab--active {
+    flex: 1 1 auto;
+    gap: 6px;
+    padding-inline: 8px;
+  }
+  .movie-distribution-chart__tab-icon { display: block; width: 16px; height: 16px; flex: 0 0 auto; }
+  .movie-distribution-chart__tab-label {
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    transition: max-width 220ms ease, opacity 140ms ease;
+  }
+  .movie-distribution-chart__tab--active .movie-distribution-chart__tab-label { max-width: 92px; opacity: 1; }
 }

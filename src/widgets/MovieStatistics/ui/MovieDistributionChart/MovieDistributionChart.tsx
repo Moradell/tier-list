@@ -1,5 +1,7 @@
 import { useMemo, useState, type CSSProperties } from 'react'
 import { PieChart } from 'react-minimal-pie-chart'
+import { CalendarRange, Clapperboard, Globe2, Tags, Users } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import type { MovieDistributionItem, MovieDistributionKind } from '../../model/buildMovieDistribution'
 import './MovieDistributionChart.scss'
 
@@ -12,12 +14,12 @@ interface MovieDistributionChartProps {
 
 type MarkerStyle = CSSProperties & { '--marker-color': string }
 
-const distributionKinds: Array<{ kind: MovieDistributionKind; label: string }> = [
-  { kind: 'director', label: 'Режиссёры' },
-  { kind: 'actor', label: 'Актёры' },
-  { kind: 'genre', label: 'Жанры' },
-  { kind: 'country', label: 'Страны' },
-  { kind: 'decade', label: 'Десятилетия' },
+const distributionKinds: Array<{ icon: LucideIcon; kind: MovieDistributionKind; label: string }> = [
+  { icon: Clapperboard, kind: 'director', label: 'Режиссёры' },
+  { icon: Users, kind: 'actor', label: 'Актёры' },
+  { icon: Tags, kind: 'genre', label: 'Жанры' },
+  { icon: Globe2, kind: 'country', label: 'Страны' },
+  { icon: CalendarRange, kind: 'decade', label: 'Десятилетия' },
 ]
 
 const colors = [
@@ -63,8 +65,9 @@ export function MovieDistributionChart({ distributions, onItemSelect }: MovieDis
       <div className="movie-distribution-chart__header">
         <div className="movie-distribution-chart__tabs" role="tablist" aria-label="Разрез статистики">
           {distributionKinds.map((item) => (
-            <button key={item.kind} className={kind === item.kind ? 'movie-distribution-chart__tab--active' : ''} type="button" role="tab" aria-selected={kind === item.kind} onClick={() => selectKind(item.kind)}>
-              {item.label}
+            <button key={item.kind} className={kind === item.kind ? 'movie-distribution-chart__tab--active' : ''} type="button" role="tab" aria-label={item.label} aria-selected={kind === item.kind} onClick={() => selectKind(item.kind)}>
+              <item.icon className="movie-distribution-chart__tab-icon" aria-hidden="true" />
+              <span className="movie-distribution-chart__tab-label">{item.label}</span>
             </button>
           ))}
         </div>

@@ -84,14 +84,24 @@
 
 @media (max-width: 600px) {
   .movies-stats-page { padding: 24px 14px; border-width: 2px; }
-}
 
-@media (max-width: 440px) {
-  .movie-stats-summary { grid-template-columns: 1fr; }
-  .movie-stats-summary article {
-    min-height: 70px;
-    border-top: 1px solid #3b3b38;
-    border-left: 0;
+  .movie-stats-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 10px;
   }
-  .movie-stats-summary article:first-child { border-top: 0; }
+
+  .movie-stats-summary article {
+    min-height: 64px;
+    gap: 7px;
+    padding: 10px 12px;
+  }
+
+  .movie-stats-summary span {
+    font-size: 0.65rem;
+    line-height: 1.2;
+  }
+
+  .movie-stats-summary strong {
+    font-size: 1.4rem;
+  }
 }

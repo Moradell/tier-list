@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { loadMovies, type Movie } from '@entities/movie'
+import type { MovieFilters } from '@features/filter-movie-catalog'
 import { BackLink } from '@shared/ui/BackLink'
 import {
   buildActorDistribution,
@@ -23,6 +24,14 @@ interface MovieStatistics {
   seriesMinutes: number
   total: number
   distributionMovies: Movie[]
+}
+
+const distributionFilterKeys: Record<MovieDistributionKind, keyof MovieFilters> = {
+  actor: 'actor',
+  country: 'country',
+  decade: 'year',
+  director: 'director',
+  genre: 'genre',
 }
 
 function calculateAverage(movies: Movie[]): number | null {
@@ -76,7 +85,8 @@ export function MoviesStatsPage() {
 
   if (loadError) throw loadError
 
-  const openFilteredCatalog = (filter: MovieDistributionKind, value: string) => {
+  const openFilteredCatalog = (kind: MovieDistributionKind, value: string) => {
+    const filter = distributionFilterKeys[kind]
     navigate({ pathname: returnTo, search: new URLSearchParams({ [filter]: value }).toString() })
   }
 

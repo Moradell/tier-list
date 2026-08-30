@@ -29,6 +29,13 @@
   &.tab-active { background: #f1f0eb; color: #111110; }
 }
 
+.tab-icon {
+  display: none;
+  flex: 0 0 auto;
+
+  svg { display: block; width: 18px; height: 18px; stroke-width: 2; }
+}
+
 .sub-tabs { min-height: 48px; padding: 0; }
 
 .sub-tab {
@@ -69,6 +76,46 @@
 }
 
 @media (max-width: 600px) {
-  .sub-tabs { overflow-x: auto; }
+  .top-tabs,
+  .sub-tabs {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  .top-tabs::-webkit-scrollbar,
+  .sub-tabs::-webkit-scrollbar { display: none; }
+
+  .top-tab,
   .sub-tab { flex: 0 0 auto; }
+
+  .top-tabs { width: auto; flex: 0 0 auto; gap: 4px; overflow: visible; }
+
+  .top-tab {
+    width: 36px;
+    min-height: 36px;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .top-tab .tab-icon { display: block; }
+  .sub-tab .tab-icon { display: block; }
+  .top-tab .tab-label--mobile-hidden { display: none; }
+
+  .sub-tab .tab-label--mobile-hidden {
+    display: block;
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    transition: max-width 220ms ease, margin-left 220ms ease, opacity 140ms ease;
+  }
+
+  .sub-tab.tab-active .tab-label--mobile-hidden {
+    max-width: 120px;
+    margin-left: 7px;
+    opacity: 1;
+  }
 }
