@@ -1822,7 +1822,9 @@
     64131,
     7355,
     257337,
-    5282956
+    5282956,
+    1203039,
+    1008444
   ],
   "events": [
     {
@@ -1920,6 +1922,30 @@
         "rating": 6
       },
       "createdAt": "2026-08-26T21:34:26.306Z"
+    },
+    {
+      "id": "movie-new-1203039-1788166257846",
+      "movie": {
+        "id": 1203039,
+        "category": "series",
+        "title": "Локи",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/1203039.jpg",
+        "url": "https://www.kinopoisk.ru/series/1203039/",
+        "rating": 6
+      },
+      "createdAt": "2026-08-30T23:44:54.724Z"
+    },
+    {
+      "id": "movie-new-1008444-1788179523674",
+      "movie": {
+        "id": 1008444,
+        "category": "film",
+        "title": "Дэдпул и Росомаха",
+        "poster": "https://kinopoiskapiunofficial.tech/images/posters/kp/1008444.jpg",
+        "url": "https://www.kinopoisk.ru/film/1008444/",
+        "rating": 5
+      },
+      "createdAt": "2026-08-31T12:31:36.000Z"
     }
   ]
 }
