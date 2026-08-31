@@ -107,7 +107,8 @@
     "1004993671",
     "1002731547",
     "1000110734",
-    "1005587293"
+    "1005587293",
+    "1002992597"
   ],
   "events": [
     {
@@ -172,6 +173,24 @@
         "position": 2
       },
       "createdAt": "2026-08-23T12:54:28.821Z"
+    },
+    {
+      "id": "1cea2ec7-bc9d-4e43-8cc7-31ca1c003e0f",
+      "type": "new",
+      "book": {
+        "id": "1002992597",
+        "category": "Роман",
+        "title": "Понедельник начинается в субботу",
+        "author": "Аркадий и Борис Стругацкие",
+        "cover": "/covers/Arkadij_i_Boris_Strugatskie__Ponedelnik_nachinaetsya_v_subbotu.jpeg",
+        "url": "https://www.livelib.ru/book/1002992597-ponedelnik-nachinaetsya-v-subbotu-arkadij-i-boris-strugatskie"
+      },
+      "from": null,
+      "to": {
+        "tier": "D",
+        "position": 3
+      },
+      "createdAt": "2026-08-31T20:59:29.114Z"
     }
   ]
 }

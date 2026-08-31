@@ -614,6 +614,18 @@
   {
     "tier": "D",
     "position": "3",
+    "title": "Понедельник начинается в субботу",
+    "author": "Аркадий и Борис Стругацкие",
+    "user_rating": "2,5",
+    "livelib_rating": "4,1",
+    "url": "https://www.livelib.ru/book/1002992597-ponedelnik-nachinaetsya-v-subbotu-arkadij-i-boris-strugatskie",
+    "cover": "/covers/Arkadij_i_Boris_Strugatskie__Ponedelnik_nachinaetsya_v_subbotu.jpeg",
+    "year": "1965",
+    "read_date": "2026-08-31"
+  },
+  {
+    "tier": "D",
+    "position": "4",
     "title": "Луна - суровая госпожа",
     "author": "Роберт Хайнлайн",
     "user_rating": "3,5",
@@ -625,7 +637,7 @@
   },
   {
     "tier": "D",
-    "position": "4",
+    "position": "5",
     "title": "Война миров",
     "author": "Герберт Уэллс",
     "user_rating": "4",
@@ -637,7 +649,7 @@
   },
   {
     "tier": "D",
-    "position": "5",
+    "position": "6",
     "title": "Загадка номера 622",
     "author": "Жоэль Диккер",
     "user_rating": "3",
@@ -649,7 +661,7 @@
   },
   {
     "tier": "D",
-    "position": "6",
+    "position": "7",
     "title": "11/22/63",
     "author": "Стивен Кинг",
     "user_rating": "3",
@@ -661,7 +673,7 @@
   },
   {
     "tier": "D",
-    "position": "7",
+    "position": "8",
     "title": "Дом с водяными колесами",
     "author": "Юкито Аяцудзи",
     "user_rating": "3",
@@ -673,7 +685,7 @@
   },
   {
     "tier": "D",
-    "position": "8",
+    "position": "9",
     "title": "Фантомная память",
     "author": "Франк Тилье",
     "user_rating": "2",
@@ -685,7 +697,7 @@
   },
   {
     "tier": "D",
-    "position": "9",
+    "position": "10",
     "title": "Одиссея. Древнегреческий эпос в пересказе Сергея Носова",
     "author": "Сергей Носов",
     "user_rating": "3",
@@ -697,7 +709,7 @@
   },
   {
     "tier": "D",
-    "position": "10",
+    "position": "11",
     "title": "Атлант расправил плечи",
     "author": "Айн Рэнд",
     "user_rating": "2",
@@ -709,7 +721,7 @@
   },
   {
     "tier": "D",
-    "position": "11",
+    "position": "12",
     "title": "Человек-невидимка",
     "author": "Герберт Уэллс",
     "user_rating": "4",
@@ -721,7 +733,7 @@
   },
   {
     "tier": "D",
-    "position": "12",
+    "position": "13",
     "title": "Записки юного врача",
     "author": "Михаил Булгаков",
     "user_rating": "4",
@@ -733,7 +745,7 @@
   },
   {
     "tier": "D",
-    "position": "13",
+    "position": "14",
     "title": "Портрет Дориана Грея",
     "author": "Оскар Уайльд",
     "user_rating": "4",
@@ -745,7 +757,7 @@
   },
   {
     "tier": "D",
-    "position": "14",
+    "position": "15",
     "title": "Убить пересмешника",
     "author": "Харпер Ли",
     "user_rating": "3",
@@ -757,7 +769,7 @@
   },
   {
     "tier": "D",
-    "position": "15",
+    "position": "16",
     "title": "Убийство в \"Восточном экспрессе\"",
     "author": "Агата Кристи",
     "user_rating": "4",
@@ -769,7 +781,7 @@
   },
   {
     "tier": "D",
-    "position": "16",
+    "position": "17",
     "title": "Таинственная история Билли Миллигана",
     "author": "Дэниел Киз",
     "user_rating": "4",
@@ -781,7 +793,7 @@
   },
   {
     "tier": "D",
-    "position": "17",
+    "position": "18",
     "title": "Мертвые души",
     "author": "Николай Гоголь",
     "user_rating": "4",
@@ -793,7 +805,7 @@
   },
   {
     "tier": "D",
-    "position": "18",
+    "position": "19",
     "title": "Расширение пространства борьбы",
     "author": "Мишель Уэльбек",
     "user_rating": "2",
@@ -805,7 +817,7 @@
   },
   {
     "tier": "D",
-    "position": "19",
+    "position": "20",
     "title": "Солярис",
     "author": "Станислав Лем",
     "user_rating": "2,5",
@@ -817,7 +829,7 @@
   },
   {
     "tier": "D",
-    "position": "20",
+    "position": "21",
     "title": "Девушка с татуировкой дракона",
     "author": "Стиг Ларссон",
     "user_rating": "4",
@@ -829,7 +841,7 @@
   },
   {
     "tier": "D",
-    "position": "21",
+    "position": "22",
     "title": "Метель",
     "author": "Владимир Сорокин",
     "user_rating": "4",
@@ -841,7 +853,7 @@
   },
   {
     "tier": "D",
-    "position": "22",
+    "position": "23",
     "title": "О дивный новый мир. Слепец в Газе",
     "author": "Олдос Хаксли",
     "user_rating": "3",
@@ -853,7 +865,7 @@
   },
   {
     "tier": "D",
-    "position": "23",
+    "position": "24",
     "title": "Повелитель мух",
     "author": "Уильям Голдинг",
     "user_rating": "3",
@@ -865,7 +877,7 @@
   },
   {
     "tier": "D",
-    "position": "24",
+    "position": "25",
     "title": "Мы",
     "author": "Евгений Замятин",
     "user_rating": "3",
